@@ -4,10 +4,11 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 const Portal = () => {
+  const URL = import.meta.env.VITE_REACT_APP_URL;
   const navigate = useNavigate();
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/login").then((response) => {
+    Axios.get(`${URL}/login`).then((response) => {
       if (response.data.loggedIn === false) {
         navigate("/login");
       }

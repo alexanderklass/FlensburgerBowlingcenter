@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 const SideNotes = ({ date }) => {
+  const URL = import.meta.env.VITE_REACT_APP_URL;
   const [cookingNotesField, setCookingNotesField] = useState("");
   const [clupRoomNotesField, setClupRoomNotesField] = useState("");
   const [extraNotes, setExtraNotes] = useState("");
@@ -11,7 +12,7 @@ const SideNotes = ({ date }) => {
   const [savedExtraData, setSavedExtraData] = useState(false);
 
   const fetchCookingData = async () => {
-    await Axios.get(`http://localhost:3001/cookingNotes/${date}`)
+    await Axios.get(`${URL}/cookingNotes/${date}`)
       .then((response) => {
         response.data.forEach((item) => {
           setCookingNotesField(item.cookingNotes);
@@ -24,7 +25,7 @@ const SideNotes = ({ date }) => {
       });
   };
   const fetchClupRoomData = async () => {
-    await Axios.get(`http://localhost:3001/clupRoomNotes/${date}`)
+    await Axios.get(`${URL}/clubRoomNotes/${date}`)
       .then((response) => {
         response.data.forEach((item) => {
           setClupRoomNotesField(item.clupRoomNotes);
@@ -38,7 +39,7 @@ const SideNotes = ({ date }) => {
   };
 
   const fetchExtraData = async () => {
-    await Axios.get(`http://localhost:3001/extraNotes/${date}`)
+    await Axios.get(`${URL}/extraNotes/${date}`)
       .then((response) => {
         response.data.forEach((item) => {
           setExtraNotes(item.extraNotes);
@@ -52,7 +53,7 @@ const SideNotes = ({ date }) => {
   };
 
   const handleClupRoomNoteField = async () => {
-    await Axios.post("http://localhost:3001/clupRoomNotes", {
+    await Axios.post(`${URL}/clubRoomNotes`, {
       clupRoomNotesField: clupRoomNotesField,
       date: date,
     }).then((response, err) => {
@@ -68,7 +69,7 @@ const SideNotes = ({ date }) => {
   };
 
   const handleCookingNoteField = async () => {
-    await Axios.post("http://localhost:3001/cookingNotes", {
+    await Axios.post(`${URL}/cookingNotes`, {
       cookingNotesField: cookingNotesField,
       date: date,
     }).then((response, err) => {
@@ -84,7 +85,7 @@ const SideNotes = ({ date }) => {
   };
 
   const handleExtraNoteField = async () => {
-    await Axios.post("http://localhost:3001/extraNotes", {
+    await Axios.post(`${URL}/extraNotes`, {
       extraNotes: extraNotes,
       date: date,
     }).then((response, err) => {

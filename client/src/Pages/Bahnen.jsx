@@ -9,6 +9,7 @@ import Loading from "../Components/Loading.jsx";
 import { useState, useEffect } from "react";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 const Bahnen = () => {
+  const URL = import.meta.env.VITE_REACT_APP_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [showCreateWindow, setShowCreateWindow] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -74,7 +75,7 @@ const Bahnen = () => {
   //Handles bowlinglane requests and arrays
   const resetAndSetLaneData = async () => {
     try {
-      const response = await Axios.get(`http://localhost/portal/${date}`);
+      const response = await Axios.get(`${URL}/portal/${date}`);
       const dataArray = initLaneData();
       response.data.forEach((item) => {
         let price = 0;
@@ -124,7 +125,7 @@ const Bahnen = () => {
         setMissingField(false);
       }, 5000);
     } else {
-      await Axios.post("http://localhost/portal", {
+      await Axios.post(`${URL}/portal`, {
         customerName: customerName,
         laneOne: laneOne,
         laneTwo: laneTwo,

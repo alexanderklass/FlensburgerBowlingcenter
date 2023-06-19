@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Login = () => {
+  const URL = import.meta.env.VITE_REACT_APP_URL;
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
@@ -12,7 +13,7 @@ const Login = () => {
   Axios.defaults.withCredentials = true;
 
   const login = () => {
-    Axios.post("https://api.flensburger-bowlingcenter.de:80/login", {
+    Axios.post(`${URL}/login`, {
       userName: userName,
       userPassword: userPassword,
     }).then((response) => {
@@ -23,13 +24,13 @@ const Login = () => {
   };
 
   const register = () => {
-    Axios.post("https://api.flensburger-bowlingcenter.de:80/register",{
+    Axios.post(`${URL}/register`,{
       userName: userName,
       userPassword: userPassword,
     })};
 
   useEffect(() => {
-    Axios.get ("https://api.flensburger-bowlingcenter.de:80/login").then((response) => {
+    Axios.get (`${URL}/login`).then((response) => {
       if(response.data.loggedIn === true) {
         navigate("/Portal");
       } else {
