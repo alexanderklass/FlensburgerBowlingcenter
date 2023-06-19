@@ -30,7 +30,7 @@ const Login = () => {
 
   useEffect(() => {
     Axios.get ("https://api.flensburger-bowlingcenter.de:80/login").then((response) => {
-      if(response.data.loggedIn === true) {
+      if(response.data.loggedIn) {
         navigate("/Portal");
       } else {
         navigate("/Login");
