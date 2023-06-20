@@ -16,6 +16,7 @@ const Options = ({
   resetAndSetLaneData,
   optionsTitle,
 }) => {
+  const URL = import.meta.env.VITE_REACT_APP_URL;
   const [successPayment, setSuccessPayment] = useState(false);
   const [successDelete, setSuccessDelete] = useState(false);
   const [confirmDeleteBox, setConfirmDeleteBox] = useState(false);
@@ -66,7 +67,7 @@ const Options = ({
     handleCloseOptionsWindow();
   };
   const handleDeleteRequest = async (customerNumber, customerName) => {
-    await Axios.post("http://localhost:3001/delete", {
+    await Axios.post(`${URL}/delete`, {
       customerNumber: customerNumber,
       customerName: customerName,
       date: date,
@@ -126,7 +127,7 @@ const Options = ({
     }, 3000);
   };
   const postPaymentStatus = async (customerName, customerNumber) => {
-    await Axios.post("http://localhost:3001/payment", {
+    await Axios.post(`${URL}/payment`, {
       customerName: customerName,
       customerNumber: customerNumber,
       date: date,
@@ -173,7 +174,7 @@ const Options = ({
     }
   };
   const handleLaneChangePost = async (customerName, customerNumber) => {
-    await Axios.post(`http://localhost:3001/changeLane/${date}`, {
+    await Axios.post(`${URL}/changeLane/${date}`, {
       customerName: customerName,
       customerNumber: customerNumber,
       changeLaneOne: changeLaneOne,
@@ -192,7 +193,7 @@ const Options = ({
     });
   };
   const handleTimeChangePost = async (customerName, customerNumber) => {
-    await Axios.post(`http://localhost:3001/changeTime/${date}`, {
+    await Axios.post(`${URL}/changeTime/${date}`, {
       customerName: customerName,
       customerNumber: customerNumber,
       changeStartTime: changeStartTime,
