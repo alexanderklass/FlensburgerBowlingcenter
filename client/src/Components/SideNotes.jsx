@@ -12,44 +12,42 @@ const SideNotes = ({ date }) => {
   const [savedExtraData, setSavedExtraData] = useState(false);
 
   const fetchCookingData = async () => {
-    await Axios.get(`${URL}/cookingNotes/${date}`)
-      .then((response) => {
-        response.data.forEach((item) => {
-          setCookingNotesField(item.cookingNotes);
-        });
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          console.log("Ressource nicht gefunden");
-        }
+    try {
+      const response = await Axios.get(`${URL}/cookingNotes/${date}`);
+      response.data.forEach((item) => {
+        setCookingNotesField(item.cookingNotes);
       });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.log("Ressource nicht gefunden");
+      }
+    }
   };
+
   const fetchClupRoomData = async () => {
-    await Axios.get(`${URL}/clubRoomNotes/${date}`)
-      .then((response) => {
-        response.data.forEach((item) => {
-          setClupRoomNotesField(item.clupRoomNotes);
-        });
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          console.log("Ressource nicht gefunden");
-        }
+    try {
+      const response = await Axios.get(`${URL}/clubRoomNotes/${date}`);
+      response.data.forEach((item) => {
+        setClupRoomNotesField(item.clupRoomNotes);
       });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.log("Ressource nicht gefunden");
+      }
+    }
   };
 
   const fetchExtraData = async () => {
-    await Axios.get(`${URL}/extraNotes/${date}`)
-      .then((response) => {
-        response.data.forEach((item) => {
-          setExtraNotes(item.extraNotes);
-        });
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          console.log("Ressource nicht gefunden");
-        }
+    try {
+      const response = await Axios.get(`${URL}/extraNotes/${date}`);
+      response.data.forEach((item) => {
+        setExtraNotes(item.extraNotes);
       });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.log("Ressource nicht gefunden");
+      }
+    }
   };
 
   const handleClupRoomNoteField = async () => {
@@ -59,7 +57,7 @@ const SideNotes = ({ date }) => {
     }).then((response, err) => {
       if (err) {
         console.log(err);
-      } else if(response.data.success) {
+      } else if (response.data.success) {
         setSavedClupRoomData(true);
         setTimeout(() => {
           setSavedClupRoomData(false);
@@ -75,7 +73,7 @@ const SideNotes = ({ date }) => {
     }).then((response, err) => {
       if (err) {
         console.log(err);
-      } else if(response.data.success) {
+      } else if (response.data.success) {
         setSavedCookingData(true);
         setTimeout(() => {
           setSavedCookingData(false);
@@ -91,7 +89,7 @@ const SideNotes = ({ date }) => {
     }).then((response, err) => {
       if (err) {
         console.log(err);
-      } else if(response.data.success) {
+      } else if (response.data.success) {
         setSavedExtraData(true);
         setTimeout(() => {
           setSavedExtraData(false);
@@ -104,11 +102,11 @@ const SideNotes = ({ date }) => {
     setClupRoomNotesField("");
     setExtraNotes("");
   };
-  const fetchAllNotes = ()=>{
+  const fetchAllNotes = () => {
     fetchCookingData();
     fetchClupRoomData();
     fetchExtraData();
-  }
+  };
 
   useEffect(() => {
     resetNotes();
@@ -180,6 +178,6 @@ const SideNotes = ({ date }) => {
 
 SideNotes.propTypes = {
   date: PropTypes.string,
-}
+};
 
 export default SideNotes;
