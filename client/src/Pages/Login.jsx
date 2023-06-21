@@ -37,6 +37,7 @@ const Login = () => {
         navigate("/Login");
       }
     });
+    //eslint-disable-next-line
   }, [navigate]);
 
   return (

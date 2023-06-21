@@ -28,7 +28,7 @@ const SideNotes = ({ date }) => {
     try {
       const response = await Axios.get(`${URL}/clubRoomNotes/${date}`);
       response.data.forEach((item) => {
-        setClupRoomNotesField(item.clupRoomNotes);
+        setClupRoomNotesField(item.clubRoomNotes);
       });
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -51,8 +51,9 @@ const SideNotes = ({ date }) => {
   };
 
   const handleClupRoomNoteField = async () => {
+    console.log(clupRoomNotesField);
     await Axios.post(`${URL}/clubRoomNotes`, {
-      clupRoomNotesField: clupRoomNotesField,
+      clubRoomNotesField: clupRoomNotesField,
       date: date,
     }).then((response, err) => {
       if (err) {
