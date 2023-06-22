@@ -1,15 +1,16 @@
 import { PropTypes } from "prop-types";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import MiniLoader from "./MiniLoader";
 
 const SideNotes = ({ date }) => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [cookingNotesField, setCookingNotesField] = useState("");
   const [clupRoomNotesField, setClupRoomNotesField] = useState("");
   const [extraNotes, setExtraNotes] = useState("");
-  const [savedCookingData, setSavedCookingData] = useState(false);
-  const [savedClubRoomData, setSavedClupRoomData] = useState(false);
-  const [savedExtraData, setSavedExtraData] = useState(false);
+  const [extraLoading, setExtraLoading] = useState(false);
+  const [cookingLoading, setCookingLoading] = useState(false);
+  const [clubRoomLoading, setClubRoomLoading] = useState(false);
 
   const fetchCookingData = async () => {
     try {
@@ -51,7 +52,6 @@ const SideNotes = ({ date }) => {
   };
 
   const handleClupRoomNoteField = async () => {
-    console.log(clupRoomNotesField);
     await Axios.post(`${URL}/clubRoomNotes`, {
       clubRoomNotesField: clupRoomNotesField,
       date: date,
@@ -59,9 +59,9 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        setSavedClupRoomData(true);
+        setClubRoomLoading(true);
         setTimeout(() => {
-          setSavedClupRoomData(false);
+          setClubRoomLoading(false);
         }, 2000);
       }
     });
@@ -75,9 +75,9 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        setSavedCookingData(true);
+        setCookingLoading(true);
         setTimeout(() => {
-          setSavedCookingData(false);
+          setCookingLoading(false);
         }, 2000);
       }
     });
@@ -91,9 +91,9 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        setSavedExtraData(true);
+        setExtraLoading(true);
         setTimeout(() => {
-          setSavedExtraData(false);
+          setExtraLoading(false);
         }, 2000);
       }
     });
@@ -126,14 +126,12 @@ const SideNotes = ({ date }) => {
         cols={50}
         value={extraNotes}
       />
-      {savedExtraData && (
-        <p className="mb-2 text-green-500">Wurde gespeichert!</p>
-      )}
       <button
         onClick={handleExtraNoteField}
-        className="delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600"
+        disabled={extraLoading}
+        className="disabled:bg-gray-500 delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600"
       >
-        Speichern
+        {extraLoading ? <MiniLoader/> : "Speichern"}
       </button>
       <label className="font-bold">Koch</label>
       <textarea
@@ -145,14 +143,12 @@ const SideNotes = ({ date }) => {
         cols={50}
         value={cookingNotesField}
       />
-      {savedCookingData && (
-        <p className="mb-2 text-green-500">Wurde gespeichert!</p>
-      )}
       <button
-        className="delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600"
+        disabled={cookingLoading}
+        className="disabled:bg-gray-500 delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600"
         onClick={handleCookingNoteField}
       >
-        Speichern
+        {cookingLoading ? <MiniLoader/> : "Speichern"}
       </button>
       <label className="font-bold">Clubraum</label>
       <textarea
@@ -164,14 +160,12 @@ const SideNotes = ({ date }) => {
         cols={50}
         value={clupRoomNotesField}
       />
-      {savedClubRoomData && (
-        <p className="mb-2 text-green-500">Wurde gespeichert!</p>
-      )}
       <button
-        className="delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600"
+        disabled={clubRoomLoading}
+        className="disabled:bg-gray-500 delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600"
         onClick={handleClupRoomNoteField}
       >
-        Speichern
+        {clubRoomLoading ? <MiniLoader/> : "Speichern"}
       </button>
     </div>
   );

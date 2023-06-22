@@ -32,7 +32,7 @@ const Sidebar = () => {
             <li>
               <Link
                 to={"/Portal"}
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg text-white hover:bg-gray-700"
               >
                 <BiHomeAlt />
                 <span className="ml-3">Startseite</span>
@@ -41,7 +41,7 @@ const Sidebar = () => {
             <li>
               <Link
                 to={"/Portal/Bahnen"}
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg text-white hover:bg-gray-700"
               >
                 <GiBowlingPin />
                 <span className="flex-1 ml-3 whitespace-nowrap">Bahnen</span>
@@ -50,7 +50,7 @@ const Sidebar = () => {
             <li>
               <Link
                 to={"/Portal/Arbeitszeiten"}
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg text-white hover:bg-gray-700"
               >
                 <SlCalender />
                 <span className="flex-1 ml-3 whitespace-nowrap">

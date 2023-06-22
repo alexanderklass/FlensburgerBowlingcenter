@@ -4,6 +4,7 @@ import SuccessBox from "./SuccessBox.jsx";
 import ConfirmBox from "./ConfirmBox.jsx";
 import { useState } from "react";
 import { PropTypes } from "prop-types";
+import MiniLoader from "./MiniLoader.jsx";
 
 const Booking = ({
   showCreateWindow,
@@ -26,6 +27,7 @@ const Booking = ({
   missingFields,
   overwriteWarning,
   successBooking,
+  bookingLoading
 }) => {
   const [checkBackBooking, setCheckBackBooking] = useState(false);
 
@@ -229,7 +231,7 @@ const Booking = ({
               onClick={checkEndLane}
               className=" delay-50 hover:scale-101 mt-2 h-8 w-52 self-center rounded bg-blue-500 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:bg-blue-600"
             >
-              Hinzufügen
+              {bookingLoading ? <MiniLoader/> : "Hinzufügen"}
             </button>
           </div>
         )}
@@ -259,6 +261,7 @@ Booking.propTypes = {
   missingFields: PropTypes.bool,
   overwriteWarning: PropTypes.bool,
   successBooking: PropTypes.bool,
+  bookingLoading: PropTypes.bool,
 }
 
 export default Booking;

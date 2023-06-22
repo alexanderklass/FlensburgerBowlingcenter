@@ -27,6 +27,7 @@ const Bahnen = () => {
   const [missingFields, setMissingField] = useState(false);
   const [overwriteWarning, setOverwriteWarning] = useState(false);
   const [successBooking, setSuccessBooking] = useState(false);
+  const [bookingLoading, setBookingLoading] = useState(false);
   const [mouseEvent, setMouseEvent] = useState(false);
   const [optionsWindow, setOptionsWindow] = useState(false);
   const [clickCursor, setClickCursor] = useState({ x: 0, y: 0 });
@@ -142,14 +143,16 @@ const Bahnen = () => {
           console.log(err);
         }
         if (response.data.message) {
-          setMissingField(false);
-          resetLaneStates();
-          handleCloseEvent();
           setSuccessBooking(true);
+          setBookingLoading(true);
           setTimeout(() => {
+            resetLaneStates();
+            resetAndSetLaneData();
+            setMissingField(false);
             setSuccessBooking(false);
+            setBookingLoading(false);
+            handleCloseEvent();
           }, 2000);
-          resetAndSetLaneData();
         } else if (response.data.fehler) {
           setOverwriteWarning(true);
           setTimeout(() => {
@@ -408,6 +411,7 @@ const Bahnen = () => {
           missingFields={missingFields}
           overwriteWarning={overwriteWarning}
           successBooking={successBooking}
+          bookingLoading={bookingLoading}
         />
         <Options
           date={date}
