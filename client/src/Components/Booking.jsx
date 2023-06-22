@@ -32,7 +32,7 @@ const Booking = ({
   const [checkBackBooking, setCheckBackBooking] = useState(false);
 
   const checkEndLane = () => {
-    if (laneOne === laneTwo) {
+     if (laneOne === laneTwo) {
       handleLaneRequest();
     } else if (laneTwo % 2 === 0) {
       setCheckBackBooking(true);

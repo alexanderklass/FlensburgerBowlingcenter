@@ -14,8 +14,8 @@ const Info = () => {
     setCursorPosition({ x: 0, y: 0 });
   };
   const postion = {
-    left: cursorPosition.x - 340,
-    top: cursorPosition.y - 40,
+    left: cursorPosition.x - 190,
+    top: cursorPosition.y,
     postion: "fixed",
   };
   return (

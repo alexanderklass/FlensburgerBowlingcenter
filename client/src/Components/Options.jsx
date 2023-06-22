@@ -5,6 +5,7 @@ import Axios from "axios";
 import SuccessBox from "./SuccessBox.jsx";
 import ConfirmBox from "./ConfirmBox.jsx";
 import WarningBox from "./WarningBox.jsx";
+import MiniLoader from "./MiniLoader.jsx";
 const Options = ({
   date,
   optionsWindow,
@@ -28,6 +29,7 @@ const Options = ({
   const [changeLaneTwo, setChangeLaneTwo] = useState(-1);
   const [changeStartTime, setChangeStartTime] = useState(-1);
   const [changeEndTime, setChangeEndTime] = useState(-1);
+  const [changeLoading, setChangeLoading] = useState(false);
 
   const handleDeleteConfirmBox = () => {
     setConfirmDeleteBox(!confirmDeleteBox);
@@ -165,12 +167,24 @@ const Options = ({
         setMissingChangeFields(false);
       }, 3000);
     } else if (changeStartTime === -1 && changeEndTime === -1) {
-      handleLaneChangePost(customerName, customerNumber);
+      setChangeLoading(true)
+      setTimeout(()=>{
+        setChangeLoading(false);
+        handleLaneChangePost(customerName, customerNumber);
+      },3000);
     } else if (changeLaneOne === -1 && changeLaneTwo === -1) {
-      handleTimeChangePost(customerName, customerNumber);
+      setChangeLoading(true);
+      setTimeout(()=>{
+        setChangeLoading(false);
+        handleTimeChangePost(customerName, customerNumber);
+      },3000)
     } else {
-      handleLaneChangePost(customerName, customerNumber);
-      handleTimeChangePost(customerName, customerNumber);
+      setChangeLoading(true);
+      setTimeout(()=>{
+        setChangeLoading(false);
+        handleLaneChangePost(customerName, customerNumber);
+        handleTimeChangePost(customerName, customerNumber);
+      })
     }
   };
   const handleLaneChangePost = async (customerName, customerNumber) => {
@@ -215,6 +229,13 @@ const Options = ({
     handleCloseOptionsWindow();
     resetChangeSates();
   };
+
+  const styleObject = {
+    top: clickCursor.y,
+    left: clickCursor.x ,
+    position: "fixed",
+  };
+  
   return (
     <>
       {changeSuccess && <SuccessBox text={"Buchung erfolgreich verschoben!"} />}
@@ -247,11 +268,7 @@ const Options = ({
       {optionsWindow && (
         <div className="absolute left-1/3 top-72">
           <div
-            style={{
-              top: clickCursor.y,
-              left: clickCursor.x - 180,
-              position: "fixed",
-            }}
+            style={styleObject}
             className="align-center relative flex h-72 w-56 flex-col justify-center rounded-lg border-2 border-gray-500 bg-zinc-700 p-2"
           >
             <p className="mb-5 text-center text-3xl text-yellow-500">
@@ -374,10 +391,11 @@ const Options = ({
             </div>
             <div className="mb-5 self-center">
               <button
+                disabled={changeLoading}
                 onClick={handlePostChangedData}
-                className="mt-3 rounded-lg bg-yellow-500 p-1 text-black"
+                className="disabled:bg-gry-500 mt-3 rounded-lg bg-yellow-500 p-1 text-black"
               >
-                Anpassen
+                {changeLoading ? <MiniLoader/> : "Anpassen"}
               </button>
             </div>
             <div className="absolute inset-x-0 bottom-5 text-center">

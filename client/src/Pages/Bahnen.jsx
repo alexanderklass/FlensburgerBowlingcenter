@@ -209,7 +209,12 @@ const Bahnen = () => {
   const [optionsTitle, setOptionsTitle] = useState("");
   const onClickCursorPosition = (event) => {
     const { clientX, clientY } = event;
-    setClickCursor({ x: clientX, y: clientY });
+    const { innerHeight } = window;
+    if (clientY < innerHeight - 300) {
+      setClickCursor({ x: clientX, y: clientY });
+    } else {
+      setClickCursor({ x: clientX, y: clientY - 250 });
+    }
   };
   const handleOptionsWindow = (itemIndex, timeIndex) => {
     const { customerName } = laneDataArray[itemIndex].time[timeIndex];
@@ -244,7 +249,12 @@ const Bahnen = () => {
   };
   const handleMouseMove = (event) => {
     const { clientX, clientY } = event;
-    setCursorPosition({ x: clientX, y: clientY });
+    const { innerHeight } = window;
+    if (clientY < innerHeight - 150) {
+      setCursorPosition({ x: clientX, y: clientY });
+    } else {
+      setCursorPosition({ x: clientX, y: clientY - 150 });
+    }
   };
   //Async Fetch Data for resetAndSetLaneData
   const fetchData = async () => {
@@ -268,6 +278,7 @@ const Bahnen = () => {
   }
   return (
     <>
+      <Info />
       <TimeHeader
         handleCreateEvent={handleCreateEvent}
         setShowCreateWindow={setShowCreateWindow}
@@ -279,7 +290,6 @@ const Bahnen = () => {
         setDate={setDate}
       />
       <div className="mt-2 flex flex-row justify-center pb-5">
-        <Info />
         <div className="flex flex-col text-white">
           <div className="flex h-10 w-24 items-center justify-center border border-black bg-blue-500 font-bold">
             {displayDay}
