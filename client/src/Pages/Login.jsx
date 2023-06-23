@@ -18,14 +18,16 @@ const Login = () => {
       userName: userName,
       userPassword: userPassword,
     }).then((response) => {
-      if(response.data.message){
-        setLoginStatus(response.data.message)
-      }else if(response.data.successLogin){
+      if (response.data.message) {
+        setLoginStatus(response.data.message);
+      } else if (response.data.successLogin) {
+        /*
         setLoginLoading(true);
         setTimeout(()=>{
           setLoginLoading(false);
           navigate("/Portal");
         },3000)
+        */
       }
     });
   };
@@ -37,29 +39,30 @@ const Login = () => {
       userPassword: userPassword,
     })};
   */
-
+  const checkLoggingStatus = async () => {
+    const response = await Axios.get(`${URL}/login`);
+    if (response.data.loggedIn === true) {
+      navigate("/Portal");
+    } else {
+      navigate("/Login");
+    }
+  };
   useEffect(() => {
-    Axios.get (`${URL}/login`).then((response) => {
-      if(response.data.loggedIn === true) {
-        navigate("/Portal");
-      } else {
-        navigate("/Login");
-      }
-    });
+    //checkLoggingStatus();
     //eslint-disable-next-line
-  }, [navigate]);
+  }, []);
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center my-10">
-        <img src={Logo} className="max-w-sm mb-5" />
+      <div className="my-10 flex flex-col items-center justify-center">
+        <img src={Logo} className="mb-5 max-w-sm" />
         <div className="bg-dark flex flex-col">
           <input
             name="loginName"
             type={"text"}
             onChange={(e) => setUserName(e.target.value)}
             placeholder="Name"
-            className="bg-stone-200 rounded-lg border border-black p-1 block mb-1"
+            className="mb-1 block rounded-lg border border-black bg-stone-200 p-1"
           ></input>
           <input
             name="loginPassword"
@@ -68,17 +71,17 @@ const Login = () => {
               setUserPassword(e.target.value);
             }}
             placeholder="Passwort"
-            className="bg-stone-200 rounded-lg border border-black p-1"
+            className="rounded-lg border border-black bg-stone-200 p-1"
           ></input>
-          <div className="text-red-700 p-1">{loginStatus}</div>
+          <div className="p-1 text-red-700">{loginStatus}</div>
           <button
             onClick={login}
             disabled={loginLoading}
             className={
-              "disabled:bg-gray-500 transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-101 hover:bg-blue-500 bg-blue-700 text-white p-1 rounded-lg"
+              "delay-50 hover:scale-101 rounded-lg bg-blue-700 p-1 text-white transition ease-in-out hover:-translate-y-1 hover:bg-blue-500 disabled:bg-gray-500"
             }
           >
-             {loginLoading ? <MiniLoader/> : "Login" }
+            {loginLoading ? <MiniLoader /> : "Login"}
           </button>
           {/*
           <button

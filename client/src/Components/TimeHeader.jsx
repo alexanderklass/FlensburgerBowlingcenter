@@ -50,6 +50,7 @@ const TimeHeader = ({
       })
     );
   };
+
   const handleStartUpTime = () => {
     const firstDate = new Date();
     const dateString = firstDate.toLocaleDateString("en-CA");
@@ -62,10 +63,22 @@ const TimeHeader = ({
       );
     }
   };
+
+  const handleDatePicker = (event) => {
+    setDate(event.target.value);
+    const selectedDate = new Date(event.target.value);
+    setDisplayDay(
+      selectedDate.toLocaleDateString("de-DE", {
+        weekday: "long",
+      })
+    );
+  };
+
   useEffect(() => {
     handleStartUpTime();
     //eslint-disable-next-line
   }, [date]);
+
   return (
     <div className="w-78 mt-2 flex flex-row justify-between self-center rounded-lg bg-zinc-700 p-2 text-white">
       <button onClick={handleBackButton}>
@@ -88,9 +101,7 @@ const TimeHeader = ({
           className="mr-1 h-8 w-16 w-24 rounded-lg text-center text-black"
           type="date"
           value={date}
-          onChange={(e) => {
-            setDate(e.target.value);
-          }}
+          onChange={handleDatePicker}
         />
       </div>
       <button onClick={handleNextButton}>

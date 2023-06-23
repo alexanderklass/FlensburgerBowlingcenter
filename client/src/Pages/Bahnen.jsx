@@ -56,9 +56,9 @@ const Bahnen = () => {
           firstIndex: 0,
           secondIndex: 0,
           price: () => {
-            if (displayDay === "Freitag" && time.id >= 12) {
+            if (displayDay === "Freitag" && time.id === 11) {
               return 15;
-            } else if (displayDay === "Samstag" && time.id >= 9) {
+            } else if (displayDay === "Samstag" && time.id === 9) {
               return 15;
             } else {
               return 13;
@@ -113,13 +113,10 @@ const Bahnen = () => {
 
   const handleLaneRequest = async () => {
     if (
-      laneOne === -1 ||
-      laneTwo === -1 ||
-      startTime === -1 ||
-      endTime === -1 ||
-      customerName === "" ||
-      customerNumber === "" ||
-      gridColor === ""
+      laneOne === -1 || laneTwo === -1 ||
+      startTime === -1 || endTime === -1 || 
+      customerName === "" || customerNumber === "" ||
+      workerName == "" || gridColor === ""
     ) {
       setMissingField(true);
       setTimeout(() => {
