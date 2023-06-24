@@ -56,9 +56,9 @@ const Bahnen = () => {
           firstIndex: 0,
           secondIndex: 0,
           price: () => {
-            if (displayDay === "Freitag" && time.id === 11) {
+            if (displayDay === "Freitag" && time.id >= 11) {
               return 15;
-            } else if (displayDay === "Samstag" && time.id === 9) {
+            } else if (displayDay === "Samstag" && time.id >= 9) {
               return 15;
             } else {
               return 13;
