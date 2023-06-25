@@ -79,14 +79,14 @@ const Booking = ({
               onChange={(e) => setCustomerName(e.target.value)}
               type="text"
               id="name"
-              placeholder="Kundenname"
+              placeholder="*Kundenname"
               className="m-1 w-52 self-center rounded-lg border border-gray-500 p-1"
             />
             <input
               name="customerNumber"
               onChange={(e) => setCustomerNumber(e.target.value)}
               type="text"
-              placeholder="Telefonnummer"
+              placeholder="*Telefonnummer"
               className="mb-2 w-52 self-center rounded-lg border border-gray-500 p-1"
             />
             <div className="w-52 self-center">
@@ -215,7 +215,7 @@ const Booking = ({
             <input
               name="workerName"
               className="mt-1 w-52 self-center rounded-lg border border-gray-500 p-1"
-              placeholder="Eingetragen von..."
+              placeholder="*Eingetragen von..."
               type="text"
               onChange={(e) => setWorkerName(e.target.value)}
             />

@@ -8,6 +8,7 @@ const MouseHover = ({
   hoverWorkerName,
   hoverNotes,
   hoverPrice,
+  hoverPayedStatus
 }) => {
   return (
     <div className="align-items flex flex-col justify-center">
@@ -38,8 +39,9 @@ const MouseHover = ({
           </p>
           <p className="text-green-500">
             <span className="font-bold text-yellow-500">Preis: </span>
-            {hoverPrice + ",00 €"}
+            {hoverPrice + ",00 €" } 
           </p>
+            {hoverPayedStatus ? <p className="text-green-500">Bezahlt</p> : <p className="text-red-500">Offene Rechnung</p>}
         </div>
       )}
     </div>
@@ -54,6 +56,7 @@ MouseHover.propTypes = {
   hoverWorkerName:PropTypes.string,
   hoverNotes:PropTypes.string,
   hoverPrice:PropTypes.number,
+  hoverPayedStatus: PropTypes.bool,
 }
 
 export default MouseHover;

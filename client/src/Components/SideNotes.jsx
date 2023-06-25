@@ -120,7 +120,7 @@ const SideNotes = ({ date }) => {
       <label className="font-bold">Sonderbuchungen</label>
       <textarea
         name="ExtraNotes"
-        className="mb-2 rounded-lg border-2 border-black bg-yellow-500 p-1"
+        className={`${extraNotes === "" ? "":"bg-yellow-500"} mb-2 rounded-lg border-2 border-black p-1`}
         onChange={(e) => setExtraNotes(e.target.value)}
         rows={7}
         cols={50}

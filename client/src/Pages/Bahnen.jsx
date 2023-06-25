@@ -229,10 +229,11 @@ const Bahnen = () => {
   const [hoverCustomerNumber, setHoverCustomerNumber] = useState("");
   const [hoverNotes, setHoverNotes] = useState("");
   const [hoverPrice, setHoverPrice] = useState(0);
+  const [hoverPayedStatus, setHoverPayedStatus] = useState() 
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseEnter = (indexOne, indexTwo) => {
-    const { customerName, workerName, customerNumber, notes, price } =
+    const { customerName, workerName, customerNumber, notes, price, payedStatus } =
       laneDataArray[indexOne].time[indexTwo];
     setHoverCustomerName(customerName);
     setHoverWorkerName(workerName);
@@ -240,6 +241,7 @@ const Bahnen = () => {
     setHoverNotes(notes);
     setMouseEvent(workerName !== "");
     setHoverPrice(price);
+    setHoverPayedStatus(payedStatus);
   };
   const handleMouseLeave = () => {
     setMouseEvent(false);
@@ -439,6 +441,7 @@ const Bahnen = () => {
           hoverWorkerName={hoverWorkerName}
           hoverNotes={hoverNotes}
           hoverPrice={hoverPrice}
+          hoverPayedStatus={hoverPayedStatus}
         />
         <SideNotes date={date} />
       </div>

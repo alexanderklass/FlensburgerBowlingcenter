@@ -156,37 +156,67 @@ const Options = ({
     const indexTwo = laneFieldIndex.timeIndex;
     const { customerName, customerNumber } =
       laneDataArray[indexOne].time[indexTwo];
-    if (
-      changeLaneOne === -1 &&
-      changeLaneTwo === -1 &&
-      changeStartTime === -1 &&
-      changeEndTime === -1
-    ) {
-      setMissingChangeFields(true);
-      setTimeout(() => {
-        setMissingChangeFields(false);
-      }, 3000);
-    } else if (changeStartTime === -1 && changeEndTime === -1) {
-      setChangeLoading(true)
-      setTimeout(()=>{
-        setChangeLoading(false);
-        handleLaneChangePost(customerName, customerNumber);
+
+    switch(true){
+      case changeLaneOne === -1 && changeLaneTwo === -1 && 
+           changeStartTime === -1 && changeEndTime === -1:
+        setMissingChangeFields(true);
+        setTimeout(() => {
+          setMissingChangeFields(false);
+      }, 3000);  
+      break;
+      case changeStartTime === -1 && changeEndTime === -1:
+        setChangeLoading(true)
+        setTimeout(()=>{
+          setChangeLoading(false);
+          handleLaneChangePost(customerName, customerNumber);
       },3000);
-    } else if (changeLaneOne === -1 && changeLaneTwo === -1) {
-      setChangeLoading(true);
-      setTimeout(()=>{
-        setChangeLoading(false);
-        handleTimeChangePost(customerName, customerNumber);
-      },3000)
-    } else {
-      setChangeLoading(true);
-      setTimeout(()=>{
-        setChangeLoading(false);
-        handleLaneChangePost(customerName, customerNumber);
-        handleTimeChangePost(customerName, customerNumber);
-      })
+      break;
+      case changeLaneOne === -1 && changeLaneTwo === -1:
+        setChangeLoading(true);
+        setTimeout(()=>{
+          setChangeLoading(false);
+          handleTimeChangePost(customerName, customerNumber);
+      },3000);
+      break;
+      case changeLaneOne && changeLaneTwo && changeStartTime && changeEndTime != -1:
+        setChangeLoading(true);
+        setTimeout(()=>{
+          setChangeLoading(false);
+          handleCombinedChangePost(customerName,customerNumber);
+      });
+      break;
+      case changeLaneOne !== null && (changeLaneOne && changeStartTime && changeEndTime === -1):
+        setMissingChangeFields(true);
+        setTimeout(() => {
+          setMissingChangeFields(false);
+      }, 3000);
+      break;
     }
   };
+
+  const handleCombinedChangePost = async (customerName, customerNumber) => {
+    await Axios.post(`${URL}/changeCombined/${date}`,{
+      customerName: customerName,
+      customerNumber: customerNumber,
+      changeLaneOne: changeLaneOne,
+      changeLaneTwo: changeLaneTwo,
+      changeStartTime: changeStartTime,
+      changeEndTime:changeEndTime
+    }).then((response,err)=>{
+      if(err){
+        console.log(err);
+      }else if(response.data.success){
+        resetAndSetLaneData();
+        handleCloseOptionsWindow();
+        handleSuccessMessage();
+        resetChangeSates();
+      }else{
+        handleFailedMessage();
+      }
+    })
+  }
+
   const handleLaneChangePost = async (customerName, customerNumber) => {
     await Axios.post(`${URL}/changeLane/${date}`, {
       customerName: customerName,

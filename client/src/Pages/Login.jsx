@@ -21,13 +21,11 @@ const Login = () => {
       if (response.data.message) {
         setLoginStatus(response.data.message);
       } else if (response.data.successLogin) {
-        /*
         setLoginLoading(true);
         setTimeout(()=>{
           setLoginLoading(false);
-          navigate("/Portal");
+          //navigate("/Portal");
         },3000)
-        */
       }
     });
   };
@@ -39,6 +37,7 @@ const Login = () => {
       userPassword: userPassword,
     })};
   */
+ 
   const checkLoggingStatus = async () => {
     const response = await Axios.get(`${URL}/login`);
     if (response.data.loggedIn === true) {
