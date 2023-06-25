@@ -186,7 +186,7 @@ const Options = ({
           handleCombinedChangePost(customerName,customerNumber);
       });
       break;
-      case changeLaneOne !== null && (changeLaneOne && changeStartTime && changeEndTime === -1):
+      case changeLaneOne !== -1 && changeLaneTwo === -1 && changeStartTime === -1 && changeEndTime === -1:
         setMissingChangeFields(true);
         setTimeout(() => {
           setMissingChangeFields(false);

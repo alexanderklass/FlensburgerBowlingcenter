@@ -24,7 +24,7 @@ const Login = () => {
         setLoginLoading(true);
         setTimeout(()=>{
           setLoginLoading(false);
-          //navigate("/Portal");
+          navigate("/Portal");
         },3000)
       }
     });
@@ -47,7 +47,7 @@ const Login = () => {
     }
   };
   useEffect(() => {
-    //checkLoggingStatus();
+    checkLoggingStatus();
     //eslint-disable-next-line
   }, []);
 
