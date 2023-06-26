@@ -15,6 +15,8 @@ const Booking = ({
   setLaneTwo,
   laneOne,
   laneTwo,
+  startTime,
+  endTime,
   setStartTime,
   setEndTime,
   colorArray,
@@ -27,12 +29,12 @@ const Booking = ({
   missingFields,
   overwriteWarning,
   successBooking,
-  bookingLoading
+  bookingLoading,
 }) => {
   const [checkBackBooking, setCheckBackBooking] = useState(false);
 
-  const checkEndLane = () => {
-     if (laneOne === laneTwo) {
+  const checkBothLanes = () => { 
+    if (laneOne === laneTwo) {
       handleLaneRequest();
     } else if (laneTwo % 2 === 0) {
       setCheckBackBooking(true);
@@ -40,9 +42,11 @@ const Booking = ({
       handleLaneRequest();
     }
   };
+
   const handleCheckLaneNo = () => {
     setCheckBackBooking(false);
   };
+
   const handleCheckLaneYes = () => {
     handleLaneRequest();
     setCheckBackBooking(false);
@@ -93,10 +97,11 @@ const Booking = ({
               <label className="text-white">
                 Bahn:
                 <select
+                  value={laneOne}
+                  required
                   onChange={(e) => setLaneOne(e.target.value)}
                   className="mx-1 rounded-lg border border-gray-500 p-1 text-black"
                 >
-                  <option></option>
                   <option value={0}>1</option>
                   <option value={1}>2</option>
                   <option value={2}>3</option>
@@ -114,10 +119,11 @@ const Booking = ({
               <label className="text-white">
                 bis:
                 <select
+                  value={laneTwo}
+                  required
                   onChange={(e) => setLaneTwo(e.target.value)}
                   className="mx-1 rounded-lg border border-gray-500 p-1 text-black"
                 >
-                  <option></option>
                   <option value={0}>1</option>
                   <option value={1}>2</option>
                   <option value={2}>3</option>
@@ -138,12 +144,11 @@ const Booking = ({
                 <select
                   className="mx-1 rounded-lg border border-gray-500 p-1"
                   required
-                  defaultValue={""}
+                  value={startTime}
                   onChange={(e) => {
                     setStartTime(e.target.value);
                   }}
                 >
-                  <option></option>
                   <option value={0}>16:00</option>
                   <option value={1}>16:30</option>
                   <option value={2}>17:00</option>
@@ -162,6 +167,7 @@ const Booking = ({
                   <option value={15}>23:30</option>
                   <option value={16}>00:00</option>
                   <option value={17}>00:30</option>
+                  <option value={18}>01:00</option>
                 </select>
               </label>
               <label className="text-white">
@@ -169,12 +175,11 @@ const Booking = ({
                 <select
                   className="mx-1 rounded-lg border border-gray-500 p-1 text-black"
                   required
-                  defaultValue={""}
+                  value={endTime}
                   onChange={(e) => {
                     setEndTime(e.target.value);
                   }}
                 >
-                  <option></option>
                   <option value={0}>16:00</option>
                   <option value={1}>16:30</option>
                   <option value={2}>17:00</option>
@@ -193,6 +198,7 @@ const Booking = ({
                   <option value={15}>23:30</option>
                   <option value={16}>00:00</option>
                   <option value={17}>00:30</option>
+                  <option value={18}>01:00</option>
                 </select>
               </label>
             </div>
@@ -228,10 +234,10 @@ const Booking = ({
               cols={50}
             />
             <button
-              onClick={checkEndLane}
+              onClick={checkBothLanes}
               className=" delay-50 hover:scale-101 mt-2 h-8 w-52 self-center rounded bg-blue-500 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:bg-blue-600"
             >
-              {bookingLoading ? <MiniLoader/> : "Hinzufügen"}
+              {bookingLoading ? <MiniLoader /> : "Hinzufügen"}
             </button>
           </div>
         )}
@@ -249,6 +255,8 @@ Booking.propTypes = {
   setLaneTwo: PropTypes.func,
   laneOne: PropTypes.number,
   laneTwo: PropTypes.number,
+  startTime: PropTypes.number,
+  endTime: PropTypes.number,
   setStartTime: PropTypes.func,
   setEndTime: PropTypes.func,
   colorArray: PropTypes.array,
@@ -262,6 +270,6 @@ Booking.propTypes = {
   overwriteWarning: PropTypes.bool,
   successBooking: PropTypes.bool,
   bookingLoading: PropTypes.bool,
-}
+};
 
 export default Booking;

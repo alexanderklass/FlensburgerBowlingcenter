@@ -17,7 +17,7 @@ const Sidebar = () => {
     <>
       <aside
         className={`${
-          toggleSidebar ? "-translate-x-full" : "translate-x-0"
+          toggleSidebar ? "translate-x-0" : "-translate-x-full"
         } fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full`}
         aria-label="Sidebar"
       >

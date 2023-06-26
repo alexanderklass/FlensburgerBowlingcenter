@@ -24,6 +24,8 @@ const Options = ({
   setChangeStartTime,
   changeEndTime,
   setChangeEndTime,
+  reverseBookingWarning,
+  setReverseBookingWarning
 }) => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [successPayment, setSuccessPayment] = useState(false);
@@ -155,7 +157,10 @@ const Options = ({
     const { customerName, customerNumber } =
       laneDataArray[indexOne].time[indexTwo];
     if (Number(changeLaneOne) > Number(changeLaneTwo) || Number(changeStartTime) > Number(changeEndTime)) {
-      // Show window for reverse
+      setReverseBookingWarning(true);
+      setTimeout(()=>{
+        setReverseBookingWarning(false);
+      },3000);
     } else {
       setChangeLoading(true);
       setTimeout(() => {
@@ -194,6 +199,7 @@ const Options = ({
 
   return (
     <>
+      {reverseBookingWarning && <WarningBox text={"Der erste Wert darf nicht größer sein!"}/>}
       {changeSuccess && <SuccessBox text={"Buchung erfolgreich verschoben!"} />}
       {changeFailed && (
         <WarningBox text={"Es ist eine Buchung schon vorhanden!"} />
@@ -389,6 +395,8 @@ Options.propTypes = {
   changeLaneTwo: PropTypes.number,
   changeStartTime: PropTypes.number,
   changeEndTime: PropTypes.number,
+  reverseBookingWarning: PropTypes.bool,
+  setReverseBookingWarning: PropTypes.bool,
 };
 
 export default Options;

@@ -10,8 +10,34 @@ const Login = () => {
   const [userPassword, setUserPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   Axios.defaults.withCredentials = true;
+
+
+  const handleCheckBoxChange = () =>{
+    setRememberMe(!rememberMe);
+  }
+
+  const handleRememberMeOnStart = () =>{
+    const rememberMeValue = localStorage.getItem("rememberMe") === "true";
+    setRememberMe(rememberMeValue);
+    if(rememberMeValue){
+      setUserName(localStorage.getItem("username") || "");
+      setUserPassword(localStorage.getItem("password") || "");
+    }
+  } 
+
+  const handleLocalStorageValues = () =>{
+    if(rememberMe){
+      localStorage.setItem("username",userName);
+      localStorage.setItem("password", userPassword);
+    }else{
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+    }
+    localStorage.setItem("rememberMe",rememberMe.toString());
+  }
 
   const login = () => {
     Axios.post(`${URL}/login`, {
@@ -21,10 +47,11 @@ const Login = () => {
       if (response.data.message) {
         setLoginStatus(response.data.message);
       } else if (response.data.successLogin) {
+        handleLocalStorageValues();
         setLoginLoading(true);
         setTimeout(()=>{
           setLoginLoading(false);
-          navigate("/Portal");
+          navigate("/Portal/Bahnen");
         },3000)
       }
     });
@@ -41,15 +68,15 @@ const Login = () => {
   const checkLoggingStatus = async () => {
     const response = await Axios.get(`${URL}/login`);
     if (response.data.loggedIn === true) {
-      navigate("/Portal");
+      navigate("/Portal/Bahnen");
     } else {
       navigate("/Login");
     }
   };
   useEffect(() => {
-    checkLoggingStatus();
-    //eslint-disable-next-line
-  }, []);
+    handleRememberMeOnStart();
+    //checkLoggingStatus();
+  });
 
   return (
     <>
@@ -59,6 +86,7 @@ const Login = () => {
           <input
             name="loginName"
             type={"text"}
+            value={userName}
             onChange={(e) => setUserName(e.target.value)}
             placeholder="Name"
             className="mb-1 block rounded-lg border border-black bg-stone-200 p-1"
@@ -66,12 +94,17 @@ const Login = () => {
           <input
             name="loginPassword"
             type={"password"}
+            value={userPassword}
             onChange={(e) => {
               setUserPassword(e.target.value);
             }}
             placeholder="Passwort"
             className="rounded-lg border border-black bg-stone-200 p-1"
           ></input>
+          <label className="mt-1 flex items-center">
+            <input checked={rememberMe} onChange={handleCheckBoxChange} className="mr-1 w-4 h-4" type="checkbox"/>
+            Daten merken
+          </label>
           <div className="p-1 text-red-700">{loginStatus}</div>
           <button
             onClick={login}

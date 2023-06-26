@@ -12,7 +12,7 @@ const Bahnen = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [showCreateWindow, setShowCreateWindow] = useState(false);
-
+  //Options.jsx
   const [changeLaneOne, setChangeLaneOne] = useState(0);
   const [changeLaneTwo, setChangeLaneTwo] = useState(0);
   const [changeStartTime, setChangeStartTime] = useState(0);
@@ -30,6 +30,7 @@ const Bahnen = () => {
   const [colorIndex, setColorIndex] = useState(-1);
   const [displayDay, setDisplayDay] = useState("");
   const [date, setDate] = useState("");
+  const [reverseBookingWarning, setReverseBookingWarning] = useState(false);
   const [missingFields, setMissingField] = useState(false);
   const [overwriteWarning, setOverwriteWarning] = useState(false);
   const [successBooking, setSuccessBooking] = useState(false);
@@ -82,7 +83,25 @@ const Bahnen = () => {
     return dataArray;
   };
   const [laneDataArray, setLanedDataArray] = useState(initLaneData());
+  const checkEndTimeItems = (item) => {
+    if (item.endTime < 1) {
+      return 0;
+    } else if (item.endTime > 17) {
+      return 17
+    } else if(item.startTime === item.endTime){
+      return item.startTime;
+    } else{
+      return item.endTime - 1;
+    }
+  }
 
+  const checkStartTimeItem = (item) => {
+    if (item.startTime > 17) {
+      return 17;
+    }else{
+      return item.startTime;
+    }
+  }
   //Handles bowlinglane requests and arrays
   const resetAndSetLaneData = async () => {
     try {
@@ -91,12 +110,12 @@ const Bahnen = () => {
       response.data.forEach((item) => {
         let price = 0;
         for (let i = item.laneOne; i <= item.laneTwo; i++) {
-          for (let j = item.startTime; j <= item.endTime; j++) {
+          for (let j = checkStartTimeItem(item); j <= checkEndTimeItems(item); j++) {
             price += dataArray[i].time[j].price();
           }
         }
         for (let i = item.laneOne; i <= item.laneTwo; i++) {
-          for (let j = item.startTime; j <= item.endTime; j++) {
+          for (let j = checkStartTimeItem(item); j <= checkEndTimeItems(item); j++) {
             dataArray[i].time[j] = {
               startLane: item.laneOne,
               endLane: item.laneTwo,
@@ -127,7 +146,10 @@ const Bahnen = () => {
 
   const handleLaneRequest = async () => {
     if(Number(laneOne) > Number(laneTwo) || Number(startTime) > Number(endTime)){
-      // show window for reverse booking
+      setReverseBookingWarning(true);
+      setTimeout(()=>{
+        setReverseBookingWarning(false);
+      },3000);
     }else if (
       laneOne === -1 || laneTwo === -1 ||
       startTime === -1 || endTime === -1 || 
@@ -179,6 +201,10 @@ const Bahnen = () => {
   //Booking Functions
   const handleCreateEvent = () => {
     setShowCreateWindow(!showCreateWindow);
+    setLaneOne(0);
+    setLaneTwo(11);
+    setStartTime(0);
+    setEndTime(17);
     setOptionsWindow(false);
   };
 
@@ -428,6 +454,8 @@ const Bahnen = () => {
           setLaneTwo={setLaneTwo}
           laneOne={laneOne}
           laneTwo={laneTwo}
+          startTime={startTime}
+          endTime={endTime}
           setStartTime={setStartTime}
           setEndTime={setEndTime}
           colorArray={colorArray}
@@ -460,6 +488,8 @@ const Bahnen = () => {
           setChangeLaneTwo={setChangeLaneTwo}
           setChangeStartTime={setChangeStartTime}
           setChangeEndTime={setChangeEndTime}
+          reverseBookingWarning={reverseBookingWarning}
+          setReverseBookingWarning={setReverseBookingWarning}
         />
         <MouseHover
           mouseEvent={mouseEvent}
