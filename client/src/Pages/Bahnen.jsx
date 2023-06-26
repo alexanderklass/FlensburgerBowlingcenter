@@ -12,6 +12,12 @@ const Bahnen = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [showCreateWindow, setShowCreateWindow] = useState(false);
+
+  const [changeLaneOne, setChangeLaneOne] = useState(0);
+  const [changeLaneTwo, setChangeLaneTwo] = useState(0);
+  const [changeStartTime, setChangeStartTime] = useState(0);
+  const [changeEndTime, setChangeEndTime] = useState(0);
+
   const [customerName, setCustomerName] = useState("");
   const [laneOne, setLaneOne] = useState(-1);
   const [laneTwo, setLaneTwo] = useState(-1);
@@ -52,6 +58,10 @@ const Bahnen = () => {
           workerName: "",
           customerNumber: "",
           notes: "",
+          startLane:0,
+          endLane:0,
+          startTime:0,
+          endTime:0,
           payedStatus: false,
           firstIndex: 0,
           secondIndex: 0,
@@ -88,6 +98,10 @@ const Bahnen = () => {
         for (let i = item.laneOne; i <= item.laneTwo; i++) {
           for (let j = item.startTime; j <= item.endTime; j++) {
             dataArray[i].time[j] = {
+              startLane: item.laneOne,
+              endLane: item.laneTwo,
+              startTime: item.startTime,
+              endTime: item.endTime,
               color: item.color,
               customerName: item.customerName,
               customerNumber: item.customerNumber,
@@ -112,7 +126,9 @@ const Bahnen = () => {
   };
 
   const handleLaneRequest = async () => {
-    if (
+    if(Number(laneOne) > Number(laneTwo) || Number(startTime) > Number(endTime)){
+      // show window for reverse booking
+    }else if (
       laneOne === -1 || laneTwo === -1 ||
       startTime === -1 || endTime === -1 || 
       customerName === "" || customerNumber === "" ||
@@ -214,7 +230,11 @@ const Bahnen = () => {
     }
   };
   const handleOptionsWindow = (itemIndex, timeIndex) => {
-    const { customerName } = laneDataArray[itemIndex].time[timeIndex];
+    const { customerName,startLane,endLane,startTime,endTime } = laneDataArray[itemIndex].time[timeIndex];
+    setChangeLaneOne(startLane);
+    setChangeLaneTwo(endLane);
+    setChangeStartTime(startTime);
+    setChangeEndTime(endTime);
     setOptionsTitle(customerName);
     customerName === "" ? setOptionsWindow(false) : setOptionsWindow(true);
     setShowCreateWindow(false);
@@ -432,6 +452,14 @@ const Bahnen = () => {
           handleCloseOptionsWindow={handleCloseOptionsWindow}
           resetAndSetLaneData={resetAndSetLaneData}
           optionsTitle={optionsTitle}
+          changeLaneOne={changeLaneOne}
+          changeLaneTwo={changeLaneTwo}
+          changeStartTime={changeStartTime}
+          changeEndTime={changeEndTime}
+          setChangeLaneOne={setChangeLaneOne}
+          setChangeLaneTwo={setChangeLaneTwo}
+          setChangeStartTime={setChangeStartTime}
+          setChangeEndTime={setChangeEndTime}
         />
         <MouseHover
           mouseEvent={mouseEvent}

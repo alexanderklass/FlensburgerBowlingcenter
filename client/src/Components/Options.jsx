@@ -16,19 +16,22 @@ const Options = ({
   handleCloseOptionsWindow,
   resetAndSetLaneData,
   optionsTitle,
+  changeLaneOne,
+  setChangeLaneOne,
+  changeLaneTwo,
+  setChangeLaneTwo,
+  changeStartTime,
+  setChangeStartTime,
+  changeEndTime,
+  setChangeEndTime,
 }) => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [successPayment, setSuccessPayment] = useState(false);
   const [successDelete, setSuccessDelete] = useState(false);
   const [confirmDeleteBox, setConfirmDeleteBox] = useState(false);
   const [confirmPayedBox, setConfirmPayedBox] = useState(false);
-  const [missingChangeFields, setMissingChangeFields] = useState(false);
   const [changeSuccess, setChangeSuccess] = useState(false);
   const [changeFailed, setChangeFailed] = useState(false);
-  const [changeLaneOne, setChangeLaneOne] = useState(-1);
-  const [changeLaneTwo, setChangeLaneTwo] = useState(-1);
-  const [changeStartTime, setChangeStartTime] = useState(-1);
-  const [changeEndTime, setChangeEndTime] = useState(-1);
   const [changeLoading, setChangeLoading] = useState(false);
 
   const handleDeleteConfirmBox = () => {
@@ -145,101 +148,29 @@ const Options = ({
       }
     });
   };
-  const resetChangeSates = () => {
-    setChangeLaneOne(-1);
-    setChangeLaneTwo(-1);
-    setChangeStartTime(-1);
-    setChangeEndTime(-1);
-  };
+
   const handlePostChangedData = async () => {
     const indexOne = laneFieldIndex.itemIndex;
     const indexTwo = laneFieldIndex.timeIndex;
     const { customerName, customerNumber } =
       laneDataArray[indexOne].time[indexTwo];
-
-    switch(true){
-      case changeLaneOne === -1 && changeLaneTwo === -1 && 
-           changeStartTime === -1 && changeEndTime === -1:
-        setMissingChangeFields(true);
-        setTimeout(() => {
-          setMissingChangeFields(false);
-      }, 3000);  
-      break;
-      case changeStartTime === -1 && changeEndTime === -1:
-        setChangeLoading(true)
-        setTimeout(()=>{
-          setChangeLoading(false);
-          handleLaneChangePost(customerName, customerNumber);
-      },3000);
-      break;
-      case changeLaneOne === -1 && changeLaneTwo === -1:
-        setChangeLoading(true);
-        setTimeout(()=>{
-          setChangeLoading(false);
-          handleTimeChangePost(customerName, customerNumber);
-      },3000);
-      break;
-      case changeLaneOne && changeLaneTwo && changeStartTime && changeEndTime != -1:
-        setChangeLoading(true);
-        setTimeout(()=>{
-          setChangeLoading(false);
-          handleCombinedChangePost(customerName,customerNumber);
-      });
-      break;
-      case changeLaneOne !== -1 && changeLaneTwo === -1 && changeStartTime === -1 && changeEndTime === -1:
-        setMissingChangeFields(true);
-        setTimeout(() => {
-          setMissingChangeFields(false);
+    if (Number(changeLaneOne) > Number(changeLaneTwo) || Number(changeStartTime) > Number(changeEndTime)) {
+      // Show window for reverse
+    } else {
+      setChangeLoading(true);
+      setTimeout(() => {
+        setChangeLoading(false);
+        handleOptionsChangePost(customerName, customerNumber);
       }, 3000);
-      break;
     }
   };
 
-  const handleCombinedChangePost = async (customerName, customerNumber) => {
-    await Axios.post(`${URL}/changeCombined/${date}`,{
+  const handleOptionsChangePost = async (customerName, customerNumber) => {
+    await Axios.post(`${URL}/optionsChange/${date}`, {
       customerName: customerName,
       customerNumber: customerNumber,
       changeLaneOne: changeLaneOne,
       changeLaneTwo: changeLaneTwo,
-      changeStartTime: changeStartTime,
-      changeEndTime:changeEndTime
-    }).then((response,err)=>{
-      if(err){
-        console.log(err);
-      }else if(response.data.success){
-        resetAndSetLaneData();
-        handleCloseOptionsWindow();
-        handleSuccessMessage();
-        resetChangeSates();
-      }else{
-        handleFailedMessage();
-      }
-    })
-  }
-
-  const handleLaneChangePost = async (customerName, customerNumber) => {
-    await Axios.post(`${URL}/changeLane/${date}`, {
-      customerName: customerName,
-      customerNumber: customerNumber,
-      changeLaneOne: changeLaneOne,
-      changeLaneTwo: changeLaneTwo,
-    }).then((response, err) => {
-      if (err) {
-        console.log(err);
-      } else if (response.data.success) {
-        resetAndSetLaneData();
-        handleCloseOptionsWindow();
-        handleSuccessMessage();
-        resetChangeSates();
-      } else {
-        handleFailedMessage();
-      }
-    });
-  };
-  const handleTimeChangePost = async (customerName, customerNumber) => {
-    await Axios.post(`${URL}/changeTime/${date}`, {
-      customerName: customerName,
-      customerNumber: customerNumber,
       changeStartTime: changeStartTime,
       changeEndTime: changeEndTime,
     }).then((response, err) => {
@@ -249,31 +180,23 @@ const Options = ({
         resetAndSetLaneData();
         handleCloseOptionsWindow();
         handleSuccessMessage();
-        resetChangeSates();
       } else {
         handleFailedMessage();
       }
     });
   };
-  const handleResetAndOptionsWindow = () => {
-    handleCloseOptionsWindow();
-    resetChangeSates();
-  };
 
   const styleObject = {
     top: clickCursor.y,
-    left: clickCursor.x ,
+    left: clickCursor.x,
     position: "fixed",
   };
-  
+
   return (
     <>
       {changeSuccess && <SuccessBox text={"Buchung erfolgreich verschoben!"} />}
       {changeFailed && (
         <WarningBox text={"Es ist eine Buchung schon vorhanden!"} />
-      )}
-      {missingChangeFields && (
-        <WarningBox text={"Es müssen Felder ausgewählt werden!"} />
       )}
       {confirmDeleteBox && (
         <ConfirmBox
@@ -305,7 +228,7 @@ const Options = ({
               {optionsTitle}
             </p>
             <button
-              onClick={handleResetAndOptionsWindow}
+              onClick={handleCloseOptionsWindow}
               className="absolute right-0 top-0 p-1 text-white"
             >
               <AiOutlineClose />
@@ -314,12 +237,12 @@ const Options = ({
               <label className="text-white">
                 Bahn
                 <select
+                  value={changeLaneOne}
                   onChange={(e) => {
                     setChangeLaneOne(e.target.value);
                   }}
                   className="m-1 rounded-lg p-1 text-black"
                 >
-                  <option></option>
                   <option value={0}>1</option>
                   <option value={1}>2</option>
                   <option value={2}>3</option>
@@ -337,12 +260,12 @@ const Options = ({
               <label className="text-white">
                 bis
                 <select
+                  value={changeLaneTwo}
                   onChange={(e) => {
                     setChangeLaneTwo(e.target.value);
                   }}
                   className="m-1 rounded-lg p-1 text-black"
                 >
-                  <option></option>
                   <option value={0}>1</option>
                   <option value={1}>2</option>
                   <option value={2}>3</option>
@@ -362,12 +285,11 @@ const Options = ({
               <select
                 className="mx-1 rounded-lg border border-gray-500 p-1"
                 required
-                defaultValue={""}
+                value={changeStartTime}
                 onChange={(e) => {
                   setChangeStartTime(e.target.value);
                 }}
               >
-                <option></option>
                 <option value={0}>16:00</option>
                 <option value={1}>16:30</option>
                 <option value={2}>17:00</option>
@@ -392,12 +314,11 @@ const Options = ({
                 <select
                   className="mx-1 rounded-lg border border-gray-500 p-1 text-black"
                   required
-                  defaultValue={""}
+                  value={changeEndTime}
                   onChange={(e) => {
                     setChangeEndTime(e.target.value);
                   }}
                 >
-                  <option></option>
                   <option value={0}>16:00</option>
                   <option value={1}>16:30</option>
                   <option value={2}>17:00</option>
@@ -425,7 +346,7 @@ const Options = ({
                 onClick={handlePostChangedData}
                 className="disabled:bg-gry-500 mt-3 rounded-lg bg-yellow-500 p-1 text-black"
               >
-                {changeLoading ? <MiniLoader/> : "Anpassen"}
+                {changeLoading ? <MiniLoader /> : "Anpassen"}
               </button>
             </div>
             <div className="absolute inset-x-0 bottom-5 text-center">
@@ -460,6 +381,14 @@ Options.propTypes = {
   resetAndSetLaneData: PropTypes.func,
   optionsTitle: PropTypes.string,
   setCheckBiggerThan: PropTypes.func,
+  setChangeLaneOne: PropTypes.func,
+  setChangeLaneTwo: PropTypes.func,
+  setChangeStartTime: PropTypes.func,
+  setChangeEndTime: PropTypes.func,
+  changeLaneOne: PropTypes.number,
+  changeLaneTwo: PropTypes.number,
+  changeStartTime: PropTypes.number,
+  changeEndTime: PropTypes.number,
 };
 
 export default Options;
