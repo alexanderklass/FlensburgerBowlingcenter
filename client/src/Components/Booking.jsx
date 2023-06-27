@@ -167,7 +167,6 @@ const Booking = ({
                   <option value={15}>23:30</option>
                   <option value={16}>00:00</option>
                   <option value={17}>00:30</option>
-                  <option value={18}>01:00</option>
                 </select>
               </label>
               <label className="text-white">
@@ -198,7 +197,6 @@ const Booking = ({
                   <option value={15}>23:30</option>
                   <option value={16}>00:00</option>
                   <option value={17}>00:30</option>
-                  <option value={18}>01:00</option>
                 </select>
               </label>
             </div>

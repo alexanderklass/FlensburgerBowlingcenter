@@ -83,25 +83,6 @@ const Bahnen = () => {
     return dataArray;
   };
   const [laneDataArray, setLanedDataArray] = useState(initLaneData());
-  const checkEndTimeItems = (item) => {
-    if (item.endTime < 1) {
-      return 0;
-    } else if (item.endTime > 17) {
-      return 17
-    } else if(item.startTime === item.endTime){
-      return item.startTime;
-    } else{
-      return item.endTime - 1;
-    }
-  }
-
-  const checkStartTimeItem = (item) => {
-    if (item.startTime > 17) {
-      return 17;
-    }else{
-      return item.startTime;
-    }
-  }
   //Handles bowlinglane requests and arrays
   const resetAndSetLaneData = async () => {
     try {
@@ -110,12 +91,12 @@ const Bahnen = () => {
       response.data.forEach((item) => {
         let price = 0;
         for (let i = item.laneOne; i <= item.laneTwo; i++) {
-          for (let j = checkStartTimeItem(item); j <= checkEndTimeItems(item); j++) {
+          for (let j = item.startTime; j <= item.endTime; j++) {
             price += dataArray[i].time[j].price();
           }
         }
         for (let i = item.laneOne; i <= item.laneTwo; i++) {
-          for (let j = checkStartTimeItem(item); j <= checkEndTimeItems(item); j++) {
+          for (let j = item.startTime; j <= item.endTime; j++) {
             dataArray[i].time[j] = {
               startLane: item.laneOne,
               endLane: item.laneTwo,

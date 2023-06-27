@@ -75,7 +75,7 @@ const Login = () => {
   };
   useEffect(() => {
     handleRememberMeOnStart();
-    //checkLoggingStatus();
+    checkLoggingStatus();
   });
 
   return (

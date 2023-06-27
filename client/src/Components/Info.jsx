@@ -2,9 +2,10 @@ import { FcInfo } from "react-icons/fc";
 import { FcSettings } from "react-icons/fc";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import Axios from "axios";
 
 const Info = () => {
+  const URL = import.meta.env.VITE_REACT_APP_URL;
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverInfo, setHoverInfo] = useState(false);
   const navigate = useNavigate();
@@ -19,9 +20,13 @@ const Info = () => {
     setCursorPosition({ x: 0, y: 0 });
   };
 
-  const handleLogout = () => {
-    Cookies.remove("user");
-    navigate("/Login");
+  const handleLogout = async () => {
+    const response = await Axios.get(`${URL}/logout`);
+    if(response.data.success){
+      navigate("/Login");
+    }else{
+      navigate("/portal/bahnen");
+    }
   };
 
   const postion = {
