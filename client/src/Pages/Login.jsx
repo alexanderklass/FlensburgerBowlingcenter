@@ -73,10 +73,11 @@ const Login = () => {
       navigate("/Login");
     }
   };
+
   useEffect(() => {
     handleRememberMeOnStart();
     checkLoggingStatus();
-  });
+  },[]);
 
   return (
     <>

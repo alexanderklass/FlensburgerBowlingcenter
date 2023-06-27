@@ -18,12 +18,12 @@ const Sidebar = () => {
       <aside
         className={`${
           toggleSidebar ? "translate-x-0" : "-translate-x-full"
-        } fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full`}
+        } fixed top-0 left-0 z-40 w-44 h-screen transition-transform -translate-x-full`}
         aria-label="Sidebar"
       >
         <button
           onClick={toggleElement}
-          className="absolute translate-x-56 p-2 mt-2 ml-3 text-sm text-black rounded-lg hover:bg-zinc-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-200"
+          className={`absolute ${toggleSidebar ? "translate-x-32 text-white" : "translate-x-44"} p-2 mt-2 ml-3 text-sm text-black rounded-lg hover:bg-zinc-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-200`}
         ><MdOutlineDensitySmall className="text-lg"/></button>
 
         <div className="h-full px-3 py-4 overflow-y-auto bg-zinc-800">

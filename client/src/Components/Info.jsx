@@ -3,11 +3,13 @@ import { FcSettings } from "react-icons/fc";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import MiniLoader from "./MiniLoader";
 
 const Info = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverInfo, setHoverInfo] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleMouseEnter = (event) => {
@@ -23,7 +25,11 @@ const Info = () => {
   const handleLogout = async () => {
     const response = await Axios.get(`${URL}/logout`);
     if(response.data.success){
-      navigate("/Login");
+      setLogoutLoading(true);
+      setTimeout(()=>{
+        setLogoutLoading(false);
+        navigate("/Login");
+      },3000);
     }else{
       navigate("/portal/bahnen");
     }
@@ -40,17 +46,18 @@ const Info = () => {
       <div className="flex flex-row justify-between items-center self-end p-2">
         <div>
           <button
+            disabled={logoutLoading}
             onClick={handleLogout}
-            className="rounded-lg bg-red-500 p-1 mr-2 text-white transition ease-in-out hover:scale-105 hover:bg-red-400"
+            className="disabled:bg-gray-500 w-24 h-8 rounded-lg bg-red-500 mr-2 text-white transition ease-in-out hover:scale-105 hover:bg-red-400"
           >
-            Ausloggen
+            {logoutLoading ? <MiniLoader/> : "Ausloggen"}
           </button>
         </div>
         <div>
-          <FcSettings className="text-4xl cursor-pointer" />
+          <FcSettings className="text-4xl hover:animate-spin cursor-pointer"/>
         </div>
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMousLeave}>
-          <FcInfo className="cursor-pointer text-4xl" />
+          <FcInfo className="hover:animate-pulse cursor-pointer text-4xl" />
         </div>
       </div>
       {hoverInfo && (

@@ -350,7 +350,7 @@ const Options = ({
               <button
                 disabled={changeLoading}
                 onClick={handlePostChangedData}
-                className="disabled:bg-gry-500 mt-3 rounded-lg bg-yellow-500 p-1 text-black"
+                className="disabled:bg-gray-500 mt-3 w-24 h-8 rounded-lg bg-yellow-500 p-1 text-black"
               >
                 {changeLoading ? <MiniLoader /> : "Anpassen"}
               </button>
