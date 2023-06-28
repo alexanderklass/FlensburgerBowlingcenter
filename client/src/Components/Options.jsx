@@ -344,24 +344,24 @@ const Options = ({
                   setChangeEndTime(e.target.value);
                 }}
               >
-                <option value={0}>16:00</option>
-                <option value={1}>16:30</option>
-                <option value={2}>17:00</option>
-                <option value={3}>17:30</option>
-                <option value={4}>18:00</option>
-                <option value={5}>18:30</option>
-                <option value={6}>19:00</option>
-                <option value={7}>19:30</option>
-                <option value={8}>20:00</option>
-                <option value={9}>20:30</option>
-                <option value={10}>21:00</option>
-                <option value={11}>21:30</option>
-                <option value={12}>22:00</option>
-                <option value={13}>22:30</option>
-                <option value={14}>23:00</option>
-                <option value={15}>23:30</option>
-                <option value={16}>00:00</option>
-                <option value={17}>00:30</option>
+                <option value={0}>16:30</option>
+                <option value={1}>17:00</option>
+                <option value={2}>17:30</option>
+                <option value={3}>18:00</option>
+                <option value={4}>18:30</option>
+                <option value={5}>19:00</option>
+                <option value={6}>19:30</option>
+                <option value={7}>20:00</option>
+                <option value={8}>20:30</option>
+                <option value={9}>21:00</option>
+                <option value={10}>21:30</option>
+                <option value={11}>22:00</option>
+                <option value={12}>22:30</option>
+                <option value={13}>23:00</option>
+                <option value={14}>23:30</option>
+                <option value={15}>00:00</option>
+                <option value={16}>00:30</option>
+                <option value={17}>01:00</option>
               </select>
             </label>
           </div>
