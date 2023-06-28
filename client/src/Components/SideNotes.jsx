@@ -6,7 +6,7 @@ import MiniLoader from "./MiniLoader";
 const SideNotes = ({ date }) => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [cookingNotesField, setCookingNotesField] = useState("");
-  const [clupRoomNotesField, setClupRoomNotesField] = useState("");
+  const [clubRoomNotesField, setClubRoomNotesField] = useState("");
   const [extraNotes, setExtraNotes] = useState("");
   const [extraLoading, setExtraLoading] = useState(false);
   const [cookingLoading, setCookingLoading] = useState(false);
@@ -14,6 +14,13 @@ const SideNotes = ({ date }) => {
   const [extraRefreshLoading, setExtraRefreshLoading] = useState(false);
   const [cookingRefreshLoading, setCookingRefreshLoading] = useState(false);
   const [clubRoomRefreshLoading, setClubRoomRefreshLoading] = useState(false);
+  const [spareExtraData,setSpareExtraData] = useState("");
+  const [spareCookingData, setSpareCookingData] = useState("");
+  const [spareClubRoomgData, setSpareClubRoomData] = useState("");
+  const [extraNotSaved, setExtraNotSaved] = useState(false);
+  const [cookingNotSaved, setCookingNotSaved] = useState(false);
+  const [clubRoomNotSaved, setClubRoomNotSaved] = useState(false);
+
 
   const fetchCookingData = async () => {
     try {
@@ -22,6 +29,7 @@ const SideNotes = ({ date }) => {
       if (response) {
         response.data.forEach((item) => {
           setCookingNotesField(item.cookingNotes);
+          setSpareCookingData(cookingNotesField);
         });
         setTimeout(() => {
           setCookingRefreshLoading(false);
@@ -40,7 +48,8 @@ const SideNotes = ({ date }) => {
       setClubRoomRefreshLoading(true);
       if (response) {
         response.data.forEach((item) => {
-          setClupRoomNotesField(item.clubRoomNotes);
+          setClubRoomNotesField(item.clubRoomNotes);
+          setSpareClubRoomData(clubRoomNotesField);
         });
         setTimeout(() => {
           setClubRoomRefreshLoading(false);
@@ -60,6 +69,7 @@ const SideNotes = ({ date }) => {
       if (response) {
         response.data.forEach((item) => {
           setExtraNotes(item.extraNotes);
+          setSpareExtraData(extraNotes);
         });
         setTimeout(() => {
           setExtraRefreshLoading(false);
@@ -72,14 +82,30 @@ const SideNotes = ({ date }) => {
     }
   };
 
+  const handleExtraChanged = (event) =>{
+    setExtraNotes(event.target.value);
+    extraNotes === spareExtraData ? setExtraNotSaved(false) : setExtraNotSaved(true); 
+  }
+
+  const handleCookingChanged = (event) => {
+    setCookingNotesField(event.target.value);
+    cookingNotesField === spareCookingData ? setCookingNotSaved(false) : setCookingNotSaved(true); 
+  }
+
+  const handleClubRoomChanged = (event) =>{
+    setClubRoomNotesField(event.target.value);
+    clubRoomNotesField === spareClubRoomgData ? setClubRoomNotSaved(false) : setClubRoomNotSaved(true); 
+  }
+
   const handleClupRoomNoteField = async () => {
     await Axios.post(`${URL}/clubRoomNotes`, {
-      clubRoomNotesField: clupRoomNotesField,
+      clubRoomNotesField: clubRoomNotesField,
       date: date,
     }).then((response, err) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
+        setClubRoomNotSaved(false);
         setClubRoomLoading(true);
         setTimeout(() => {
           setClubRoomLoading(false);
@@ -96,6 +122,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
+        setCookingNotSaved(false);
         setCookingLoading(true);
         setTimeout(() => {
           setCookingLoading(false);
@@ -112,6 +139,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
+        setExtraNotSaved(false);
         setExtraLoading(true);
         setTimeout(() => {
           setExtraLoading(false);
@@ -121,7 +149,7 @@ const SideNotes = ({ date }) => {
   };
   const resetNotes = () => {
     setCookingNotesField("");
-    setClupRoomNotesField("");
+    setClubRoomNotesField("");
     setExtraNotes("");
   };
   const fetchAllNotes = () => {
@@ -145,11 +173,12 @@ const SideNotes = ({ date }) => {
           className={`${
             extraNotes === "" ? "" : "bg-yellow-500"
           } mb-2 rounded-lg border-2 border-black p-1`}
-          onChange={(e) => setExtraNotes(e.target.value)}
+          onChange={handleExtraChanged}
           rows={7}
           cols={50}
           value={extraNotes}
         />
+        {extraNotSaved && <p className="text-red-500">Ungespeicherter Wert vorhanden!</p>}
         <div className="flex flex-row items-center">
           <button
             onClick={handleExtraNoteField}
@@ -173,11 +202,12 @@ const SideNotes = ({ date }) => {
           name="CookNotes"
           className="mb-2 rounded-lg border-2 border-black p-1"
           placeholder="Notizen Koch..."
-          onChange={(e) => setCookingNotesField(e.target.value)}
+          onChange={handleCookingChanged}
           rows={7}
           cols={50}
           value={cookingNotesField}
         />
+        {cookingNotSaved && <p className="text-red-500">Ungespeicherter Wert vorhanden!</p> }
         <div className="flex flex-row">
           <button
             disabled={cookingLoading}
@@ -201,11 +231,12 @@ const SideNotes = ({ date }) => {
           name="ClubRoomNotes"
           className="mb-2 rounded-lg border-2 border-black p-1"
           placeholder="Notizen Clubraum..."
-          onChange={(e) => setClupRoomNotesField(e.target.value)}
+          onChange={handleClubRoomChanged}
           rows={7}
           cols={50}
-          value={clupRoomNotesField}
+          value={clubRoomNotesField}
         />
+        {clubRoomNotSaved && <p className="text-red-500">Ungespeicherter Werte vorhanden!</p>}
         <div className="flex flex-row">
           <button
             disabled={clubRoomLoading}

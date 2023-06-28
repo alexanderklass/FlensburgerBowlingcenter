@@ -77,6 +77,7 @@ const Login = () => {
   useEffect(() => {
     handleRememberMeOnStart();
     checkLoggingStatus();
+    //eslint-disable-next-line
   },[]);
 
   return (

@@ -17,6 +17,7 @@ const Bahnen = () => {
   const [changeLaneTwo, setChangeLaneTwo] = useState(0);
   const [changeStartTime, setChangeStartTime] = useState(0);
   const [changeEndTime, setChangeEndTime] = useState(0);
+  const [changeNotes, setChangeNotes] = useState("");
 
   const [customerName, setCustomerName] = useState("");
   const [laneOne, setLaneOne] = useState(-1);
@@ -83,6 +84,7 @@ const Bahnen = () => {
     return dataArray;
   };
   const [laneDataArray, setLanedDataArray] = useState(initLaneData());
+
   //Handles bowlinglane requests and arrays
   const resetAndSetLaneData = async () => {
     try {
@@ -237,11 +239,12 @@ const Bahnen = () => {
     }
   };
   const handleOptionsWindow = (itemIndex, timeIndex) => {
-    const { customerName,startLane,endLane,startTime,endTime } = laneDataArray[itemIndex].time[timeIndex];
+    const { customerName,startLane,endLane,startTime,endTime,notes } = laneDataArray[itemIndex].time[timeIndex];
     setChangeLaneOne(startLane);
     setChangeLaneTwo(endLane);
     setChangeStartTime(startTime);
     setChangeEndTime(endTime);
+    setChangeNotes(notes);
     setOptionsTitle(customerName);
     customerName === "" ? setOptionsWindow(false) : setOptionsWindow(true);
     setShowCreateWindow(false);
@@ -471,6 +474,8 @@ const Bahnen = () => {
           setChangeEndTime={setChangeEndTime}
           reverseBookingWarning={reverseBookingWarning}
           setReverseBookingWarning={setReverseBookingWarning}
+          changeNotes={changeNotes}
+          setChangeNotes={setChangeNotes}
         />
         <MouseHover
           mouseEvent={mouseEvent}
