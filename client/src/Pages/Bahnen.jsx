@@ -54,6 +54,7 @@ const Bahnen = () => {
       };
       for (let j = 0; j < 18; j++) {
         let time = {
+          BahnID: 0,
           id: j + 1,
           color: "",
           customerName: "",
@@ -100,6 +101,7 @@ const Bahnen = () => {
         for (let i = item.laneOne; i <= item.laneTwo; i++) {
           for (let j = item.startTime; j <= item.endTime; j++) {
             dataArray[i].time[j] = {
+              BahnID: item.id,
               startLane: item.laneOne,
               endLane: item.laneTwo,
               startTime: item.startTime,

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import MiniLoader from "./MiniLoader";
+import Button from "@mui/material/Button";
 
 const Info = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -45,13 +46,15 @@ const Info = () => {
     <>
       <div className="flex flex-row justify-between items-center self-end p-2">
         <div>
-          <button
+          <Button
+            sx={{marginRight:1}}
+            size="small"
+            variant="contained"
+            color="error" 
             disabled={logoutLoading}
-            onClick={handleLogout}
-            className="disabled:bg-gray-500 w-24 h-8 rounded-lg bg-red-500 mr-2 text-white transition ease-in-out hover:scale-105 hover:bg-red-400"
-          >
-            {logoutLoading ? <MiniLoader/> : "Ausloggen"}
-          </button>
+            onClick={handleLogout}>
+          {logoutLoading ? <MiniLoader/> : "Ausloggen"}
+          </Button>
         </div>
         <div>
           <FcSettings className="text-4xl hover:animate-spin cursor-pointer"/>

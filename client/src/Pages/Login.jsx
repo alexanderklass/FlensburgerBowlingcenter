@@ -3,6 +3,9 @@ import Axios from "axios";
 import MiniLoader from "../Components/MiniLoader.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Textfield from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
 
 const Login = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -14,30 +17,29 @@ const Login = () => {
   const navigate = useNavigate();
   Axios.defaults.withCredentials = true;
 
-
-  const handleCheckBoxChange = () =>{
+  const handleCheckBoxChange = () => {
     setRememberMe(!rememberMe);
-  }
+  };
 
-  const handleRememberMeOnStart = () =>{
+  const handleRememberMeOnStart = () => {
     const rememberMeValue = localStorage.getItem("rememberMe") === "true";
     setRememberMe(rememberMeValue);
-    if(rememberMeValue){
+    if (rememberMeValue) {
       setUserName(localStorage.getItem("username") || "");
       setUserPassword(localStorage.getItem("password") || "");
     }
-  } 
+  };
 
-  const handleLocalStorageValues = () =>{
-    if(rememberMe){
-      localStorage.setItem("username",userName);
+  const handleLocalStorageValues = () => {
+    if (rememberMe) {
+      localStorage.setItem("username", userName);
       localStorage.setItem("password", userPassword);
-    }else{
+    } else {
       localStorage.removeItem("username");
       localStorage.removeItem("password");
     }
-    localStorage.setItem("rememberMe",rememberMe.toString());
-  }
+    localStorage.setItem("rememberMe", rememberMe.toString());
+  };
 
   const login = () => {
     Axios.post(`${URL}/login`, {
@@ -49,10 +51,10 @@ const Login = () => {
       } else if (response.data.successLogin) {
         handleLocalStorageValues();
         setLoginLoading(true);
-        setTimeout(()=>{
+        setTimeout(() => {
           setLoginLoading(false);
           navigate("/Portal/Bahnen");
-        },3000)
+        }, 3000);
       }
     });
   };
@@ -64,7 +66,7 @@ const Login = () => {
       userPassword: userPassword,
     })};
   */
- 
+
   const checkLoggingStatus = async () => {
     const response = await Axios.get(`${URL}/login`);
     if (response.data.loggedIn === true) {
@@ -76,47 +78,47 @@ const Login = () => {
 
   useEffect(() => {
     handleRememberMeOnStart();
-    checkLoggingStatus();
+    //checkLoggingStatus();
     //eslint-disable-next-line
-  },[]);
+  }, []);
 
   return (
     <>
       <div className="my-10 flex flex-col items-center justify-center">
         <img src={Logo} className="mb-5 max-w-sm" />
         <div className="bg-dark flex flex-col">
-          <input
-            name="loginName"
-            type={"text"}
+          <Textfield
+            sx={{ marginBottom: 1 }}
+            label="Name"
+            variant="filled"
+            type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            placeholder="Name"
-            className="mb-1 block rounded-lg border border-black bg-stone-200 p-1"
-          ></input>
-          <input
-            name="loginPassword"
-            type={"password"}
-            value={userPassword}
-            onChange={(e) => {
-              setUserPassword(e.target.value);
+            InputLabelProps={{
+              shrink: true,
             }}
-            placeholder="Passwort"
-            className="rounded-lg border border-black bg-stone-200 p-1"
-          ></input>
+          />
+          <Textfield
+            label="Passwort"
+            variant="filled"
+            type="text"
+            onChange={(e) => setUserPassword(e.target.value)}
+            value={userPassword}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
           <label className="mt-1 flex items-center">
-            <input checked={rememberMe} onChange={handleCheckBoxChange} className="mr-1 w-4 h-4" type="checkbox"/>
+            <Checkbox checked={rememberMe} onChange={handleCheckBoxChange} />
             Daten merken
           </label>
           <div className="p-1 text-red-700">{loginStatus}</div>
-          <button
-            onClick={login}
+          <Button 
+            onClick={login} 
             disabled={loginLoading}
-            className={
-              "delay-50 hover:scale-101 rounded-lg bg-blue-700 p-1 text-white transition ease-in-out hover:-translate-y-1 hover:bg-blue-500 disabled:bg-gray-500"
-            }
-          >
+            variant="contained">
             {loginLoading ? <MiniLoader /> : "Login"}
-          </button>
+          </Button>
           {/*
           <button
             onClick={register}

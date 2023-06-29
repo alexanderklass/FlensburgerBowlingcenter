@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { PropTypes } from "prop-types";
 import { useEffect } from "react";
 import { GoArrowLeft } from "react-icons/go";
@@ -86,18 +87,23 @@ const TimeHeader = ({
         <GoArrowLeft className="self-center text-3xl" />
       </button>
       <div className="flex flex-row text-sm">
-        <button
+        <Button
+          sx={{ marginRight: 1 }}
+          variant="contained"
+          size="small"
           onClick={handleCreateEvent}
-          className="delay-50 ml-1 mr-3 rounded-lg bg-blue-500 p-1.5 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600"
         >
           Neuer Eintrag
-        </button>
-        <button
+        </Button>
+        <Button
+          sx={{ marginRight: 1 }}
+          variant="contained"
+          size="small"
+          color="success"
           onClick={handleTimeChange}
-          className="delay-50 mr-3 rounded-lg bg-blue-500 p-1.5 transition ease-in-out hover:scale-105 hover:bg-blue-600"
         >
           Heute
-        </button>
+        </Button>
         <input
           className="mr-1 h-8 w-16 w-24 rounded-lg text-center text-black"
           type="date"

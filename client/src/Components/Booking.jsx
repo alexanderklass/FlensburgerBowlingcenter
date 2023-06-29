@@ -5,6 +5,8 @@ import ConfirmBox from "./ConfirmBox.jsx";
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import MiniLoader from "./MiniLoader.jsx";
+import Textfield from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Booking = ({
   showCreateWindow,
@@ -33,8 +35,8 @@ const Booking = ({
 }) => {
   const [checkBackBooking, setCheckBackBooking] = useState(false);
 
-  const checkBothLanes = () => { 
-    if (laneOne === laneTwo) {
+  const checkBothLanes = () => {
+    if (Number(laneOne) === Number(laneTwo)) {
       handleLaneRequest();
     } else if (laneTwo % 2 === 0) {
       setCheckBackBooking(true);
@@ -78,20 +80,25 @@ const Booking = ({
             >
               <AiOutlineClose />
             </button>
-            <input
-              name="customerName"
+            <Textfield
+              margin="dense"
+              label="Kundenname"
+              variant="filled"
+              type="text"
+              className="rounded-lg bg-white"
               onChange={(e) => setCustomerName(e.target.value)}
-              type="text"
-              id="name"
-              placeholder="*Kundenname"
-              className="m-1 w-52 self-center rounded-lg border border-gray-500 p-1"
+              required
+              size="small"
             />
-            <input
-              name="customerNumber"
+            <Textfield
+              margin="none"
+              label="Telefonnummer"
+              variant="filled"
+              type="number"
+              className="rounded-lg bg-white"
               onChange={(e) => setCustomerNumber(e.target.value)}
-              type="text"
-              placeholder="*Telefonnummer"
-              className="mb-2 w-52 self-center rounded-lg border border-gray-500 p-1"
+              required
+              size="small"
             />
             <div className="w-52 self-center">
               <label className="text-white">
@@ -216,27 +223,33 @@ const Booking = ({
                 );
               })}
             </div>
-            <input
-              name="workerName"
-              className="mt-1 w-52 self-center rounded-lg border border-gray-500 p-1"
-              placeholder="*Eingetragen von..."
+            <Textfield
+              margin="dense"
+              label="Eingetragen von..."
+              variant="filled"
               type="text"
+              className="rounded-lg bg-white"
               onChange={(e) => setWorkerName(e.target.value)}
+              required
+              size="small"
             />
-            <textarea
-              name="Notes"
-              className="mt-1 h-20 w-52 self-center rounded-lg border border-gray-500 p-1"
-              placeholder="Anmerkungen..."
-              onChange={(e) => setNotes(e.target.value)}
-              rows={10}
-              cols={50}
-            />
-            <button
-              onClick={checkBothLanes}
-              className=" delay-50 hover:scale-101 mt-2 h-8 w-52 self-center rounded bg-blue-500 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:bg-blue-600"
-            >
+            <Textfield
+              margin="none"
+              label="Anmerkungen..."
+              type="text"
+              variant="filled"
+              multiline={true}
+              rows={3}
+              maxRows={50}
+              className="rounded-lg bg-white"
+              onChange={(e)=>setNotes(e.target.value)}
+              size="small"/>
+            <Button
+              sx={{marginTop:1}}
+              variant="contained"
+              onClick={checkBothLanes}>
               {bookingLoading ? <MiniLoader /> : "Hinzufügen"}
-            </button>
+            </Button>
           </div>
         )}
       </div>
