@@ -10,7 +10,7 @@ const Portal = () => {
   useEffect(() => {
     Axios.get(`${URL}/login`).then((response) => {
       if (response.data.loggedIn === false) {
-        //navigate("/login");
+        navigate("/login");
       }
     });
   },[]);
