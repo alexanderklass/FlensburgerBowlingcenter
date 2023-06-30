@@ -80,7 +80,7 @@ const Login = () => {
 
   useEffect(() => {
     handleRememberMeOnStart();
-    checkLoggingStatus();
+    //checkLoggingStatus();
     //eslint-disable-next-line
   }, []);
 

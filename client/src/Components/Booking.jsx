@@ -71,7 +71,7 @@ const Booking = ({
       {overwriteWarning && (
         <WarningBox text={"Für diese Buchung existieren schon Felder"} />
       )}
-      <div className="absolute right-auto top-72 z-10">
+      <div className="absolute right-auto top-72 z-30">
         {showCreateWindow && (
           <div className="h-78 box-shadow align-items-center relative flex flex-col justify-center rounded-lg border-2 border-gray-500 bg-zinc-700 p-6 shadow-lg">
             <button

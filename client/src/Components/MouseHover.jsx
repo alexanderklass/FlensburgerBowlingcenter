@@ -11,7 +11,7 @@ const MouseHover = ({
   hoverPayedStatus
 }) => {
   return (
-    <div className="align-items flex flex-col justify-center">
+    <div className="align-items z-10 flex flex-col justify-center">
       {mouseEvent && (
         <div
           style={{
@@ -19,7 +19,7 @@ const MouseHover = ({
             left: cursorPosition.x + 10,
             position: "fixed",
           }}
-          className="flex flex-col rounded-lg border-2 border-yellow-500 bg-zinc-700 p-2 text-white"
+          className="flex flex-col rounded border border-black bg-zinc-700 p-2 text-white"
         >
           <p>
             <span className="font-bold text-yellow-500">Kunde: </span>

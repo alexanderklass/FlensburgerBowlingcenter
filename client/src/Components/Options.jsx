@@ -248,9 +248,9 @@ const Options = ({
       {optionsWindow && (
         <div
           style={styleObject}
-          className="align-center relative z-10 flex flex-col justify-center rounded-lg border-2 border-gray-500 bg-zinc-700 p-2 p-2"
+          className="align-center relative z-20 flex flex-col justify-center rounded-lg border-2 border-gray-500 bg-zinc-700 p-2 p-2"
         >
-          <p className="mb-1 mt-2 self-center rounded bg-white p-2 text-center text-2xl text-black">
+          <p className="mb-1 mt-4 self-center rounded bg-white p-2 text-center text-2xl text-black">
             {optionsTitle}
           </p>
           <button
@@ -372,7 +372,7 @@ const Options = ({
               id="changeCustomerNotes"
               value={changeNotes}
               onChange={(e) => setChangeNotes(e.target.value)}
-              className="mb-1 h-24 rounded"
+              className="mb-2 h-24 w-40 p-2 rounded"
               placeholder="Notizen..."
             />
             <Button
