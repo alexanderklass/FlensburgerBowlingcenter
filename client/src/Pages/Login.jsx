@@ -105,7 +105,7 @@ const Login = () => {
             id="Password"
             label="Passwort"
             variant="filled"
-            type="text"
+            type="password"
             onChange={(e) => setUserPassword(e.target.value)}
             value={userPassword}
             InputLabelProps={{
