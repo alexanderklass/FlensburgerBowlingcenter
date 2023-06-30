@@ -2,6 +2,10 @@ import { PropTypes } from "prop-types";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import MiniLoader from "./MiniLoader";
+import SaveIcon from "@mui/icons-material/Save";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import Button from "@mui/material/Button";
+import { TextField } from "@mui/material";
 
 const SideNotes = ({ date }) => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -14,13 +18,12 @@ const SideNotes = ({ date }) => {
   const [extraRefreshLoading, setExtraRefreshLoading] = useState(false);
   const [cookingRefreshLoading, setCookingRefreshLoading] = useState(false);
   const [clubRoomRefreshLoading, setClubRoomRefreshLoading] = useState(false);
-  const [spareExtraData,setSpareExtraData] = useState("");
+  const [spareExtraData, setSpareExtraData] = useState("");
   const [spareCookingData, setSpareCookingData] = useState("");
   const [spareClubRoomgData, setSpareClubRoomData] = useState("");
   const [extraNotSaved, setExtraNotSaved] = useState(false);
   const [cookingNotSaved, setCookingNotSaved] = useState(false);
   const [clubRoomNotSaved, setClubRoomNotSaved] = useState(false);
-
 
   const fetchCookingData = async () => {
     try {
@@ -82,20 +85,26 @@ const SideNotes = ({ date }) => {
     }
   };
 
-  const handleExtraChanged = (event) =>{
+  const handleExtraChanged = (event) => {
     setExtraNotes(event.target.value);
-    extraNotes === spareExtraData ? setExtraNotSaved(false) : setExtraNotSaved(true); 
-  }
+    extraNotes === spareExtraData
+      ? setExtraNotSaved(false)
+      : setExtraNotSaved(true);
+  };
 
   const handleCookingChanged = (event) => {
     setCookingNotesField(event.target.value);
-    cookingNotesField === spareCookingData ? setCookingNotSaved(false) : setCookingNotSaved(true); 
-  }
+    cookingNotesField === spareCookingData
+      ? setCookingNotSaved(false)
+      : setCookingNotSaved(true);
+  };
 
-  const handleClubRoomChanged = (event) =>{
+  const handleClubRoomChanged = (event) => {
     setClubRoomNotesField(event.target.value);
-    clubRoomNotesField === spareClubRoomgData ? setClubRoomNotSaved(false) : setClubRoomNotSaved(true); 
-  }
+    clubRoomNotesField === spareClubRoomgData
+      ? setClubRoomNotSaved(false)
+      : setClubRoomNotSaved(true);
+  };
 
   const handleClupRoomNoteField = async () => {
     await Axios.post(`${URL}/clubRoomNotes`, {
@@ -166,92 +175,123 @@ const SideNotes = ({ date }) => {
 
   return (
     <div className="ml-3 flex flex-col">
-      <div className="flex flex-col">
-        <label className="font-bold">Sonderbuchungen</label>
-        <textarea
-          name="ExtraNotes"
-          className={`${
-            extraNotes === "" ? "" : "bg-yellow-500"
-          } mb-2 rounded-lg border-2 border-black p-1`}
-          onChange={handleExtraChanged}
+      <div className="mb-3 flex flex-col">
+        <TextField
+          id="extraNotes"
+          multiline
           rows={7}
-          cols={50}
+          label="Sonderbuchungen..."
+          className={`${extraNotes === "" ? "" : "bg-yellow-500"}`}
           value={extraNotes}
+          onChange={handleExtraChanged}
+          InputLabelProps={{
+            shrink: true,
+            style: { fontSize: 18 },
+          }}
         />
-        {extraNotSaved && <p className="text-red-500">Ungespeicherter Wert vorhanden!</p>}
-        <div className="flex flex-row items-center">
-          <button
+        {extraNotSaved && (
+          <p className="text-red-500">Ungespeicherter Wert vorhanden!</p>
+        )}
+        <div className="mb-3 mt-2 flex flex-row items-center">
+          <Button
+            sx={{ marginRight: 1 }}
             onClick={handleExtraNoteField}
             disabled={extraLoading}
-            className="delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600 disabled:bg-gray-500"
+            variant="contained"
+            size="small"
+            startIcon={<SaveIcon />}
           >
             {extraLoading ? <MiniLoader /> : "Speichern"}
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={fetchExtraData}
             disabled={extraRefreshLoading}
-            className="disabled:bg-gray-500 mb-4 ml-1 h-8 w-24 rounded-lg bg-green-500 p-1 text-white transition ease-in-out hover:scale-105"
+            variant="contained"
+            size="small"
+            startIcon={<RefreshIcon />}
+            color="success"
           >
             {extraRefreshLoading ? <MiniLoader /> : "Aktualisieren"}
-          </button>
+          </Button>
         </div>
       </div>
-      <div className="flex flex-col">
-        <label className="font-bold">Koch</label>
-        <textarea
-          name="CookNotes"
-          className="mb-2 rounded-lg border-2 border-black p-1"
-          placeholder="Notizen Koch..."
-          onChange={handleCookingChanged}
+      <div className="mb-3 flex flex-col">
+        <TextField
+          id="cookingNotes"
+          multiline
           rows={7}
-          cols={50}
+          label="Notizen Koch..."
           value={cookingNotesField}
+          onChange={handleCookingChanged}
+          InputLabelProps={{
+            shrink: true,
+            style: { fontSize: 18 },
+          }}
         />
-        {cookingNotSaved && <p className="text-red-500">Ungespeicherter Wert vorhanden!</p> }
-        <div className="flex flex-row">
-          <button
-            disabled={cookingLoading}
-            className="delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600 disabled:bg-gray-500"
+        {cookingNotSaved && (
+          <p className="text-red-500">Ungespeicherter Wert vorhanden!</p>
+        )}
+        <div className="mt-2 flex flex-row">
+          <Button
+            sx={{ marginRight: 1 }}
             onClick={handleCookingNoteField}
+            disabled={cookingLoading}
+            variant="contained"
+            size="small"
+            startIcon={<SaveIcon />}
           >
             {cookingLoading ? <MiniLoader /> : "Speichern"}
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={fetchCookingData}
             disabled={cookingRefreshLoading}
-            className="disabled:bg-gray-500 mb-4 ml-1 h-8 w-24 rounded-lg bg-green-500 p-1 text-white transition ease-in-out hover:scale-105"
+            variant="contained"
+            size="small"
+            startIcon={<RefreshIcon />}
+            color="success"
           >
             {cookingRefreshLoading ? <MiniLoader /> : "Aktualisieren"}
-          </button>
+          </Button>
         </div>
       </div>
-      <div className="flex flex-col">
-        <label className="font-bold">Clubraum</label>
-        <textarea
-          name="ClubRoomNotes"
-          className="mb-2 rounded-lg border-2 border-black p-1"
-          placeholder="Notizen Clubraum..."
-          onChange={handleClubRoomChanged}
+      <div className="mt-3 flex flex-col">
+        <TextField
+          id="clubRoomNotes"
+          multiline
           rows={7}
-          cols={50}
+          className="w-96"
+          label="Notizen Clubraum..."
           value={clubRoomNotesField}
+          onChange={handleClubRoomChanged}
+          InputLabelProps={{
+            shrink: true,
+            style: { fontSize: 18 },
+          }}
         />
-        {clubRoomNotSaved && <p className="text-red-500">Ungespeicherter Werte vorhanden!</p>}
-        <div className="flex flex-row">
-          <button
-            disabled={clubRoomLoading}
-            className="delay-50 mb-4 ml-2 h-8 w-24 rounded-lg bg-blue-500 text-white transition ease-in-out hover:scale-105 hover:bg-blue-600 disabled:bg-gray-500"
+        {clubRoomNotSaved && (
+          <p className="text-red-500">Ungespeicherter Werte vorhanden!</p>
+        )}
+        <div className="mt-2 flex flex-row">
+          <Button
+            sx={{ marginRight: 1 }}
             onClick={handleClupRoomNoteField}
+            disabled={clubRoomLoading}
+            variant="contained"
+            size="small"
+            startIcon={<SaveIcon />}
           >
             {clubRoomLoading ? <MiniLoader /> : "Speichern"}
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={fetchClupRoomData}
             disabled={clubRoomRefreshLoading}
-            className="disabled:bg-gray-500 mb-4 ml-1 h-8 w-24 rounded-lg bg-green-500 p-1 text-white transition ease-in-out hover:scale-105"
+            variant="contained"
+            size="small"
+            startIcon={<RefreshIcon />}
+            color="success"
           >
             {clubRoomRefreshLoading ? <MiniLoader /> : "Aktualisieren"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

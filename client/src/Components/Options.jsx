@@ -6,6 +6,7 @@ import SuccessBox from "./SuccessBox.jsx";
 import ConfirmBox from "./ConfirmBox.jsx";
 import WarningBox from "./WarningBox.jsx";
 import MiniLoader from "./MiniLoader.jsx";
+import { Button } from "@mui/material";
 const Options = ({
   date,
   optionsWindow,
@@ -249,7 +250,7 @@ const Options = ({
           style={styleObject}
           className="align-center relative z-10 flex flex-col justify-center rounded-lg border-2 border-gray-500 bg-zinc-700 p-2 p-2"
         >
-          <p className="mb-5 text-center text-3xl text-yellow-500">
+          <p className="mb-1 mt-2 self-center rounded bg-white p-2 text-center text-2xl text-black">
             {optionsTitle}
           </p>
           <button
@@ -258,38 +259,37 @@ const Options = ({
           >
             <AiOutlineClose />
           </button>
-          <div className="self-center">
-            <label className="text-white">
-              Bahn
-              <select
-                value={changeLaneOne}
-                onChange={(e) => {
-                  setChangeLaneOne(e.target.value);
-                }}
-                className="m-1 rounded-lg p-1 text-black"
-              >
-                <option value={0}>1</option>
-                <option value={1}>2</option>
-                <option value={2}>3</option>
-                <option value={3}>4</option>
-                <option value={4}>5</option>
-                <option value={5}>6</option>
-                <option value={6}>7</option>
-                <option value={7}>8</option>
-                <option value={8}>9</option>
-                <option value={9}>10</option>
-                <option value={10}>11</option>
-                <option value={11}>12</option>
-              </select>
-            </label>
+          <div className="flex items-center justify-center">
+            <select
+              id="changeStartLane"
+              value={changeLaneOne}
+              onChange={(e) => {
+                setChangeLaneOne(e.target.value);
+              }}
+              className="m-1 w-16 rounded p-1 text-center text-black"
+            >
+              <option value={0}>1</option>
+              <option value={1}>2</option>
+              <option value={2}>3</option>
+              <option value={3}>4</option>
+              <option value={4}>5</option>
+              <option value={5}>6</option>
+              <option value={6}>7</option>
+              <option value={7}>8</option>
+              <option value={8}>9</option>
+              <option value={9}>10</option>
+              <option value={10}>11</option>
+              <option value={11}>12</option>
+            </select>
             <label className="text-white">
               bis
               <select
+                id="changeEndLane"
                 value={changeLaneTwo}
                 onChange={(e) => {
                   setChangeLaneTwo(e.target.value);
                 }}
-                className="m-1 rounded-lg p-1 text-black"
+                className="m-1 w-16 rounded p-1 text-center text-black"
               >
                 <option value={0}>1</option>
                 <option value={1}>2</option>
@@ -308,7 +308,8 @@ const Options = ({
           </div>
           <div className="self-center">
             <select
-              className="mx-1 rounded-lg border border-gray-500 p-1"
+              id="changeStartTime"
+              className="mx-1 rounded border border-gray-500 p-1 text-sm"
               required
               value={changeStartTime}
               onChange={(e) => {
@@ -337,7 +338,8 @@ const Options = ({
             <label className="text-white">
               bis
               <select
-                className="mx-1 rounded-lg border border-gray-500 p-1 text-black"
+                id="changeEndTime"
+                className="mx-1 rounded border border-gray-500 p-1 text-sm text-black"
                 required
                 value={changeEndTime}
                 onChange={(e) => {
@@ -367,32 +369,40 @@ const Options = ({
           </div>
           <div className="m-1 flex flex-col items-center justify-center">
             <textarea
+              id="changeCustomerNotes"
               value={changeNotes}
               onChange={(e) => setChangeNotes(e.target.value)}
-              className="h-24 rounded-lg"
+              className="mb-1 h-24 rounded"
               placeholder="Notizen..."
             />
-            <button
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
               disabled={changeLoading}
               onClick={handlePostChangedData}
-              className="mt-3 h-8 w-24 rounded-lg bg-yellow-500 p-1 text-black disabled:bg-gray-500"
             >
               {changeLoading ? <MiniLoader /> : "Anpassen"}
-            </button>
+            </Button>
           </div>
-          <div className="flex items-center justify-center">
-            <button
+          <div className="mt-1 flex items-center justify-center">
+            <Button
+              variant="contained"
+              color="success"
+              size="small"
               onClick={handlePayedConfirmBox}
-              className="m-1 w-20 self-center rounded-lg bg-green-500 p-1 text-white "
             >
               Bezahlt
-            </button>
-            <button
+            </Button>
+            <Button
+              sx={{ marginLeft: 1 }}
+              variant="contained"
+              color="error"
+              size="small"
               onClick={handleDeleteConfirmBox}
-              className="m-1 w-20 self-center rounded-lg bg-red-500 p-1 text-white"
             >
               Storno
-            </button>
+            </Button>
           </div>
         </div>
       )}

@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { PropTypes } from "prop-types";
 import { useEffect } from "react";
 import { GoArrowLeft } from "react-icons/go";
@@ -104,12 +104,20 @@ const TimeHeader = ({
         >
           Heute
         </Button>
-        <input
-          className="mr-1 h-8 w-16 w-24 rounded-lg text-center text-black"
+        <TextField 
           type="date"
+          size="small"
+          className="bg-white rounded w-36"
           value={date}
-          onChange={handleDatePicker}
-        />
+          onChange={handleDatePicker}/>
+        {/*
+          <input
+            className="mr-1 h-8 w-16 w-24 rounded-lg text-center text-black"
+            type="date"
+            value={date}
+            onChange={handleDatePicker}
+          />
+          */}
       </div>
       <button onClick={handleNextButton}>
         <GoArrowRight className="self-center text-3xl" />

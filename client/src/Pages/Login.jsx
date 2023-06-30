@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Textfield from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
+import LoginIcon from '@mui/icons-material/Login';
+
 
 const Login = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -78,7 +80,7 @@ const Login = () => {
 
   useEffect(() => {
     handleRememberMeOnStart();
-    //checkLoggingStatus();
+    checkLoggingStatus();
     //eslint-disable-next-line
   }, []);
 
@@ -88,6 +90,7 @@ const Login = () => {
         <img src={Logo} className="mb-5 max-w-sm" />
         <div className="bg-dark flex flex-col">
           <Textfield
+            id="UserName"
             sx={{ marginBottom: 1 }}
             label="Name"
             variant="filled"
@@ -99,6 +102,7 @@ const Login = () => {
             }}
           />
           <Textfield
+            id="Password"
             label="Passwort"
             variant="filled"
             type="text"
@@ -116,7 +120,8 @@ const Login = () => {
           <Button 
             onClick={login} 
             disabled={loginLoading}
-            variant="contained">
+            variant="contained"
+            endIcon={<LoginIcon/>}>
             {loginLoading ? <MiniLoader /> : "Login"}
           </Button>
           {/*

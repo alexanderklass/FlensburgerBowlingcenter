@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import MiniLoader from "./MiniLoader";
 import Button from "@mui/material/Button";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Info = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -52,7 +53,8 @@ const Info = () => {
             variant="contained"
             color="error" 
             disabled={logoutLoading}
-            onClick={handleLogout}>
+            onClick={handleLogout}
+            endIcon={<LogoutIcon/>}>
           {logoutLoading ? <MiniLoader/> : "Ausloggen"}
           </Button>
         </div>
