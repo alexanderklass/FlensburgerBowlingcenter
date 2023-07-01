@@ -2,7 +2,7 @@ import { PropTypes } from "prop-types";
 const SuccessBox = ({ text }) => {
   return (
     <div
-      className="absolute top-56 z-20 flex items-center justify-center rounded-lg border border-black bg-green-50 p-4 text-sm text-green-800"
+      className="absolute top-56 z-40 flex items-center justify-center rounded-lg border border-black bg-green-50 p-4 text-sm text-green-800"
       role="alert"
     >
       <svg

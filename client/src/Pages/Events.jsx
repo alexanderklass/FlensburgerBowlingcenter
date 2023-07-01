@@ -1,16 +1,24 @@
-import Pic1 from "../Img/jahres-dank.png"
-import Pic2 from "../Img/heavy-metal-event.png"
+import Pic1 from "../Img/jahres-dank.png";
+import Pic2 from "../Img/heavy-metal-event.png";
+import Pic3 from "../Img/bowling-event.jpg";
 const Events = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-2 my-10">
-        <div className="md:w-screen w-full max-w-md">
-          <img src={Pic1} className="rounded-lg"/>
+    <>
+      <div className="mt-10 flex flex-col items-center justify-center gap-2 md:flex-row">
+        <div className="w-full max-w-md md:w-screen">
+          <img src={Pic1} className="rounded-lg shadow-md shadow-black hover:scale-105 transition" />
         </div>
-        <div className="md:w-screen w-full max-w-md">
-          <img src={Pic2} className="rounded-lg"/>
+        <div className="w-full max-w-md md:w-screen">
+          <img src={Pic2} className="rounded-lg shadow-md shadow-black hover:scale-105 transition" />
         </div>
-    </div>
-  )
-}
+      </div>
+      <div className="mb-10 mt-5 flex flex-col items-center justify-center gap-2 md:flex-row">
+        <div className="w-full max-w-md md:w-screen">
+          <img src={Pic3} className="rounded-lg shadow-md shadow-black hover:scale-105 transition" />
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default Events
+export default Events;

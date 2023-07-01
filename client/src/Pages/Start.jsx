@@ -1,4 +1,4 @@
-import bowlingEvent from "../img/bowling-event.jpg";
+import sommerAngebot from "../img/sommer-angebot.jpg";
 import Pic1 from "../Img/schuhe.jpg";
 import Pic2 from "../Img/disco-bowling-3.jpg";
 import schlagerfest from "../Img/schlagerfest.gif"
@@ -60,14 +60,14 @@ const Start = () => {
           <img
             src={schlagerfest}
             alt="Flensburger-Bowlingcenter"
-            className="rounded-lg max-w-md w-full shadow-md shadow-black"
+            className="rounded-lg max-w-md w-full shadow-md shadow-black hover:scale-105 transition"
           />
         </div>
         <div className="md:justify-self-start">
           <img
-            src={bowlingEvent}
+            src={sommerAngebot}
             alt="Flensburger-Bowlingcenter"
-            className="rounded-lg max-w-md w-full shadow-md shadow-black"
+            className="rounded-lg max-w-md w-full shadow-md shadow-black hover:scale-105 transition"
           />
         </div>
       </div>

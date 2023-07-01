@@ -54,7 +54,7 @@ const Bahnen = () => {
       };
       for (let j = 0; j < 18; j++) {
         let time = {
-          BahnID: 0,
+          bahnID: 0,
           id: j + 1,
           color: "",
           customerName: "",
@@ -101,7 +101,7 @@ const Bahnen = () => {
         for (let i = item.laneOne; i <= item.laneTwo; i++) {
           for (let j = item.startTime; j <= item.endTime; j++) {
             dataArray[i].time[j] = {
-              BahnID: item.id,
+              bahnID: item.id,
               startLane: item.laneOne,
               endLane: item.laneTwo,
               startTime: item.startTime,
@@ -418,7 +418,7 @@ const Bahnen = () => {
                       >
                         {itemIndex === time.firstIndex &&
                         timeIndex === time.secondIndex
-                          ? time.customerName
+                          ? <p className="break-all p-1">{time.customerName}</p>
                           : null}
                         {time.payedStatus === true ? (
                           <RiMoneyDollarCircleFill className="absolute right-0 top-0" />
@@ -459,7 +459,6 @@ const Bahnen = () => {
         <Options
           date={date}
           optionsWindow={optionsWindow}
-          setLanedDataArray={setLanedDataArray}
           laneDataArray={laneDataArray}
           laneFieldIndex={laneFieldIndex}
           clickCursor={clickCursor}

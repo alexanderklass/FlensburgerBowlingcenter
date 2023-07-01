@@ -2,7 +2,7 @@ import { PropTypes } from "prop-types";
 const WarningBox = ({ text }) => {
   return (
     <div
-      className="absolute top-56 z-20 flex items-center justify-center rounded-lg border border-black bg-red-50 p-4 text-sm text-red-800"
+      className="absolute top-56 z-40 flex items-center justify-center rounded-lg border border-black bg-red-50 p-4 text-sm text-red-800"
       role="alert"
     >
       <svg

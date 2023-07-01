@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 const ConfirmBox = ({ text, handleYesButton, handleNoButton }) => {
   return (
-    <div className="absolute z-20 flex flex-col items-center justify-center rounded-lg border-2 border-black bg-green-200 p-7">
+    <div className="absolute z-40 flex flex-col items-center justify-center rounded-lg border-2 border-black bg-green-200 p-7">
       <p className="text-md text-black">{text}</p>
       <div className="mt-5 flex flex-row text-white">
         <button

@@ -73,7 +73,7 @@ const Booking = ({
       )}
       <div className="absolute right-auto top-72 z-30">
         {showCreateWindow && (
-          <div className="h-78 box-shadow align-items-center relative flex flex-col justify-center rounded-lg border-2 border-gray-500 bg-zinc-700 p-6 shadow-lg">
+          <div className="h-78 box-shadow align-items-center relative flex flex-col justify-center rounded bg-zinc-700 p-6 shadow-lg">
             <button
               onClick={handleCloseEvent}
               className="absolute right-0 top-0 m-1 text-xl text-white"
@@ -86,7 +86,7 @@ const Booking = ({
               label="Kundenname"
               variant="filled"
               type="text"
-              className="rounded-lg bg-white"
+              className="rounded bg-white"
               onChange={(e) => setCustomerName(e.target.value)}
               required
               size="small"
@@ -97,7 +97,7 @@ const Booking = ({
               label="Telefonnummer"
               variant="filled"
               type="number"
-              className="rounded-lg bg-white"
+              className="rounded bg-white"
               onChange={(e) => setCustomerNumber(e.target.value)}
               required
               size="small"
@@ -232,7 +232,7 @@ const Booking = ({
               label="Eingetragen von..."
               variant="filled"
               type="text"
-              className="rounded-lg bg-white"
+              className="rounded bg-white"
               onChange={(e) => setWorkerName(e.target.value)}
               required
               size="small"
@@ -245,7 +245,7 @@ const Booking = ({
               variant="filled"
               multiline={true}
               rows={3}
-              className="rounded-lg bg-white"
+              className="rounded bg-white"
               onChange={(e) => setNotes(e.target.value)}
               size="small"
             />

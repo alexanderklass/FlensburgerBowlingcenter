@@ -10,7 +10,6 @@ import { Button } from "@mui/material";
 const Options = ({
   date,
   optionsWindow,
-  setLanedDataArray,
   laneDataArray,
   laneFieldIndex,
   clickCursor,
@@ -49,44 +48,20 @@ const Options = ({
       setSuccessDelete(false);
     }, 3000);
   };
-  const handleDeleteLane = () => {
-    const clonedArray = [...laneDataArray];
-    const indexOne = laneFieldIndex.itemIndex;
-    const indexTwo = laneFieldIndex.timeIndex;
-    const { customerNumber, customerName } =
-      clonedArray[indexOne].time[indexTwo];
-    for (let i = 0; i < clonedArray.length; i++) {
-      for (let j = 0; j < clonedArray[i].time.length; j++) {
-        if (
-          clonedArray[i].time[j].customerNumber === customerNumber &&
-          clonedArray[i].time[j].customerName === customerName
-        ) {
-          clonedArray[i].time[j] = {
-            customerName: "",
-            customerNumber: "",
-            color: "",
-            workerName: "",
-            notes: "",
-            payedStatus: false,
-          };
-        }
-      }
-    }
-    setLanedDataArray(clonedArray);
-    handleDeleteRequest(customerNumber, customerName);
-    handleCloseOptionsWindow();
-  };
-  const handleDeleteRequest = async (customerNumber, customerName) => {
+
+  const handleDeleteRequest = async () => {
+    const {itemIndex, timeIndex} = laneFieldIndex;
+    const { customerName, bahnID } = laneDataArray[itemIndex].time[timeIndex];
     await Axios.post(`${URL}/delete`, {
-      customerNumber: customerNumber,
+      id: bahnID,
       customerName: customerName,
       date: date,
     }).then((response, err) => {
       if (err) {
         console.log(err);
       } else if (response.data.message) {
-        handleSuccessDeleteBox();
         handleDeleteConfirmBox();
+        handleSuccessDeleteBox();
         handleCloseOptionsWindow();
         resetAndSetLaneData();
       }
@@ -103,26 +78,6 @@ const Options = ({
       setSuccessPayment(false);
     }, 3000);
   };
-  const handlePayedButton = () => {
-    const clonedArray = [...laneDataArray];
-    const indexOne = laneFieldIndex.itemIndex;
-    const indexTwo = laneFieldIndex.timeIndex;
-    const { customerName, customerNumber } =
-      clonedArray[indexOne].time[indexTwo];
-    for (let i = 0; i < clonedArray.length; i++) {
-      for (let j = 0; j < clonedArray[i].time.length; j++) {
-        if (
-          clonedArray[i].time[j].customerName === customerName &&
-          clonedArray[i].time[j].customerNumber === customerNumber
-        ) {
-          clonedArray[i].time[j].payedStatus = true;
-        }
-      }
-    }
-    postPaymentStatus(customerName, customerNumber);
-    setLanedDataArray(clonedArray);
-    handleCloseOptionsWindow();
-  };
 
   const handleSuccessMessage = () => {
     setChangeSuccess(true);
@@ -136,10 +91,12 @@ const Options = ({
       setChangeFailed(false);
     }, 3000);
   };
-  const postPaymentStatus = async (customerName, customerNumber) => {
+  const postPaymentStatus = async () => {
+    const { itemIndex, timeIndex }= laneFieldIndex;
+    const { customerName, bahnID } = laneDataArray[itemIndex].time[timeIndex];
     await Axios.post(`${URL}/payment`, {
       customerName: customerName,
-      customerNumber: customerNumber,
+      id: bahnID,
       date: date,
       payedStatus: true,
     }).then((response, err) => {
@@ -155,10 +112,8 @@ const Options = ({
   };
 
   const handlePostChangedData = async () => {
-    const indexOne = laneFieldIndex.itemIndex;
-    const indexTwo = laneFieldIndex.timeIndex;
-    const { customerName, customerNumber } =
-      laneDataArray[indexOne].time[indexTwo];
+    const { itemIndex, timeIndex } = laneFieldIndex;
+    const { customerName, bahnID } = laneDataArray[itemIndex].time[timeIndex];
     if (
       Number(changeLaneOne) > Number(changeLaneTwo) ||
       Number(changeStartTime) > Number(changeEndTime)
@@ -171,16 +126,17 @@ const Options = ({
       setChangeLoading(true);
       setTimeout(() => {
         setChangeLoading(false);
-        handleOptionsChangePost(customerName, customerNumber);
-        handlePostOptionsNotes(customerName, customerNumber);
+        handleOptionsChangePost(customerName, bahnID);
+        handlePostOptionsNotes(customerName, bahnID);
+        resetAndSetLaneData();
       }, 3000);
     }
   };
 
-  const handleOptionsChangePost = async (customerName, customerNumber) => {
+  const handleOptionsChangePost = async (customerName, bahnID) => {
     await Axios.post(`${URL}/optionsChange/${date}`, {
       customerName: customerName,
-      customerNumber: customerNumber,
+      id: bahnID,
       changeLaneOne: changeLaneOne,
       changeLaneTwo: changeLaneTwo,
       changeStartTime: changeStartTime,
@@ -189,7 +145,6 @@ const Options = ({
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        resetAndSetLaneData();
         handleCloseOptionsWindow();
         handleSuccessMessage();
       } else {
@@ -198,10 +153,10 @@ const Options = ({
     });
   };
 
-  const handlePostOptionsNotes = async (customerName, customerNumber) => {
+  const handlePostOptionsNotes = async (customerName, bahnID) => {
     await Axios.post(`${URL}/optionsNotes/${date}`, {
       customerName: customerName,
-      customerNumber: customerNumber,
+      id: bahnID,
       customerNotes: changeNotes,
     }).then((response, err) => {
       if (err) {
@@ -227,14 +182,14 @@ const Options = ({
       )}
       {confirmDeleteBox && (
         <ConfirmBox
-          handleYesButton={handleDeleteLane}
+          handleYesButton={handleDeleteRequest}
           handleNoButton={handleDeleteConfirmBox}
           text={"Bist du sicher das du stornieren willst?"}
         />
       )}
       {confirmPayedBox && (
         <ConfirmBox
-          handleYesButton={handlePayedButton}
+          handleYesButton={postPaymentStatus}
           handleNoButton={handlePayedConfirmBox}
           text={"Die Buchung wurde bezahlt?"}
         />
@@ -248,7 +203,7 @@ const Options = ({
       {optionsWindow && (
         <div
           style={styleObject}
-          className="align-center relative z-20 flex flex-col justify-center rounded-lg border-2 border-gray-500 bg-zinc-700 p-2 p-2"
+          className="align-center relative z-20 flex flex-col justify-center rounded bg-zinc-700 p-2 p-2"
         >
           <p className="mb-1 mt-4 self-center rounded bg-white p-2 text-center text-2xl text-black">
             {optionsTitle}
