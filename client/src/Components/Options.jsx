@@ -203,11 +203,12 @@ const Options = ({
         <SuccessBox text={"Buchung wurde erfolgreich auf bezahlt gestellt!"} />
       )}
       {optionsWindow && (
-        <Draggable>
+        <Draggable handle=".options-drag">
           <div
             style={styleObject}
-            className="align-center relative z-20 flex cursor-move flex-col justify-center rounded bg-zinc-700 p-2 p-2"
+            className="align-center relative z-20 flex flex-col justify-center rounded bg-zinc-700 p-2 p-2"
           >
+            <div className="options-drag cursor-move absolute top-0 left-0 right-6 h-5"></div>
             <p className="mb-1 mt-4 self-center rounded bg-white p-2 text-center text-2xl text-black">
               {optionsTitle}
             </p>

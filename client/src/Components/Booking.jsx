@@ -71,8 +71,8 @@ const Booking = ({
       {overwriteWarning && (
         <WarningBox text={"Für diese Buchung existieren schon Felder"} />
       )}
-      <Draggable>
-        <div className="absolute top-72 z-30 cursor-move">
+      <Draggable handle=".drag">
+        <div className="absolute top-72 z-30">
           {showCreateWindow && (
             <div className="h-78 box-shadow align-items-center relative flex flex-col justify-center rounded bg-zinc-700 p-6 shadow-lg">
               <button
@@ -81,6 +81,7 @@ const Booking = ({
               >
                 <AiOutlineClose />
               </button>
+              <div className="drag absolute top-0 left-0 right-7 h-7 cursor-move"></div>
               <Textfield
                 error={customerName === ""}
                 id="customerName"
