@@ -36,6 +36,7 @@ const SideNotes = ({ date }) => {
         });
         setTimeout(() => {
           setCookingRefreshLoading(false);
+          setCookingNotSaved(false);
         }, 3000);
       }
     } catch (error) {
@@ -56,6 +57,7 @@ const SideNotes = ({ date }) => {
         });
         setTimeout(() => {
           setClubRoomRefreshLoading(false);
+          setClubRoomNotSaved(false);
         }, 3000);
       }
     } catch (error) {
@@ -76,6 +78,7 @@ const SideNotes = ({ date }) => {
         });
         setTimeout(() => {
           setExtraRefreshLoading(false);
+          setExtraNotSaved(false);
         }, 3000);
       }
     } catch (error) {

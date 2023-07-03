@@ -28,7 +28,6 @@ const Bahnen = () => {
   const [workerName, setWorkerName] = useState("");
   const [notes, setNotes] = useState("");
   const [gridColor, setGridColor] = useState("");
-  const [colorIndex, setColorIndex] = useState(-1);
   const [displayDay, setDisplayDay] = useState("");
   const [date, setDate] = useState("");
   const [reverseBookingWarning, setReverseBookingWarning] = useState(false);
@@ -61,10 +60,10 @@ const Bahnen = () => {
           workerName: "",
           customerNumber: "",
           notes: "",
-          startLane:0,
-          endLane:0,
-          startTime:0,
-          endTime:0,
+          startLane: 0,
+          endLane: 0,
+          startTime: 0,
+          endTime: 0,
           payedStatus: false,
           firstIndex: 0,
           secondIndex: 0,
@@ -130,16 +129,23 @@ const Bahnen = () => {
   };
 
   const handleLaneRequest = async () => {
-    if(Number(laneOne) > Number(laneTwo) || Number(startTime) > Number(endTime)){
+    if (
+      Number(laneOne) > Number(laneTwo) ||
+      Number(startTime) > Number(endTime)
+    ) {
       setReverseBookingWarning(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         setReverseBookingWarning(false);
-      },3000);
-    }else if (
-      laneOne === -1 || laneTwo === -1 ||
-      startTime === -1 || endTime === -1 || 
-      customerName === "" || customerNumber === "" ||
-      workerName == "" || gridColor === ""
+      }, 3000);
+    } else if (
+      laneOne === -1 ||
+      laneTwo === -1 ||
+      startTime === -1 ||
+      endTime === -1 ||
+      customerName === "" ||
+      customerNumber === "" ||
+      workerName == "" ||
+      gridColor === ""
     ) {
       setMissingField(true);
       setTimeout(() => {
@@ -186,6 +192,7 @@ const Bahnen = () => {
   //Booking Functions
   const handleCreateEvent = () => {
     setShowCreateWindow(!showCreateWindow);
+    colorPicker();
     setLaneOne(0);
     setLaneTwo(11);
     setStartTime(0);
@@ -200,31 +207,68 @@ const Bahnen = () => {
   };
 
   const colorArray = [
+    { colorGrid: "bg-yellow-400" },
     { colorGrid: "bg-yellow-500" },
+    { colorGrid: "bg-yellow-800" },
+    { colorGrid: "bg-lime-400" },
     { colorGrid: "bg-lime-500" },
+    { colorGrid: "bg-lime-800" },
+    { colorGrid: "bg-green-400" },
     { colorGrid: "bg-green-500" },
+    { colorGrid: "bg-green-800" },
+    { colorGrid: "bg-orange-400" },
     { colorGrid: "bg-orange-500" },
+    { colorGrid: "bg-orange-800" },
+    { colorGrid: "bg-amber-400" },
     { colorGrid: "bg-amber-500" },
+    { colorGrid: "bg-amber-800" },
+    { colorGrid: "bg-teal-400" },
     { colorGrid: "bg-teal-500" },
+    { colorGrid: "bg-teal-800" },
+    { colorGrid: "bg-cyan-400" },
     { colorGrid: "bg-cyan-500" },
+    { colorGrid: "bg-cyan-800" },
+    { colorGrid: "bg-red-400" },
     { colorGrid: "bg-red-500" },
+    { colorGrid: "bg-red-800" },
+    { colorGrid: "bg-violet-400" },
     { colorGrid: "bg-violet-500" },
+    { colorGrid: "bg-violet-800" },
+    { colorGrid: "bg-sky-400" },
     { colorGrid: "bg-sky-500" },
+    { colorGrid: "bg-sky-800" },
+    { colorGrid: "bg-blue-400" },
     { colorGrid: "bg-blue-500" },
+    { colorGrid: "bg-blue-800" },
+    { colorGrid: "bg-indigo-400" },
     { colorGrid: "bg-indigo-500" },
+    { colorGrid: "bg-indigo-800" },
+    { colorGrid: "bg-purple-400" },
     { colorGrid: "bg-purple-500" },
+    { colorGrid: "bg-purple-800" },
+    { colorGrid: "bg-fuchsia-400" },
     { colorGrid: "bg-fuchsia-500" },
+    { colorGrid: "bg-fuchsia-800" },
+    { colorGrid: "bg-pink-400" },
     { colorGrid: "bg-pink-500" },
+    { colorGrid: "bg-pink-800" },
+    { colorGrid: "bg-rose-400" },
     { colorGrid: "bg-rose-500" },
+    { colorGrid: "bg-rose-800" },
   ];
+
+  const colorPicker = () =>{
+    const index = Math.floor(Math.random()*colorArray.length);
+    setGridColor(colorArray[index].colorGrid);
+  }
 
   const resetLaneStates = () => {
     setLaneOne(-1);
     setLaneTwo(-1);
     setStartTime(-1);
     setEndTime(-1);
-    setColorIndex(-1);
     setCustomerName("");
+    setCustomerNumber("");
     setGridColor("");
     setWorkerName("");
   };
@@ -241,7 +285,8 @@ const Bahnen = () => {
     }
   };
   const handleOptionsWindow = (itemIndex, timeIndex) => {
-    const { customerName,startLane,endLane,startTime,endTime,notes } = laneDataArray[itemIndex].time[timeIndex];
+    const { customerName, startLane, endLane, startTime, endTime, notes } =
+      laneDataArray[itemIndex].time[timeIndex];
     setChangeLaneOne(startLane);
     setChangeLaneTwo(endLane);
     setChangeStartTime(startTime);
@@ -261,12 +306,18 @@ const Bahnen = () => {
   const [hoverCustomerNumber, setHoverCustomerNumber] = useState("");
   const [hoverNotes, setHoverNotes] = useState("");
   const [hoverPrice, setHoverPrice] = useState(0);
-  const [hoverPayedStatus, setHoverPayedStatus] = useState() 
+  const [hoverPayedStatus, setHoverPayedStatus] = useState();
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseEnter = (indexOne, indexTwo) => {
-    const { customerName, workerName, customerNumber, notes, price, payedStatus } =
-      laneDataArray[indexOne].time[indexTwo];
+    const {
+      customerName,
+      workerName,
+      customerNumber,
+      notes,
+      price,
+      payedStatus,
+    } = laneDataArray[indexOne].time[indexTwo];
     setHoverCustomerName(customerName);
     setHoverWorkerName(workerName);
     setHoverCustomerNumber(customerNumber);
@@ -417,9 +468,9 @@ const Bahnen = () => {
                         } relative flex h-10 w-20 cursor-pointer items-center justify-center border border-black text-xs font-bold`}
                       >
                         {itemIndex === time.firstIndex &&
-                        timeIndex === time.secondIndex
-                          ? <p className="break-all p-1">{time.customerName}</p>
-                          : null}
+                        timeIndex === time.secondIndex ? (
+                          <p className="break-all p-1">{time.customerName}</p>
+                        ) : null}
                         {time.payedStatus === true ? (
                           <RiMoneyDollarCircleFill className="absolute right-0 top-0" />
                         ) : null}
@@ -432,6 +483,9 @@ const Bahnen = () => {
           })}
         </div>
         <Booking
+          customerName={customerName}
+          customerNumber={customerNumber}
+          workerName={workerName}
           showCreateWindow={showCreateWindow}
           handleCloseEvent={handleCloseEvent}
           setCustomerName={setCustomerName}
@@ -444,10 +498,6 @@ const Bahnen = () => {
           endTime={endTime}
           setStartTime={setStartTime}
           setEndTime={setEndTime}
-          colorArray={colorArray}
-          colorIndex={colorIndex}
-          setColorIndex={setColorIndex}
-          setGridColor={setGridColor}
           setWorkerName={setWorkerName}
           setNotes={setNotes}
           handleLaneRequest={handleLaneRequest}

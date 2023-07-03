@@ -6,6 +6,7 @@ import SuccessBox from "./SuccessBox.jsx";
 import ConfirmBox from "./ConfirmBox.jsx";
 import WarningBox from "./WarningBox.jsx";
 import MiniLoader from "./MiniLoader.jsx";
+import Draggable from "react-draggable";
 import { Button } from "@mui/material";
 const Options = ({
   date,
@@ -50,7 +51,7 @@ const Options = ({
   };
 
   const handleDeleteRequest = async () => {
-    const {itemIndex, timeIndex} = laneFieldIndex;
+    const { itemIndex, timeIndex } = laneFieldIndex;
     const { customerName, bahnID } = laneDataArray[itemIndex].time[timeIndex];
     await Axios.post(`${URL}/delete`, {
       id: bahnID,
@@ -92,7 +93,7 @@ const Options = ({
     }, 3000);
   };
   const postPaymentStatus = async () => {
-    const { itemIndex, timeIndex }= laneFieldIndex;
+    const { itemIndex, timeIndex } = laneFieldIndex;
     const { customerName, bahnID } = laneDataArray[itemIndex].time[timeIndex];
     await Axios.post(`${URL}/payment`, {
       customerName: customerName,
@@ -145,6 +146,7 @@ const Options = ({
       if (err) {
         console.log(err);
       } else if (response.data.success) {
+        resetAndSetLaneData();
         handleCloseOptionsWindow();
         handleSuccessMessage();
       } else {
@@ -201,48 +203,26 @@ const Options = ({
         <SuccessBox text={"Buchung wurde erfolgreich auf bezahlt gestellt!"} />
       )}
       {optionsWindow && (
-        <div
-          style={styleObject}
-          className="align-center relative z-20 flex flex-col justify-center rounded bg-zinc-700 p-2 p-2"
-        >
-          <p className="mb-1 mt-4 self-center rounded bg-white p-2 text-center text-2xl text-black">
-            {optionsTitle}
-          </p>
-          <button
-            onClick={handleCloseOptionsWindow}
-            className="absolute right-0 top-0 p-1 text-white"
+        <Draggable>
+          <div
+            style={styleObject}
+            className="align-center relative z-20 flex cursor-move flex-col justify-center rounded bg-zinc-700 p-2 p-2"
           >
-            <AiOutlineClose />
-          </button>
-          <div className="flex items-center justify-center">
-            <select
-              id="changeStartLane"
-              value={changeLaneOne}
-              onChange={(e) => {
-                setChangeLaneOne(e.target.value);
-              }}
-              className="m-1 w-16 rounded p-1 text-center text-black"
+            <p className="mb-1 mt-4 self-center rounded bg-white p-2 text-center text-2xl text-black">
+              {optionsTitle}
+            </p>
+            <button
+              onClick={handleCloseOptionsWindow}
+              className="absolute right-0 top-0 p-1 text-white"
             >
-              <option value={0}>1</option>
-              <option value={1}>2</option>
-              <option value={2}>3</option>
-              <option value={3}>4</option>
-              <option value={4}>5</option>
-              <option value={5}>6</option>
-              <option value={6}>7</option>
-              <option value={7}>8</option>
-              <option value={8}>9</option>
-              <option value={9}>10</option>
-              <option value={10}>11</option>
-              <option value={11}>12</option>
-            </select>
-            <label className="text-white">
-              bis
+              <AiOutlineClose />
+            </button>
+            <div className="flex items-center justify-center">
               <select
-                id="changeEndLane"
-                value={changeLaneTwo}
+                id="changeStartLane"
+                value={changeLaneOne}
                 onChange={(e) => {
-                  setChangeLaneTwo(e.target.value);
+                  setChangeLaneOne(e.target.value);
                 }}
                 className="m-1 w-16 rounded p-1 text-center text-black"
               >
@@ -259,107 +239,131 @@ const Options = ({
                 <option value={10}>11</option>
                 <option value={11}>12</option>
               </select>
-            </label>
-          </div>
-          <div className="self-center">
-            <select
-              id="changeStartTime"
-              className="mx-1 rounded border border-gray-500 p-1 text-sm"
-              required
-              value={changeStartTime}
-              onChange={(e) => {
-                setChangeStartTime(e.target.value);
-              }}
-            >
-              <option value={0}>16:00</option>
-              <option value={1}>16:30</option>
-              <option value={2}>17:00</option>
-              <option value={3}>17:30</option>
-              <option value={4}>18:00</option>
-              <option value={5}>18:30</option>
-              <option value={6}>19:00</option>
-              <option value={7}>19:30</option>
-              <option value={8}>20:00</option>
-              <option value={9}>20:30</option>
-              <option value={10}>21:00</option>
-              <option value={11}>21:30</option>
-              <option value={12}>22:00</option>
-              <option value={13}>22:30</option>
-              <option value={14}>23:00</option>
-              <option value={15}>23:30</option>
-              <option value={16}>00:00</option>
-              <option value={17}>00:30</option>
-            </select>
-            <label className="text-white">
-              bis
+              <label className="text-white">
+                bis
+                <select
+                  id="changeEndLane"
+                  value={changeLaneTwo}
+                  onChange={(e) => {
+                    setChangeLaneTwo(e.target.value);
+                  }}
+                  className="m-1 w-16 rounded p-1 text-center text-black"
+                >
+                  <option value={0}>1</option>
+                  <option value={1}>2</option>
+                  <option value={2}>3</option>
+                  <option value={3}>4</option>
+                  <option value={4}>5</option>
+                  <option value={5}>6</option>
+                  <option value={6}>7</option>
+                  <option value={7}>8</option>
+                  <option value={8}>9</option>
+                  <option value={9}>10</option>
+                  <option value={10}>11</option>
+                  <option value={11}>12</option>
+                </select>
+              </label>
+            </div>
+            <div className="self-center">
               <select
-                id="changeEndTime"
-                className="mx-1 rounded border border-gray-500 p-1 text-sm text-black"
+                id="changeStartTime"
+                className="mx-1 rounded border border-gray-500 p-1 text-sm"
                 required
-                value={changeEndTime}
+                value={changeStartTime}
                 onChange={(e) => {
-                  setChangeEndTime(e.target.value);
+                  setChangeStartTime(e.target.value);
                 }}
               >
-                <option value={0}>16:30</option>
-                <option value={1}>17:00</option>
-                <option value={2}>17:30</option>
-                <option value={3}>18:00</option>
-                <option value={4}>18:30</option>
-                <option value={5}>19:00</option>
-                <option value={6}>19:30</option>
-                <option value={7}>20:00</option>
-                <option value={8}>20:30</option>
-                <option value={9}>21:00</option>
-                <option value={10}>21:30</option>
-                <option value={11}>22:00</option>
-                <option value={12}>22:30</option>
-                <option value={13}>23:00</option>
-                <option value={14}>23:30</option>
-                <option value={15}>00:00</option>
-                <option value={16}>00:30</option>
-                <option value={17}>01:00</option>
+                <option value={0}>16:00</option>
+                <option value={1}>16:30</option>
+                <option value={2}>17:00</option>
+                <option value={3}>17:30</option>
+                <option value={4}>18:00</option>
+                <option value={5}>18:30</option>
+                <option value={6}>19:00</option>
+                <option value={7}>19:30</option>
+                <option value={8}>20:00</option>
+                <option value={9}>20:30</option>
+                <option value={10}>21:00</option>
+                <option value={11}>21:30</option>
+                <option value={12}>22:00</option>
+                <option value={13}>22:30</option>
+                <option value={14}>23:00</option>
+                <option value={15}>23:30</option>
+                <option value={16}>00:00</option>
+                <option value={17}>00:30</option>
               </select>
-            </label>
+              <label className="text-white">
+                bis
+                <select
+                  id="changeEndTime"
+                  className="mx-1 rounded border border-gray-500 p-1 text-sm text-black"
+                  required
+                  value={changeEndTime}
+                  onChange={(e) => {
+                    setChangeEndTime(e.target.value);
+                  }}
+                >
+                  <option value={0}>16:30</option>
+                  <option value={1}>17:00</option>
+                  <option value={2}>17:30</option>
+                  <option value={3}>18:00</option>
+                  <option value={4}>18:30</option>
+                  <option value={5}>19:00</option>
+                  <option value={6}>19:30</option>
+                  <option value={7}>20:00</option>
+                  <option value={8}>20:30</option>
+                  <option value={9}>21:00</option>
+                  <option value={10}>21:30</option>
+                  <option value={11}>22:00</option>
+                  <option value={12}>22:30</option>
+                  <option value={13}>23:00</option>
+                  <option value={14}>23:30</option>
+                  <option value={15}>00:00</option>
+                  <option value={16}>00:30</option>
+                  <option value={17}>01:00</option>
+                </select>
+              </label>
+            </div>
+            <div className="m-1 flex flex-col items-center justify-center">
+              <textarea
+                id="changeCustomerNotes"
+                value={changeNotes}
+                onChange={(e) => setChangeNotes(e.target.value)}
+                className="mb-2 h-24 w-40 rounded p-2"
+                placeholder="Notizen..."
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                disabled={changeLoading}
+                onClick={handlePostChangedData}
+              >
+                {changeLoading ? <MiniLoader /> : "Anpassen"}
+              </Button>
+            </div>
+            <div className="mt-1 flex items-center justify-center">
+              <Button
+                variant="contained"
+                color="success"
+                size="small"
+                onClick={handlePayedConfirmBox}
+              >
+                Bezahlt
+              </Button>
+              <Button
+                sx={{ marginLeft: 1 }}
+                variant="contained"
+                color="error"
+                size="small"
+                onClick={handleDeleteConfirmBox}
+              >
+                Storno
+              </Button>
+            </div>
           </div>
-          <div className="m-1 flex flex-col items-center justify-center">
-            <textarea
-              id="changeCustomerNotes"
-              value={changeNotes}
-              onChange={(e) => setChangeNotes(e.target.value)}
-              className="mb-2 h-24 w-40 p-2 rounded"
-              placeholder="Notizen..."
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              disabled={changeLoading}
-              onClick={handlePostChangedData}
-            >
-              {changeLoading ? <MiniLoader /> : "Anpassen"}
-            </Button>
-          </div>
-          <div className="mt-1 flex items-center justify-center">
-            <Button
-              variant="contained"
-              color="success"
-              size="small"
-              onClick={handlePayedConfirmBox}
-            >
-              Bezahlt
-            </Button>
-            <Button
-              sx={{ marginLeft: 1 }}
-              variant="contained"
-              color="error"
-              size="small"
-              onClick={handleDeleteConfirmBox}
-            >
-              Storno
-            </Button>
-          </div>
-        </div>
+        </Draggable>
       )}
     </>
   );
