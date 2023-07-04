@@ -124,7 +124,9 @@ const Bahnen = () => {
       setLanedDataArray(dataArray);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      if(error.response && error.response.status === 404){
+        //
+      }
     }
   };
 
@@ -344,6 +346,7 @@ const Bahnen = () => {
     await resetAndSetLaneData();
   };
 
+
   useEffect(() => {
     const interval = setInterval(() => {
       resetAndSetLaneData();
@@ -379,55 +382,55 @@ const Bahnen = () => {
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             16:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
             16:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             17:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
             17:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             18:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
             18:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             19:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
             19:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             20:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
             20:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             21:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
             21:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             22:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
             22:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             23:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
             23:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             00:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
             00:30
           </div>
         </div>

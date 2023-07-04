@@ -6,12 +6,14 @@ import Axios from "axios";
 import MiniLoader from "./MiniLoader";
 import Button from "@mui/material/Button";
 import LogoutIcon from '@mui/icons-material/Logout';
+import Settings from "./Settings";
 
 const Info = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverInfo, setHoverInfo] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
+  const [toggleSettings, setToggleSettings] = useState(false);
   const navigate = useNavigate();
 
   const handleMouseEnter = (event) => {
@@ -37,6 +39,10 @@ const Info = () => {
     }
   };
 
+  const handleSettings = () =>{
+    setToggleSettings(!toggleSettings);
+  }
+
   const postion = {
     left: cursorPosition.x - 190,
     top: cursorPosition.y -50,
@@ -45,6 +51,9 @@ const Info = () => {
 
   return (
     <>
+      {toggleSettings && (
+        <Settings/>
+      )}
       <div className="flex flex-row justify-between items-center self-end p-2">
         <div>
           <Button
@@ -58,9 +67,9 @@ const Info = () => {
           {logoutLoading ? <MiniLoader/> : "Ausloggen"}
           </Button>
         </div>
-        <div>
+        <button onClick={handleSettings}>
           <FcSettings className="text-4xl hover:animate-spin cursor-pointer"/>
-        </div>
+        </button>
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMousLeave}>
           <FcInfo className="hover:animate-pulse cursor-pointer text-4xl" />
         </div>

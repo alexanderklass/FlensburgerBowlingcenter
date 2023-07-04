@@ -1,21 +1,16 @@
 import { PropTypes } from "prop-types";
+import Button from "@mui/material/Button";
 const ConfirmBox = ({ text, handleYesButton, handleNoButton }) => {
   return (
-    <div className="absolute z-40 flex flex-col items-center justify-center rounded-lg border-2 border-black bg-green-200 p-7">
+    <div className="absolute z-40 flex flex-col items-center justify-center rounded border border-black bg-green-300 p-7">
       <p className="text-md text-black">{text}</p>
       <div className="mt-5 flex flex-row text-white">
-        <button
-          onClick={handleYesButton}
-          className="m-1 w-16 rounded-lg border border-black bg-green-500 p-2"
-        >
+        <Button sx={{marginRight:2}} variant="contained" color="success" onClick={handleYesButton}>
           Ja
-        </button>
-        <button
-          onClick={handleNoButton}
-          className="m-1 w-16 rounded-lg border border-black bg-red-500 p-2"
-        >
+        </Button>
+        <Button variant="contained" color="error" onClick={handleNoButton}>
           Nein
-        </button>
+        </Button>
       </div>
     </div>
   );

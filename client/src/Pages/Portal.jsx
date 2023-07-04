@@ -6,15 +6,17 @@ import { Outlet } from "react-router-dom";
 const Portal = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const navigate = useNavigate();
-
-  useEffect(() => {
+  const checkForLoginStatus = () => {
     Axios.get(`${URL}/login`).then((response) => {
       if (response.data.loggedIn === false) {
         navigate("/login");
       }
     });
+  };
+  useEffect(() => {
+    checkForLoginStatus();
     //eslint-disable-next-line
-  },[]);
+  }, []);
 
   return (
     <>
