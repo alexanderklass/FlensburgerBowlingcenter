@@ -184,7 +184,7 @@ const SideNotes = ({ date }) => {
           multiline
           rows={7}
           label="Sonderbuchungen..."
-          className={`${extraNotes === "" ? "" : "bg-yellow-500"}`}
+          className={`${extraNotes === "" ? "" : "bg-yellow-500"} bg-white`}
           value={extraNotes}
           onChange={handleExtraChanged}
           InputLabelProps={{
@@ -224,6 +224,7 @@ const SideNotes = ({ date }) => {
           multiline
           rows={7}
           label="Notizen Koch..."
+          className="bg-white"
           value={cookingNotesField}
           onChange={handleCookingChanged}
           InputLabelProps={{
@@ -262,7 +263,7 @@ const SideNotes = ({ date }) => {
           id="clubRoomNotes"
           multiline
           rows={7}
-          className="w-96"
+          className="w-96 bg-white"
           label="Notizen Clubraum..."
           value={clubRoomNotesField}
           onChange={handleClubRoomChanged}

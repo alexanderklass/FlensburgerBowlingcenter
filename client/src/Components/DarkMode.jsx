@@ -2,31 +2,26 @@ import Switch from "@mui/material/Switch";
 import { useEffect, useState } from "react";
 
 const DarkMode = () => {
-  const dark = "bg-zinc-600";
-  const light = "bg-white text-black";
-  const [theme, setTheme] = useState(light);
-  const [toggleTheme, setToggleTheme] = useState(false);
+  const dark = "bg-zinc-800";
+  const light = "bg-white";
+  const [toggleTheme, setToggleTheme] = useState(
+    localStorage.getItem("darkmode") === "true"
+  );
 
   const toggleDarkmode = () => {
-    if (theme === light) {
-      setTheme(dark);
-      setToggleTheme(true);
-    } else {
-      setTheme(light);
-      setToggleTheme(false);
-    }
+    setToggleTheme(!toggleTheme);
   };
 
   useEffect(() => {
-    document.body.className = theme;
+    document.body.className = toggleTheme ? dark : light;
+    localStorage.setItem("darkmode", toggleTheme);
     //eslint-disable-next-line
-  }, [theme]);
+  }, [toggleTheme]);
 
   return (
-    <label className="text-white">
-      <Switch checked={toggleTheme} onChange={toggleDarkmode} />
-      Nachtmodus
-    </label>
+    <>
+      <Switch sx={{marginRight:1}} checked={toggleTheme} onChange={toggleDarkmode} />
+    </>
   );
 };
 

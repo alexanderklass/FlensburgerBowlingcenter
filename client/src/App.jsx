@@ -23,8 +23,8 @@ function App() {
           <Route path="/Veranstaltungen" element={<Veranstaltungen />} />
           <Route path="/Events 2023" element={<Events />} />
           <Route path="/Betriebssport" element={<Betriebssport />} />
-          <Route path="/Datenschutz" element={<Datenschutz />} />
         </Route>
+          <Route path="/Datenschutz" element={<Datenschutz />} />
         <Route element={<SidebarLayout />}>
           <Route path="/Portal" element={<Portal />}>
             <Route path="Bahnen" element={<Bahnen />} />

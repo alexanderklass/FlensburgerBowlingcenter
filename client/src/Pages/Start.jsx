@@ -1,15 +1,15 @@
 import sommerAngebot from "../img/sommer-angebot.jpg";
 import Pic1 from "../Img/schuhe.jpg";
 import Pic2 from "../Img/disco-bowling-3.jpg";
-import schlagerfest from "../Img/schlagerfest.gif"
-import {Link} from "react-router-dom"
+import schlagerfest from "../Img/schlagerfest.gif";
+import { Link } from "react-router-dom";
 
 const Start = () => {
   return (
     <section>
-      <div className="grid md:grid-cols-2 grid-cols-1 justify-items-center gap-2 my-10 mx-2">
+      <div className="mx-2 my-10 grid grid-cols-1 justify-items-center gap-2 md:grid-cols-2">
         <div className="max-w-md md:justify-self-end">
-          <div className="relative border rounded-lg shadow bg-zinc-800 border-gray-700">
+          <div className="relative rounded-lg border border-gray-700 bg-zinc-800 shadow">
             <img
               className="rounded-t-lg"
               src={Pic1}
@@ -29,13 +29,16 @@ const Start = () => {
                 Spiel, Spaß und guter Stimmung. Wir freuen uns auf Euch!
               </p>
             </div>
-            <span className="absolute w-10/12 top-1 left-9 text-sm font-medium mr-2 px-2.5 py-0.5 rounded opacity-90 bg-yellow-300 text-black">
-              Reservierungen sind nur telefonisch möglich unter: <Link to={"tel:+49046148087676"}><span>0461-48087676</span></Link> 
+            <span className="absolute left-9 top-1 mr-2 w-10/12 rounded bg-yellow-300 px-2.5 py-0.5 text-sm font-medium text-black opacity-90">
+              Reservierungen sind nur telefonisch möglich unter:{" "}
+              <Link to={"tel:+49046148087676"}>
+                <span>0461-48087676</span>
+              </Link>
             </span>
           </div>
         </div>
         <div className="max-w-md md:justify-self-start">
-          <div className="bg-white border rounded-lg shadow bg-zinc-800 border-gray-700">
+          <div className="rounded-lg border border-gray-700 bg-white bg-zinc-800 shadow">
             <img
               className="rounded-t-lg"
               src={Pic2}
@@ -60,14 +63,14 @@ const Start = () => {
           <img
             src={schlagerfest}
             alt="Flensburger-Bowlingcenter"
-            className="rounded-lg max-w-md w-full shadow-md shadow-black hover:scale-105 transition"
+            className="w-full max-w-md rounded-lg shadow-md shadow-black transition hover:scale-105"
           />
         </div>
         <div className="md:justify-self-start">
           <img
             src={sommerAngebot}
             alt="Flensburger-Bowlingcenter"
-            className="rounded-lg max-w-md w-full shadow-md shadow-black hover:scale-105 transition"
+            className="w-full max-w-md rounded-lg shadow-md shadow-black transition hover:scale-105"
           />
         </div>
       </div>

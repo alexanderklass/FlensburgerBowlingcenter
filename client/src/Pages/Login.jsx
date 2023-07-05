@@ -94,6 +94,7 @@ const Login = () => {
             sx={{ marginBottom: 1 }}
             label="Name"
             variant="filled"
+            className="bg-white"
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
@@ -106,6 +107,7 @@ const Login = () => {
             label="Passwort"
             variant="filled"
             type="password"
+            className="bg-white"
             onChange={(e) => setUserPassword(e.target.value)}
             value={userPassword}
             InputLabelProps={{

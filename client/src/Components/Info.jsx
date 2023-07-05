@@ -7,6 +7,7 @@ import MiniLoader from "./MiniLoader";
 import Button from "@mui/material/Button";
 import LogoutIcon from '@mui/icons-material/Logout';
 import Settings from "./Settings";
+import DarkMode from "./DarkMode";
 
 const Info = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -67,6 +68,7 @@ const Info = () => {
           {logoutLoading ? <MiniLoader/> : "Ausloggen"}
           </Button>
         </div>
+        <DarkMode/>
         <button onClick={handleSettings}>
           <FcSettings className="text-4xl hover:animate-spin cursor-pointer"/>
         </button>
