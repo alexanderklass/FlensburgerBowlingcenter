@@ -13,7 +13,7 @@ const PageLayout = () => {
         buttonText="OK"
         disableButtonStyles
         buttonClasses="rounded bg-blue-700 hover:bg-blue-600 transition text-white p-1 mr-10 w-20"
-        containerClasses="z-10 fixed bot-0 left-0 w-screen bg-red-500 flex flex-row justify-between items-center h-20"
+        containerClasses="z-10 fixed bot-0 left-0 w-screen bg-red-500 flex flex-row justify-between items-center md:h-20"
         contentClasses="m-2 text-white"
         disableStyles
       >

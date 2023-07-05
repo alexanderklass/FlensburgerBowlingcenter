@@ -27,7 +27,7 @@ const Header = ({ className }) => {
         </div>
 
         <div className="mt-1 flex justify-center md:hidden">
-          <GoGrabber className="text-3xl" onClick={handleButtonToggler} />
+          <GoGrabber className="text-3xl cursor-pointer" onClick={handleButtonToggler} />
         </div>
 
         <div className={`${toggleHeaderButton ? "" : "hidden md:block"} `}>
