@@ -4,7 +4,6 @@ import MiniLoader from "../Components/MiniLoader.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Textfield from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import LoginIcon from '@mui/icons-material/Login';
 
@@ -15,33 +14,9 @@ const Login = () => {
   const [userPassword, setUserPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   Axios.defaults.withCredentials = true;
 
-  const handleCheckBoxChange = () => {
-    setRememberMe(!rememberMe);
-  };
-
-  const handleRememberMeOnStart = () => {
-    const rememberMeValue = localStorage.getItem("rememberMe") === "true";
-    setRememberMe(rememberMeValue);
-    if (rememberMeValue) {
-      setUserName(localStorage.getItem("username") || "");
-      setUserPassword(localStorage.getItem("password") || "");
-    }
-  };
-
-  const handleLocalStorageValues = () => {
-    if (rememberMe) {
-      localStorage.setItem("username", userName);
-      localStorage.setItem("password", userPassword);
-    } else {
-      localStorage.removeItem("username");
-      localStorage.removeItem("password");
-    }
-    localStorage.setItem("rememberMe", rememberMe.toString());
-  };
 
   const login = () => {
     Axios.post(`${URL}/login`, {
@@ -51,7 +26,6 @@ const Login = () => {
       if (response.data.message) {
         setLoginStatus(response.data.message);
       } else if (response.data.successLogin) {
-        handleLocalStorageValues();
         setLoginLoading(true);
         setTimeout(() => {
           setLoginLoading(false);
@@ -79,14 +53,13 @@ const Login = () => {
   };
 
   useEffect(() => {
-    handleRememberMeOnStart();
     checkLoggingStatus();
     //eslint-disable-next-line
   }, []);
 
   return (
     <>
-      <div className="my-10 flex flex-col items-center justify-center">
+      <div className="my-10 flex h-4/6 flex-col items-center justify-center">
         <img src={Logo} className="mb-5 max-w-sm" />
         <div className="bg-dark flex flex-col">
           <Textfield
@@ -98,9 +71,6 @@ const Login = () => {
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
           />
           <Textfield
             id="Password"
@@ -110,14 +80,7 @@ const Login = () => {
             className="bg-white"
             onChange={(e) => setUserPassword(e.target.value)}
             value={userPassword}
-            InputLabelProps={{
-              shrink: true,
-            }}
           />
-          <label className="mt-1 flex items-center">
-            <Checkbox checked={rememberMe} onChange={handleCheckBoxChange} />
-            Daten merken
-          </label>
           <div className="p-1 text-red-700">{loginStatus}</div>
           <Button 
             onClick={login} 

@@ -1,7 +1,7 @@
 import sommerAngebot from "../img/sommer-angebot.jpg";
 import Pic1 from "../Img/schuhe.jpg";
 import Pic2 from "../Img/disco-bowling-3.jpg";
-import schlagerfest from "../Img/schlagerfest.gif";
+import schlagerfest from "../Img/schlager-abgesagt.jpg";
 import { Link } from "react-router-dom";
 
 const Start = () => {
