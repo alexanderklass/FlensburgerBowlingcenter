@@ -175,13 +175,18 @@ const Options = ({
 
   return (
     <>
-      {reverseBookingWarning && (
-        <WarningBox text={"Der erste Wert darf nicht größer sein!"} />
-      )}
-      {changeSuccess && <SuccessBox text={"Buchung erfolgreich verschoben!"} />}
-      {changeFailed && (
-        <WarningBox text={"Es ist eine Buchung schon vorhanden!"} />
-      )}
+      <WarningBox
+        condition={reverseBookingWarning}
+        text={"Der erste Wert darf nicht größer sein!"}
+      />
+      <SuccessBox
+        condition={changeSuccess}
+        text={"Buchung erfolgreich verschoben!"}
+      />
+      <WarningBox
+        condition={changeFailed}
+        text={"Es ist eine Buchung schon vorhanden!"}
+      />
       {confirmDeleteBox && (
         <ConfirmBox
           handleYesButton={handleDeleteRequest}
@@ -196,19 +201,21 @@ const Options = ({
           text={"Die Buchung wurde bezahlt?"}
         />
       )}
-      {successDelete && (
-        <SuccessBox text={"Buchung wurde erfolgreich gelöscht!"} />
-      )}
-      {successPayment && (
-        <SuccessBox text={"Buchung wurde erfolgreich auf bezahlt gestellt!"} />
-      )}
+      <SuccessBox
+        condition={successDelete}
+        text={"Buchung wurde erfolgreich gelöscht!"}
+      />
+      <SuccessBox
+        condition={successPayment}
+        text={"Buchung wurde erfolgreich auf bezahlt gestellt!"}
+      />
       {optionsWindow && (
         <Draggable handle=".options-drag">
           <div
             style={styleObject}
             className="align-center relative z-20 flex flex-col justify-center rounded bg-zinc-700 p-2 p-2"
           >
-            <div className="options-drag cursor-move absolute top-0 left-0 right-6 h-5"></div>
+            <div className="options-drag absolute left-0 right-6 top-0 h-5 cursor-move"></div>
             <p className="mb-1 mt-4 self-center rounded bg-white p-2 text-center text-2xl text-black">
               {optionsTitle}
             </p>

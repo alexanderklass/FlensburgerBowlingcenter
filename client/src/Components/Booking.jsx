@@ -62,15 +62,20 @@ const Booking = ({
           text={"Du buchst Rücken an Rücken! Trotzdem buchen?"}
         />
       )}
-      {successBooking && (
-        <SuccessBox text={"Bahn wurde erfolgreich gebucht!"} />
-      )}
-      {missingFields && (
-        <WarningBox text={"Bitte alle wichtigen Felder ausfüllen!"} />
-      )}
-      {overwriteWarning && (
-        <WarningBox text={"Für diese Buchung existieren schon Felder"} />
-      )}
+      <SuccessBox
+        condition={successBooking}
+        text={"Bahn wurde erfolgreich gebucht!"}
+      />
+
+      <WarningBox
+        condition={missingFields}
+        text={"Bitte alle wichtigen Felder ausfüllen!"}
+      />
+
+      <WarningBox
+        condition={overwriteWarning}
+        text={"Für diese Buchung existieren schon Felder"}
+      />
       <Draggable handle=".drag">
         <div className="absolute top-72 z-30">
           {showCreateWindow && (
@@ -81,7 +86,7 @@ const Booking = ({
               >
                 <AiOutlineClose />
               </button>
-              <div className="drag absolute top-0 left-0 right-7 h-7 cursor-move"></div>
+              <div className="drag absolute left-0 right-7 top-0 h-7 cursor-move"></div>
               <Textfield
                 error={customerName === ""}
                 id="customerName"
@@ -276,7 +281,7 @@ Booking.propTypes = {
   bookingLoading: PropTypes.bool,
   customerName: PropTypes.string,
   customerNumber: PropTypes.string,
-  workerName: PropTypes.string
+  workerName: PropTypes.string,
 };
 
 export default Booking;
