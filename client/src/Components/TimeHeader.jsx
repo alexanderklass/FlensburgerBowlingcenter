@@ -107,7 +107,7 @@ const TimeHeader = ({
         <TextField 
           type="date"
           size="small"
-          className="bg-white rounded w-36"
+          className="bg-white rounded"
           value={date}
           onChange={handleDatePicker}/>
         {/*
