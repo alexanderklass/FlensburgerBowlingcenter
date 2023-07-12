@@ -124,7 +124,7 @@ const Bahnen = () => {
       setLanedDataArray(dataArray);
     } catch (error) {
       setIsLoading(false);
-      if(error.response && error.response.status === 404){
+      if (error.response && error.response.status === 404) {
         //
       }
     }
@@ -259,10 +259,10 @@ const Bahnen = () => {
     { colorGrid: "bg-rose-800" },
   ];
 
-  const colorPicker = () =>{
-    const index = Math.floor(Math.random()*colorArray.length);
+  const colorPicker = () => {
+    const index = Math.floor(Math.random() * colorArray.length);
     setGridColor(colorArray[index].colorGrid);
-  }
+  };
 
   const resetLaneStates = () => {
     setLaneOne(-1);
@@ -346,6 +346,11 @@ const Bahnen = () => {
     await resetAndSetLaneData();
   };
 
+  const handleTimeGridClicked = (event, itemIndex, timeIndex) => {
+    handleOptionsWindow(itemIndex, timeIndex);
+    setLaneFieldIndex({ itemIndex: itemIndex, timeIndex: timeIndex, });
+    onClickCursorPosition(event);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -440,9 +445,8 @@ const Bahnen = () => {
               <div key={item.id} className="flex flex-col">
                 <div
                   key={item.id}
-                  className={`${
-                    item.id % 2 === 0 ? "border-r-4 border-black" : ""
-                  } flex h-10 w-20 items-center justify-center border border-black bg-zinc-700 text-white`}
+                  className={`${item.id % 2 === 0 ? "border-r-4 border-black" : ""} 
+                  flex h-10 w-20 items-center justify-center border border-black bg-zinc-700 text-white`}
                 >
                   {item.bahn}
                 </div>
@@ -451,27 +455,14 @@ const Bahnen = () => {
                     return (
                       <div
                         key={time.id}
-                        onClick={(event) => {
-                          handleOptionsWindow(itemIndex, timeIndex);
-                          setLaneFieldIndex({
-                            itemIndex: itemIndex,
-                            timeIndex: timeIndex,
-                          });
-                          onClickCursorPosition(event);
-                        }}
-                        onMouseEnter={() =>
-                          handleMouseEnter(itemIndex, timeIndex)
-                        }
+                        onClick={(event)=>handleTimeGridClicked(event,itemIndex,timeIndex)}
+                        onMouseEnter={() => handleMouseEnter(itemIndex, timeIndex)}
                         onMouseLeave={handleMouseLeave}
                         onMouseMove={handleMouseMove}
-                        className={`${
-                          timeIndex % 2 === 1 ? "border-b-4" : ""
-                        } ${item.id % 2 === 0 ? "border-r-4" : ""} ${
-                          time.color
-                        } relative flex h-10 w-20 cursor-pointer items-center justify-center border border-black text-xs font-bold`}
+                        className={`${timeIndex % 2 === 1 ? "border-b-4" : ""} ${item.id % 2 === 0 ? "border-r-4" : ""} ${time.color} 
+                        relative flex h-10 w-20 cursor-pointer items-center justify-center border border-black text-xs font-bold`}
                       >
-                        {itemIndex === time.firstIndex &&
-                        timeIndex === time.secondIndex ? (
+                        {itemIndex === time.firstIndex && timeIndex === time.secondIndex ? (
                           <p className="break-all p-1">{time.customerName}</p>
                         ) : null}
                         {time.payedStatus === true ? (

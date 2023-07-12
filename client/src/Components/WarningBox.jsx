@@ -4,8 +4,8 @@ const WarningBox = ({ text, condition }) => {
     <>
       <div
         className={`${
-          condition ? "-translate-x-2" : "translate-x-96"
-        } fixed right-0 top-12 z-40 flex h-16 w-96 rounded shadow-lg transition-transform`}
+          condition ? "-translate-x-2 shadow-lg" : "translate-x-96"
+        } fixed right-0 top-12 z-40 flex h-16 w-96 rounded transition-transform`}
       >
         <div className="flex items-center rounded-l-lg bg-red-600 px-6 py-4">
           <svg

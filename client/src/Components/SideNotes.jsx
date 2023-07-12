@@ -41,7 +41,7 @@ const SideNotes = ({ date }) => {
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        console.log("Ressource nicht gefunden");
+        //
       }
     }
   };
@@ -62,7 +62,7 @@ const SideNotes = ({ date }) => {
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        console.log("Ressource nicht gefunden");
+        //
       }
     }
   };
@@ -83,7 +83,7 @@ const SideNotes = ({ date }) => {
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        console.log("Ressource nicht gefunden");
+        //
       }
     }
   };
