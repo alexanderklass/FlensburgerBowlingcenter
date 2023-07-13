@@ -34,15 +34,13 @@ const Login = () => {
       }
     });
   };
-
-  /*
+/*
   const register = () => {
     Axios.post(`${URL}/register`,{
       userName: userName,
       userPassword: userPassword,
     })};
-  */
-
+*/
   const checkLoggingStatus = async () => {
     const response = await Axios.get(`${URL}/login`);
     if (response.data.loggedIn === true) {
