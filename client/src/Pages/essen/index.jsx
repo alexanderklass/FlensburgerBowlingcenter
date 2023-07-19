@@ -1,7 +1,7 @@
-import Pizza_pic from "../Img/pizza-ideal.jpg";
-import Schnitzel_pic from "../Img/schnitzel.jpg";
-import Speisekarte1 from "../Img/Speisekarte-1.jpg";
-import Speisekarte2 from "../Img/Speisekarte-2.jpg";
+import Pizza_pic from "../../assets/images/pizza-ideal.jpg";
+import Schnitzel_pic from "../../assets/images/schnitzel.jpg";
+import Speisekarte1 from "../../assets/images/Speisekarte-1.jpg";
+import Speisekarte2 from "../../assets/images/Speisekarte-2.jpg";
 
 const Essen = () => {
   return (

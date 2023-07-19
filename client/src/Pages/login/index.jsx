@@ -1,6 +1,6 @@
-import Logo from "../Img/bowling-logo.png";
+import Logo from "../../assets/images/bowling-logo.png";
 import Axios from "axios";
-import MiniLoader from "../Components/MiniLoader.jsx";
+import MiniLoader from "../../Components/MiniLoader.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Textfield from "@mui/material/TextField";
@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    checkLoggingStatus();
+    //checkLoggingStatus();
     //eslint-disable-next-line
   }, []);
 

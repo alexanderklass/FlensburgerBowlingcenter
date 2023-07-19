@@ -1,10 +1,10 @@
-import SlideShow from "../Components/SlideShow.jsx";
-import tresen1 from "../Img/tresen-1.jpg";
-import tresen2 from "../Img/tresen-2.jpg";
-import tresen3 from "../Img/tresen-3.jpg";
-import veranstaltung1 from "../Img/veranstaltung-1.jpg";
-import veranstaltung2 from "../Img/veranstaltung-2.jpg";
-import veranstaltung3 from "../Img/veranstaltung-3.jpg";
+import SlideShow from "../../Components/SlideShow.jsx";
+import tresen1 from "../../assets/images/tresen-1.jpg";
+import tresen2 from "../../assets/images/tresen-2.jpg";
+import tresen3 from "../../assets/images/tresen-3.jpg";
+import veranstaltung1 from "../../assets/images/veranstaltung-1.jpg";
+import veranstaltung2 from "../../assets/images/veranstaltung-2.jpg";
+import veranstaltung3 from "../../assets/images/veranstaltung-3.jpg";
 
 const Veranstaltungen = () => {
   const tresenSlides = [{ url: tresen1 }, { url: tresen2 }, { url: tresen3 }];

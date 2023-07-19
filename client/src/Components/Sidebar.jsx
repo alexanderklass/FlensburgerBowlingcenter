@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../Img/bowling-logo-white.png";
+import logo from "../assets/images/bowling-logo-white.png";
 import { useState } from "react";
 import { SlCalender } from "react-icons/sl";
 import { GiBowlingPin } from "react-icons/gi";

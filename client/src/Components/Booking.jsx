@@ -120,18 +120,11 @@ const Booking = ({
                   }}
                   className="h-10 w-24 rounded p-1 text-center text-black"
                 >
-                  <option value={0}>1</option>
-                  <option value={1}>2</option>
-                  <option value={2}>3</option>
-                  <option value={3}>4</option>
-                  <option value={4}>5</option>
-                  <option value={5}>6</option>
-                  <option value={6}>7</option>
-                  <option value={7}>8</option>
-                  <option value={8}>9</option>
-                  <option value={9}>10</option>
-                  <option value={10}>11</option>
-                  <option value={11}>12</option>
+                  {Array.from({ length: 12 }, (_, index) => (
+                    <option key={index} value={index}>
+                      {index + 1}
+                    </option>
+                  ))}
                 </select>
                 <label className="text-white">
                   bis
@@ -143,18 +136,11 @@ const Booking = ({
                     }}
                     className="h-10 w-24 rounded p-1 text-center text-black"
                   >
-                    <option value={0}>1</option>
-                    <option value={1}>2</option>
-                    <option value={2}>3</option>
-                    <option value={3}>4</option>
-                    <option value={4}>5</option>
-                    <option value={5}>6</option>
-                    <option value={6}>7</option>
-                    <option value={7}>8</option>
-                    <option value={8}>9</option>
-                    <option value={9}>10</option>
-                    <option value={10}>11</option>
-                    <option value={11}>12</option>
+                    {Array.from({ length: 12 }, (_, index) => (
+                      <option key={index} value={index}>
+                        {index + 1}
+                      </option>
+                    ))}
                   </select>
                 </label>
               </div>

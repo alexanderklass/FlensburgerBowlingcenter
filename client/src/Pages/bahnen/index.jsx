@@ -1,24 +1,24 @@
 import Axios from "axios";
-import SideNotes from "../Components/SideNotes.jsx";
-import TimeHeader from "../Components/TimeHeader.jsx";
-import Options from "../Components/Options.jsx";
-import Info from "../Components/Info.jsx";
-import Booking from "../Components/Booking.jsx";
-import MouseHover from "../Components/MouseHover.jsx";
-import Loading from "../Components/Loading.jsx";
+import SideNotes from "../../Components/SideNotes.jsx";
+import TimeHeader from "../../Components/TimeHeader.jsx";
+import Options from "../../Components/Options.jsx";
+import Info from "../../Components/Info.jsx";
+import Booking from "../../Components/Booking.jsx";
+import MouseHover from "../../Components/MouseHover.jsx";
+import Loading from "../../Components/Loading.jsx";
 import { useState, useEffect } from "react";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 const Bahnen = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [isLoading, setIsLoading] = useState(false);
-  const [showCreateWindow, setShowCreateWindow] = useState(false);
   //Options.jsx
   const [changeLaneOne, setChangeLaneOne] = useState(0);
   const [changeLaneTwo, setChangeLaneTwo] = useState(0);
   const [changeStartTime, setChangeStartTime] = useState(0);
   const [changeEndTime, setChangeEndTime] = useState(0);
   const [changeNotes, setChangeNotes] = useState("");
-
+  
+  //Booking.jsx
   const [customerName, setCustomerName] = useState("");
   const [laneOne, setLaneOne] = useState(-1);
   const [laneTwo, setLaneTwo] = useState(-1);
@@ -28,16 +28,23 @@ const Bahnen = () => {
   const [workerName, setWorkerName] = useState("");
   const [notes, setNotes] = useState("");
   const [gridColor, setGridColor] = useState("");
+  const [showCreateWindow, setShowCreateWindow] = useState(false);
+  const [reverseBookingWarning, setReverseBookingWarning] = useState(false);
+
+  //MouseSettings
+  const [mouseEvent, setMouseEvent] = useState(false);
+  const [clickCursor, setClickCursor] = useState({ x: 0, y: 0 });
+
+  //TimeHeader.jsx
   const [displayDay, setDisplayDay] = useState("");
   const [date, setDate] = useState("");
-  const [reverseBookingWarning, setReverseBookingWarning] = useState(false);
+
+  //Warnings & Success Boxes
   const [missingFields, setMissingField] = useState(false);
   const [overwriteWarning, setOverwriteWarning] = useState(false);
   const [successBooking, setSuccessBooking] = useState(false);
   const [bookingLoading, setBookingLoading] = useState(false);
-  const [mouseEvent, setMouseEvent] = useState(false);
   const [optionsWindow, setOptionsWindow] = useState(false);
-  const [clickCursor, setClickCursor] = useState({ x: 0, y: 0 });
   const [laneFieldIndex, setLaneFieldIndex] = useState({
     itemIndex: 0,
     timeIndex: 0,

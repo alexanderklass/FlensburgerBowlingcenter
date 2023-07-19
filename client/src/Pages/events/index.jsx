@@ -1,6 +1,6 @@
-import Pic1 from "../Img/jahres-dank.png";
-import Pic2 from "../Img/heavy-metal-event.png";
-import Pic3 from "../Img/bowling-event.jpg";
+import Pic1 from "../../assets/images/jahres-dank.png";
+import Pic2 from "../../assets/images/heavy-metal-event.png";
+import Pic3 from "../../assets/images/bowling-event.jpg";
 const Events = () => {
   return (
     <>

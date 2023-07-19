@@ -14,7 +14,7 @@ const Portal = () => {
     });
   };
   useEffect(() => {
-    checkForLoginStatus();
+    //checkForLoginStatus();
     //eslint-disable-next-line
   }, []);
 

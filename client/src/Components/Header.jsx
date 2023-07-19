@@ -1,5 +1,5 @@
 import Button from "./Button.jsx";
-import Icon from "../img/bowling-icon.png";
+import Icon from "../assets/images/bowling-icon.png";
 import { PropTypes } from "prop-types";
 import { GoGrabber } from "react-icons/go";
 import { useState } from "react";

@@ -1,6 +1,6 @@
-import sport1 from "../Img/einladung-liga.jpg";
-import sport2 from "../Img/liga-bild.jpg";
-import firmenliga from "../Img/firmenliga.png";
+import sport1 from "../../assets/images/einladung-liga.jpg";
+import sport2 from "../../assets/images/liga-bild.jpg";
+import firmenliga from "../../assets/images/firmenliga.png";
 const Betriebssport = () => {
   return (
     <>
