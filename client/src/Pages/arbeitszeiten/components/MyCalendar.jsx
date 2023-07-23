@@ -47,6 +47,7 @@ const MyCalendar = () => {
     },
     [setMyEvents]
   )
+  
   const DnDCalendar = withDragAndDrop(Calendar);
   const localizer = momentLocalizer(moment);
   const messages = {

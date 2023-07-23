@@ -5,7 +5,7 @@ import CookieConsent from "react-cookie-consent";
 
 const PageLayout = () => {
   return (
-    <>
+    <main className="flex h-screen flex-col">
       <Header className={"bg-zinc-800 text-white text-center p-3"} />
       <Outlet />
       <CookieConsent
@@ -29,7 +29,7 @@ const PageLayout = () => {
         </p>
       </CookieConsent>
       <Footer className={"bg-zinc-800 bottom-0 mt-auto inset-x-0 text-white"} />
-    </>
+    </main>
   );
 };
 

@@ -17,7 +17,6 @@ const Login = () => {
   const navigate = useNavigate();
   Axios.defaults.withCredentials = true;
 
-
   const login = () => {
     Axios.post(`${URL}/login`, {
       userName: userName,
@@ -29,7 +28,7 @@ const Login = () => {
         setLoginLoading(true);
         setTimeout(() => {
           setLoginLoading(false);
-          navigate("/Portal/Bahnen");
+          navigate("/Portal");
         }, 3000);
       }
     });
@@ -44,17 +43,17 @@ const Login = () => {
   const checkLoggingStatus = async () => {
     const response = await Axios.get(`${URL}/login`);
     if (response.data.loggedIn === true) {
-      navigate("/Portal/Bahnen");
+      navigate("/portal");
     } else {
-      navigate("/Login");
+      navigate("/login");
     }
   };
 
   useEffect(() => {
-    //checkLoggingStatus();
+    checkLoggingStatus();
     //eslint-disable-next-line
   }, []);
-
+  
   return (
     <>
       <div className="my-10 flex h-4/6 flex-col items-center justify-center">

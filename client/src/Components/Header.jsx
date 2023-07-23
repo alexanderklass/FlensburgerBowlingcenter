@@ -1,4 +1,3 @@
-import Button from "./Button.jsx";
 import Icon from "../assets/images/bowling-icon.png";
 import { PropTypes } from "prop-types";
 import { GoGrabber } from "react-icons/go";
@@ -27,45 +26,42 @@ const Header = ({ className }) => {
         </div>
 
         <div className="mt-1 flex justify-center md:hidden">
-          <GoGrabber className="text-3xl cursor-pointer" onClick={handleButtonToggler} />
+          <GoGrabber
+            className="cursor-pointer text-3xl"
+            onClick={handleButtonToggler}
+          />
         </div>
 
         <div className={`${toggleHeaderButton ? "" : "hidden md:block"} `}>
           <Link to="/">
-            <Button
-              className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500"
-              text="Start"
-            />
+            <button className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
+              Start
+            </button>
           </Link>
           <Link to="/Öffnungszeiten & Preise">
-            <Button
-              className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500"
-              text="Öffnungszeiten & Preise"
-            />
+            <button className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
+              Öffnungszeiten & Preise
+            </button>
           </Link>
           <Link to="/Gastronomie">
-            <Button
-              className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500"
-              text="Gastronomie"
-            />
+            <button className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
+              Gastronomie
+            </button>
           </Link>
           <Link to="/Veranstaltungen">
-            <Button
-              className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500"
-              text="Veranstaltungen"
-            />
+            <button className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
+              Veranstaltungen
+            </button>
           </Link>
           <Link to="/Events 2023">
-            <Button
-              className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500"
-              text="Events 2023"
-            />
+            <button className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
+              Events 2023
+            </button>
           </Link>
           <Link to="/Betriebssport">
-            <Button
-              className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500"
-              text="Betriebssport & Freizeit"
-            />
+            <button className="delay-50 m-1 h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
+              Betriebssport & Freizeit
+            </button>
           </Link>
         </div>
       </header>

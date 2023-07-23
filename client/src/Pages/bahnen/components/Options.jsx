@@ -2,10 +2,10 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import Axios from "axios";
-import SuccessBox from "./SuccessBox.jsx";
-import ConfirmBox from "./ConfirmBox.jsx";
-import WarningBox from "./WarningBox.jsx";
-import MiniLoader from "./MiniLoader.jsx";
+import SuccessBox from "../../../Components/SuccessBox.jsx";
+import ConfirmBox from "../../../Components/ConfirmBox.jsx";
+import WarningBox from "../../../Components/WarningBox.jsx";
+import MiniLoader from "../../../Components/MiniLoader.jsx";
 import Draggable from "react-draggable";
 import { Button } from "@mui/material";
 const Options = ({
@@ -130,7 +130,7 @@ const Options = ({
         handleOptionsChangePost(customerName, bahnID);
         handlePostOptionsNotes(customerName, bahnID);
         resetAndSetLaneData();
-      }, 3000);
+      }, 1000);
     }
   };
 

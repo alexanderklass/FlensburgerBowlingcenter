@@ -1,11 +1,13 @@
 import { PropTypes } from "prop-types";
 import { useState, useEffect } from "react";
+import AxiosError from "axios";
 import Axios from "axios";
-import MiniLoader from "./MiniLoader";
+import MiniLoader from "../../../Components/MiniLoader";
 import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
+import loadingComplete from "../../../modules/loadingComplete.module.jsx";
 
 const SideNotes = ({ date }) => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -34,14 +36,11 @@ const SideNotes = ({ date }) => {
           setCookingNotesField(item.cookingNotes);
           setSpareCookingData(cookingNotesField);
         });
-        setTimeout(() => {
-          setCookingRefreshLoading(false);
-          setCookingNotSaved(false);
-        }, 3000);
+        loadingComplete([setCookingRefreshLoading, setCookingNotSaved], 1000);
       }
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        //
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        console.log("ERROR");
       }
     }
   };
@@ -55,13 +54,10 @@ const SideNotes = ({ date }) => {
           setClubRoomNotesField(item.clubRoomNotes);
           setSpareClubRoomData(clubRoomNotesField);
         });
-        setTimeout(() => {
-          setClubRoomRefreshLoading(false);
-          setClubRoomNotSaved(false);
-        }, 3000);
+        loadingComplete([setClubRoomRefreshLoading, setClubRoomNotSaved], 1000);
       }
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
+    } catch (err) {
+      if (err) {
         //
       }
     }
@@ -76,13 +72,10 @@ const SideNotes = ({ date }) => {
           setExtraNotes(item.extraNotes);
           setSpareExtraData(extraNotes);
         });
-        setTimeout(() => {
-          setExtraRefreshLoading(false);
-          setExtraNotSaved(false);
-        }, 3000);
+        loadingComplete([setExtraRefreshLoading, setExtraNotSaved], 1000);
       }
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
         //
       }
     }
@@ -109,6 +102,21 @@ const SideNotes = ({ date }) => {
       : setClubRoomNotSaved(true);
   };
 
+  const clupRoomLoadingComplete = () => {
+    setClubRoomLoading(true);
+    loadingComplete([setClubRoomLoading, setClubRoomNotSaved], 1000);
+  };
+
+  const cookingLoadingComplete = () => {
+    setCookingLoading(true);
+    loadingComplete([setCookingNotSaved, setCookingLoading], 1000);
+  };
+
+  const extraLoadingComplete = () => {
+    setExtraLoading(true);
+    loadingComplete([setExtraNotSaved, setExtraLoading], 1000);
+  };
+
   const handleClupRoomNoteField = async () => {
     await Axios.post(`${URL}/clubRoomNotes`, {
       clubRoomNotesField: clubRoomNotesField,
@@ -117,11 +125,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        setClubRoomNotSaved(false);
-        setClubRoomLoading(true);
-        setTimeout(() => {
-          setClubRoomLoading(false);
-        }, 2000);
+        clupRoomLoadingComplete();
       }
     });
   };
@@ -134,11 +138,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        setCookingNotSaved(false);
-        setCookingLoading(true);
-        setTimeout(() => {
-          setCookingLoading(false);
-        }, 2000);
+        cookingLoadingComplete();
       }
     });
   };
@@ -151,11 +151,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        setExtraNotSaved(false);
-        setExtraLoading(true);
-        setTimeout(() => {
-          setExtraLoading(false);
-        }, 2000);
+        extraLoadingComplete();
       }
     });
   };

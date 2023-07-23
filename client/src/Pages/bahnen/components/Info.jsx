@@ -1,13 +1,14 @@
 import { FcInfo } from "react-icons/fc";
 import { FcSettings } from "react-icons/fc";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Axios from "axios";
-import MiniLoader from "./MiniLoader";
+import MiniLoader from "../../../Components/MiniLoader";
 import Button from "@mui/material/Button";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import Settings from "./Settings";
 import DarkMode from "./DarkMode";
+import { BsArrowLeftSquareFill } from "react-icons/bs";
 
 const Info = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -29,51 +30,55 @@ const Info = () => {
 
   const handleLogout = async () => {
     const response = await Axios.get(`${URL}/logout`);
-    if(response.data.success){
+    if (response.data.success) {
       setLogoutLoading(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         setLogoutLoading(false);
         navigate("/Login");
-      },3000);
-    }else{
+      }, 3000);
+    } else {
       navigate("/portal/bahnen");
     }
   };
 
-  const handleSettings = () =>{
+  const handleSettings = () => {
     setToggleSettings(!toggleSettings);
-  }
+  };
 
   const postion = {
     left: cursorPosition.x - 190,
-    top: cursorPosition.y -50,
+    top: cursorPosition.y - 50,
     postion: "fixed",
   };
 
   return (
     <>
-      {toggleSettings && (
-        <Settings/>
-      )}
-      <div className="flex flex-row justify-between items-center self-end p-2">
+      {toggleSettings && <Settings />}
+      <div className="flex flex-row items-center justify-between self-end p-2">
         <div>
+          <button>
+            <Link to={"/portal"}>
+              <BsArrowLeftSquareFill className="absolute left-2 top-2 text-4xl transition hover:scale-105" />
+            </Link>
+          </button>
           <Button
-            sx={{marginRight:1}}
+            sx={{ marginRight: 1 }}
             size="small"
             variant="contained"
-            color="error" 
+            color="error"
             disabled={logoutLoading}
             onClick={handleLogout}
-            endIcon={<LogoutIcon/>}>
-          {logoutLoading ? <MiniLoader/> : "Ausloggen"}
+            endIcon={<LogoutIcon />}
+          >
+            {logoutLoading ? <MiniLoader /> : "Ausloggen"}
           </Button>
         </div>
-        <DarkMode/>
+        <DarkMode />
         <button onClick={handleSettings}>
-          <FcSettings className="text-4xl hover:animate-spin cursor-pointer"/>
+          <FcSettings className="cursor-pointer text-4xl hover:animate-spin" />
         </button>
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMousLeave}>
-          <FcInfo className="hover:animate-pulse cursor-pointer text-4xl" />
+          <FcInfo className="cursor-pointer text-4xl hover:animate-pulse" />
         </div>
       </div>
       {hoverInfo && (

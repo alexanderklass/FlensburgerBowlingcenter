@@ -1,10 +1,10 @@
 import { AiOutlineClose } from "react-icons/ai";
-import WarningBox from "./WarningBox.jsx";
-import SuccessBox from "./SuccessBox.jsx";
-import ConfirmBox from "./ConfirmBox.jsx";
+import WarningBox from "../../../Components/WarningBox.jsx";
+import SuccessBox from "../../../Components/SuccessBox.jsx";
+import ConfirmBox from "../../../Components/ConfirmBox.jsx";
 import { useState } from "react";
 import { PropTypes } from "prop-types";
-import MiniLoader from "./MiniLoader.jsx";
+import MiniLoader from "../../../Components/MiniLoader.jsx";
 import Textfield from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Draggable from "react-draggable";

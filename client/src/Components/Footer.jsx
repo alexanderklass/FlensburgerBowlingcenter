@@ -1,4 +1,3 @@
-import Button from "./Button.jsx";
 import { PropTypes } from "prop-types";
 import { Link } from "react-router-dom";
 import { AiOutlineMail } from "react-icons/ai";
@@ -21,7 +20,7 @@ const Footer = ({ className }) => {
           <p className="text-md">Ust.IdNr.:DE337384814</p>
           <p className="text-md">St.-Nr.:1516506806</p>
           <Link to="/Datenschutz">
-            <Button className="text-blue-500" text="Datenschutz" />
+            <button className="text-blue-500">Datenschutz</button>
           </Link>
           <div className="justify-cente mt-1 flex flex-row">
             <BsTelephone className="m-1 " />
@@ -51,10 +50,9 @@ const Footer = ({ className }) => {
             <p>Instagram/flensburgerbowlingcenter</p>
           </Link>
           <Link to={"/Login"}>
-            <Button
-              text="Mitarbeiterportal"
-              className="delay-50 my-2 block h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500"
-            />
+            <button className="delay-50 my-2 block h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
+              Mitarbeiterportal
+            </button>
           </Link>
         </div>
       </div>

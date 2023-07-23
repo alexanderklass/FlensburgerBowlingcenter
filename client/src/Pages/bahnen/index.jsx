@@ -1,13 +1,14 @@
 import Axios from "axios";
-import SideNotes from "../../Components/SideNotes.jsx";
-import TimeHeader from "../../Components/TimeHeader.jsx";
-import Options from "../../Components/Options.jsx";
-import Info from "../../Components/Info.jsx";
-import Booking from "../../Components/Booking.jsx";
-import MouseHover from "../../Components/MouseHover.jsx";
+import SideNotes from "./components/SideNotes.jsx";
+import TimeHeader from "./components/TimeHeader.jsx";
+import Options from "./components/Options.jsx";
+import Info from "./components/Info.jsx";
+import Booking from "./components/Booking.jsx";
+import MouseHover from "./components/MouseHover.jsx";
 import Loading from "../../Components/Loading.jsx";
 import { useState, useEffect } from "react";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import loadingComplete from "../../modules/loadingComplete.module.jsx";
 const Bahnen = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +18,7 @@ const Bahnen = () => {
   const [changeStartTime, setChangeStartTime] = useState(0);
   const [changeEndTime, setChangeEndTime] = useState(0);
   const [changeNotes, setChangeNotes] = useState("");
-  
+
   //Booking.jsx
   const [customerName, setCustomerName] = useState("");
   const [laneOne, setLaneOne] = useState(-1);
@@ -125,16 +126,41 @@ const Bahnen = () => {
           }
         }
       });
-      setInterval(() => {
-        setIsLoading(false);
-      }, 5000);
+      loadingComplete([setIsLoading], 1000);
       setLanedDataArray(dataArray);
     } catch (error) {
       setIsLoading(false);
-      if (error.response && error.response.status === 404) {
+      if (error) {
         //
       }
     }
+  };
+
+  const laneRequestLoading = () => {
+    setSuccessBooking(true);
+    setBookingLoading(true);
+    loadingComplete(
+      [setMissingField, setSuccessBooking, setBookingLoading],
+      3000
+    );
+    resetLaneStates();
+    resetAndSetLaneData();
+    handleCloseEvent();
+  };
+
+  const laneRequestErrorLoading = () => {
+    setOverwriteWarning(true);
+    loadingComplete([setOverwriteWarning], 3000);
+  };
+
+  const reverseBookingLoading = () => {
+    setReverseBookingWarning(true);
+    loadingComplete([setReverseBookingWarning], 3000);
+  };
+
+  const laneEmptyLoading = () => {
+    setMissingField(true);
+    loadingComplete([setMissingField], 3000);
   };
 
   const handleLaneRequest = async () => {
@@ -142,10 +168,7 @@ const Bahnen = () => {
       Number(laneOne) > Number(laneTwo) ||
       Number(startTime) > Number(endTime)
     ) {
-      setReverseBookingWarning(true);
-      setTimeout(() => {
-        setReverseBookingWarning(false);
-      }, 3000);
+      reverseBookingLoading();
     } else if (
       laneOne === -1 ||
       laneTwo === -1 ||
@@ -156,10 +179,7 @@ const Bahnen = () => {
       workerName == "" ||
       gridColor === ""
     ) {
-      setMissingField(true);
-      setTimeout(() => {
-        setMissingField(false);
-      }, 5000);
+      laneEmptyLoading();
     } else {
       await Axios.post(`${URL}/portal`, {
         customerName: customerName,
@@ -178,21 +198,9 @@ const Bahnen = () => {
           console.log(err);
         }
         if (response.data.message) {
-          setSuccessBooking(true);
-          setBookingLoading(true);
-          setTimeout(() => {
-            resetLaneStates();
-            resetAndSetLaneData();
-            setMissingField(false);
-            setSuccessBooking(false);
-            setBookingLoading(false);
-            handleCloseEvent();
-          }, 2000);
+          laneRequestLoading();
         } else if (response.data.fehler) {
-          setOverwriteWarning(true);
-          setTimeout(() => {
-            setOverwriteWarning(false);
-          }, 5000);
+          laneRequestErrorLoading();
         }
       });
     }
@@ -355,7 +363,7 @@ const Bahnen = () => {
 
   const handleTimeGridClicked = (event, itemIndex, timeIndex) => {
     handleOptionsWindow(itemIndex, timeIndex);
-    setLaneFieldIndex({ itemIndex: itemIndex, timeIndex: timeIndex, });
+    setLaneFieldIndex({ itemIndex: itemIndex, timeIndex: timeIndex });
     onClickCursorPosition(event);
   };
 
@@ -374,7 +382,7 @@ const Bahnen = () => {
     return <Loading />;
   }
   return (
-    <>
+    <div className="flex flex-col">
       <Info />
       <TimeHeader
         handleCreateEvent={handleCreateEvent}
@@ -394,55 +402,55 @@ const Bahnen = () => {
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             16:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
             16:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             17:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
             17:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             18:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
             18:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             19:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
             19:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             20:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
             20:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             21:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
             21:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             22:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
             22:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
             23:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-blue-500">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
             23:30
           </div>
           <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
             00:00
           </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-4 border-r-2 border-black bg-zinc-700">
+          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
             00:30
           </div>
         </div>
@@ -452,7 +460,9 @@ const Bahnen = () => {
               <div key={item.id} className="flex flex-col">
                 <div
                   key={item.id}
-                  className={`${item.id % 2 === 0 ? "border-r-4 border-black" : ""} 
+                  className={`${
+                    item.id % 2 === 0 ? "border-r-2 border-black" : ""
+                  } 
                   flex h-10 w-20 items-center justify-center border border-black bg-zinc-700 text-white`}
                 >
                   {item.bahn}
@@ -462,14 +472,23 @@ const Bahnen = () => {
                     return (
                       <div
                         key={time.id}
-                        onClick={(event)=>handleTimeGridClicked(event,itemIndex,timeIndex)}
-                        onMouseEnter={() => handleMouseEnter(itemIndex, timeIndex)}
+                        onClick={(event) =>
+                          handleTimeGridClicked(event, itemIndex, timeIndex)
+                        }
+                        onMouseEnter={() =>
+                          handleMouseEnter(itemIndex, timeIndex)
+                        }
                         onMouseLeave={handleMouseLeave}
                         onMouseMove={handleMouseMove}
-                        className={`${timeIndex % 2 === 1 ? "border-b-4" : ""} ${item.id % 2 === 0 ? "border-r-4" : ""} ${time.color} 
-                        relative flex h-10 w-20 cursor-pointer items-center justify-center border border-black text-xs font-bold`}
+                        className={`${
+                          time.customerName !== "" ? "cursor-pointer" : ""
+                        } ${timeIndex % 2 === 1 ? "border-b-2" : ""} ${
+                          item.id % 2 === 0 ? "border-r-2" : ""
+                        } ${time.color} 
+                        relative flex h-10 w-20 items-center justify-center border border-black text-xs font-bold`}
                       >
-                        {itemIndex === time.firstIndex && timeIndex === time.secondIndex ? (
+                        {itemIndex === time.firstIndex &&
+                        timeIndex === time.secondIndex ? (
                           <p className="break-all p-1">{time.customerName}</p>
                         ) : null}
                         {time.payedStatus === true ? (
@@ -541,7 +560,7 @@ const Bahnen = () => {
         />
         <SideNotes date={date} />
       </div>
-    </>
+    </div>
   );
 };
 

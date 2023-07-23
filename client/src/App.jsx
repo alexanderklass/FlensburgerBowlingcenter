@@ -8,13 +8,12 @@ import Events from "./Pages/events/index.jsx";
 import Betriebssport from "./Pages/betriebssport/index.jsx";
 import Datenschutz from "./Pages/datenschutz/index.jsx";
 import Login from "./Pages/login/index.jsx";
-import SidebarLayout from "./Components/SidebarLayout.jsx";
 import Arbeitszeiten from "./Pages/arbeitszeiten/index.jsx";
 import Bahnen from "./Pages/bahnen/index.jsx";
 import Portal from "./Pages/portal/index.jsx";
 function App() {
   return (
-    <main className="flex h-screen flex-col">
+    <>
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<Start />} />
@@ -25,15 +24,12 @@ function App() {
           <Route path="/Betriebssport" element={<Betriebssport />} />
         </Route>
         <Route path="/Datenschutz" element={<Datenschutz />} />
-        <Route element={<SidebarLayout />}>
-          <Route path="/Portal" element={<Portal />}>
-            <Route path="Bahnen" element={<Bahnen />} />
-            <Route path="Arbeitszeiten" element={<Arbeitszeiten />} />
-          </Route>
-        </Route>
+        <Route path="/Portal" element={<Portal />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Bahnen" element={<Bahnen />} />
+        <Route path="/Arbeitszeiten" element={<Arbeitszeiten />} />
       </Routes>
-    </main>
+    </>
   );
 }
 
