@@ -4,8 +4,8 @@ import firmenliga from "../../assets/images/firmenliga.png";
 const Betriebssport = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch mt-10 gap-2">
-        <div className="max-w-md md:screen w-full p-5  border  rounded-lg shadow bg-zinc-800 border-gray-700">
+      <div className="mt-10 flex flex-col items-center justify-center gap-2 md:flex-row md:items-stretch">
+        <div className="md:screen w-full max-w-md rounded-lg  border  border-gray-700 bg-zinc-800 p-5 shadow">
           <img src={firmenliga} className="w-full" />
           <h5 className="mb-2 text-lg font-bold tracking-tight  text-white">
             <span className="text-blue-500">Vereinstraining:</span> Interbowling
@@ -17,12 +17,12 @@ const Betriebssport = () => {
           </h5>
           <a
             href="https://www.joker-shit-happens.de/"
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white  rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 bg-blue-600 hover focus:ring-blue-800"
+            className="hover inline-flex items-center rounded-lg bg-blue-600 px-3 py-2 text-center  text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-blue-800"
           >
             Firmenliga
             <svg
               aria-hidden="true"
-              className="w-4 h-4 ml-2 -mr-1"
+              className="-mr-1 ml-2 h-4 w-4"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ const Betriebssport = () => {
             </svg>
           </a>
         </div>
-        <div className="max-w-md md:screen w-full p-5  border  rounded-lg shadow bg-zinc-800 border-gray-700">
+        <div className="md:screen flex w-full max-w-md flex-col justify-center rounded-lg border border-gray-700 bg-zinc-800 p-5 shadow">
           <h5 className="mb-2 text-2xl font-bold tracking-tight  text-white">
             Vereinstraining
           </h5>
@@ -46,12 +46,12 @@ const Betriebssport = () => {
           </p>
           <a
             href="https://www.facebook.com/Inter.Bowling.Flensburg/"
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white  rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 bg-blue-600 hover focus:ring-blue-800"
+            className="hover inline-flex w-[200px] items-center rounded-lg bg-blue-600 px-3 py-2 text-center  text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-blue-800"
           >
             InterBowlingFlensburg
             <svg
               aria-hidden="true"
-              className="w-4 h-4 ml-2 -mr-1"
+              className="-mr-1 ml-2 h-4 w-4"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -66,23 +66,23 @@ const Betriebssport = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-center gap-2 mt-5">
-        <div className="md:w-screen md:w-full max-w-md">
+      <div className="mt-5 flex flex-col items-center justify-center gap-2 md:flex-row">
+        <div className="max-w-md md:w-full md:w-screen">
           <img
             src={sport1}
-            className="rounded-lg shadow-md shadow-black"
+            className="rounded-lg shadow-md shadow-black transition hover:scale-105"
           />
         </div>
-        <div className="w-screen md:w-full max-w-md">
+        <div className="w-screen max-w-md md:w-full">
           <img
             src={sport2}
-            className="rounded-lg shadow-md shadow-black"
+            className="rounded-lg shadow-md shadow-black transition hover:scale-105"
           />
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-center gap-2 mt-5 mb-5 md:items-stretch">
-        <div className="max-w-md md:w-screen w-full max-w-md p-6  border  rounded-lg shadow bg-zinc-800 border-gray-700">
+      <div className="mb-5 mt-5 flex flex-col items-center justify-center gap-2 md:flex-row md:items-stretch">
+        <div className="w-full max-w-md max-w-md rounded-lg border  border-gray-700  bg-zinc-800 p-6 shadow md:w-screen">
           <h5 className="mb-2 text-2xl font-bold tracking-tight  text-white">
             Betriebssportliga
           </h5>
@@ -101,7 +101,7 @@ const Betriebssport = () => {
           </p>
         </div>
 
-        <div className="max-w-mdm md:w-screen w-full max-w-md p-6  border  rounded-lg shadow bg-zinc-800 border-gray-700">
+        <div className="max-w-mdm w-full max-w-md rounded-lg border  border-gray-700  bg-zinc-800 p-6 shadow md:w-screen">
           <h5 className="mb-2 text-2xl font-bold tracking-tight  text-white">
             Freizeitliga
           </h5>

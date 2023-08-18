@@ -1,46 +1,34 @@
 import { PropTypes } from "prop-types";
 import { useState, useEffect } from "react";
-import AxiosError from "axios";
 import Axios from "axios";
 import MiniLoader from "../../../Components/MiniLoader";
-import SaveIcon from "@mui/icons-material/Save";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
-import loadingComplete from "../../../modules/loadingComplete.module.jsx";
+import { MdSave, MdRefresh } from "react-icons/md";
+import MainButton from "../../../Components/MainButton";
 
 const SideNotes = ({ date }) => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
   const [cookingNotesField, setCookingNotesField] = useState("");
   const [clubRoomNotesField, setClubRoomNotesField] = useState("");
   const [extraNotes, setExtraNotes] = useState("");
-  const [extraLoading, setExtraLoading] = useState(false);
-  const [cookingLoading, setCookingLoading] = useState(false);
-  const [clubRoomLoading, setClubRoomLoading] = useState(false);
-  const [extraRefreshLoading, setExtraRefreshLoading] = useState(false);
-  const [cookingRefreshLoading, setCookingRefreshLoading] = useState(false);
-  const [clubRoomRefreshLoading, setClubRoomRefreshLoading] = useState(false);
   const [spareExtraData, setSpareExtraData] = useState("");
   const [spareCookingData, setSpareCookingData] = useState("");
   const [spareClubRoomgData, setSpareClubRoomData] = useState("");
-  const [extraNotSaved, setExtraNotSaved] = useState(false);
-  const [cookingNotSaved, setCookingNotSaved] = useState(false);
-  const [clubRoomNotSaved, setClubRoomNotSaved] = useState(false);
+  const [notSavedWarnings, setNotSavedWarnings] = useState(false);
+  const [notesLoading, setNotesLoading] = useState(false);
+  const [notesRefreshLoading, setNotesRefreshLoading] = useState(false);
 
   const fetchCookingData = async () => {
     try {
       const response = await Axios.get(`${URL}/cookingNotes/${date}`);
-      setCookingRefreshLoading(true);
       if (response) {
         response.data.forEach((item) => {
           setCookingNotesField(item.cookingNotes);
           setSpareCookingData(cookingNotesField);
         });
-        loadingComplete([setCookingRefreshLoading, setCookingNotSaved], 1000);
       }
     } catch (err) {
-      if (err instanceof AxiosError) {
-        console.log("ERROR");
+      if (err) {
+        //
       }
     }
   };
@@ -48,13 +36,11 @@ const SideNotes = ({ date }) => {
   const fetchClupRoomData = async () => {
     try {
       const response = await Axios.get(`${URL}/clubRoomNotes/${date}`);
-      setClubRoomRefreshLoading(true);
       if (response) {
         response.data.forEach((item) => {
           setClubRoomNotesField(item.clubRoomNotes);
           setSpareClubRoomData(clubRoomNotesField);
         });
-        loadingComplete([setClubRoomRefreshLoading, setClubRoomNotSaved], 1000);
       }
     } catch (err) {
       if (err) {
@@ -66,55 +52,38 @@ const SideNotes = ({ date }) => {
   const fetchExtraData = async () => {
     try {
       const response = await Axios.get(`${URL}/extraNotes/${date}`);
-      setExtraRefreshLoading(true);
       if (response) {
         response.data.forEach((item) => {
           setExtraNotes(item.extraNotes);
           setSpareExtraData(extraNotes);
         });
-        loadingComplete([setExtraRefreshLoading, setExtraNotSaved], 1000);
       }
     } catch (err) {
-      if (err.response && err.response.status === 404) {
+      if (err) {
         //
       }
     }
   };
 
-  const handleExtraChanged = (event) => {
+  const handlExtraChanged = (event) => {
     setExtraNotes(event.target.value);
     extraNotes === spareExtraData
-      ? setExtraNotSaved(false)
-      : setExtraNotSaved(true);
+      ? setNotSavedWarnings(false)
+      : setNotSavedWarnings(true);
   };
 
   const handleCookingChanged = (event) => {
     setCookingNotesField(event.target.value);
     cookingNotesField === spareCookingData
-      ? setCookingNotSaved(false)
-      : setCookingNotSaved(true);
+      ? setNotSavedWarnings(false)
+      : setNotSavedWarnings(true);
   };
 
-  const handleClubRoomChanged = (event) => {
+  const handleClubChanged = (event) => {
     setClubRoomNotesField(event.target.value);
     clubRoomNotesField === spareClubRoomgData
-      ? setClubRoomNotSaved(false)
-      : setClubRoomNotSaved(true);
-  };
-
-  const clupRoomLoadingComplete = () => {
-    setClubRoomLoading(true);
-    loadingComplete([setClubRoomLoading, setClubRoomNotSaved], 1000);
-  };
-
-  const cookingLoadingComplete = () => {
-    setCookingLoading(true);
-    loadingComplete([setCookingNotSaved, setCookingLoading], 1000);
-  };
-
-  const extraLoadingComplete = () => {
-    setExtraLoading(true);
-    loadingComplete([setExtraNotSaved, setExtraLoading], 1000);
+      ? setNotSavedWarnings(false)
+      : setNotSavedWarnings(true);
   };
 
   const handleClupRoomNoteField = async () => {
@@ -125,7 +94,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        clupRoomLoadingComplete();
+        //
       }
     });
   };
@@ -138,7 +107,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        cookingLoadingComplete();
+        //
       }
     });
   };
@@ -151,7 +120,7 @@ const SideNotes = ({ date }) => {
       if (err) {
         console.log(err);
       } else if (response.data.success) {
-        extraLoadingComplete();
+        //
       }
     });
   };
@@ -160,10 +129,26 @@ const SideNotes = ({ date }) => {
     setClubRoomNotesField("");
     setExtraNotes("");
   };
+
+  const saveAllNotes = () => {
+    setNotesLoading(true);
+    setTimeout(() => {
+      handleExtraNoteField();
+      handleCookingNoteField();
+      handleClupRoomNoteField();
+      setNotesLoading(false);
+      setNotSavedWarnings(false);
+    }, 1000);
+  };
   const fetchAllNotes = () => {
-    fetchCookingData();
-    fetchClupRoomData();
-    fetchExtraData();
+    setNotesRefreshLoading(true);
+    setTimeout(() => {
+      fetchExtraData();
+      fetchCookingData();
+      fetchClupRoomData();
+      setNotesRefreshLoading(false);
+      setNotSavedWarnings(false);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -173,125 +158,58 @@ const SideNotes = ({ date }) => {
   }, [date]);
 
   return (
-    <div className="ml-3 flex flex-col">
+    <div className="ml-3 flex flex-col justify-center items-center">
       <div className="mb-3 flex flex-col">
-        <TextField
-          id="extraNotes"
-          multiline
+        <textarea
+          id="extra-notes"
           rows={7}
-          label="Sonderbuchungen..."
-          className={`${extraNotes === "" ? "" : "bg-yellow-500"} bg-white`}
+          placeholder="Sonderbuchungen"
+          className={`${
+            extraNotes === "" ? "" : "bg-yellow-500"
+          } w-72 rounded border bg-white p-3 outline-0`}
           value={extraNotes}
-          onChange={handleExtraChanged}
-          InputLabelProps={{
-            shrink: true,
-            style: { fontSize: 18 },
-          }}
+          onChange={handlExtraChanged}
         />
-        {extraNotSaved && (
-          <p className="text-red-500">Ungespeicherter Wert vorhanden!</p>
-        )}
-        <div className="mb-3 mt-2 flex flex-row items-center">
-          <Button
-            sx={{ marginRight: 1 }}
-            onClick={handleExtraNoteField}
-            disabled={extraLoading}
-            variant="contained"
-            size="small"
-            startIcon={<SaveIcon />}
-          >
-            {extraLoading ? <MiniLoader /> : "Speichern"}
-          </Button>
-          <Button
-            onClick={fetchExtraData}
-            disabled={extraRefreshLoading}
-            variant="contained"
-            size="small"
-            startIcon={<RefreshIcon />}
-            color="success"
-          >
-            {extraRefreshLoading ? <MiniLoader /> : "Aktualisieren"}
-          </Button>
-        </div>
       </div>
       <div className="mb-3 flex flex-col">
-        <TextField
-          id="cookingNotes"
-          multiline
+        <textarea
+          id="cooking-notes"
+          className="w-72 rounded border p-3 outline-0"
+          placeholder="Notizen Clubraum"
           rows={7}
-          label="Notizen Koch..."
-          className="bg-white"
           value={cookingNotesField}
           onChange={handleCookingChanged}
-          InputLabelProps={{
-            shrink: true,
-            style: { fontSize: 18 },
-          }}
         />
-        {cookingNotSaved && (
-          <p className="text-red-500">Ungespeicherter Wert vorhanden!</p>
-        )}
-        <div className="mt-2 flex flex-row">
-          <Button
-            sx={{ marginRight: 1 }}
-            onClick={handleCookingNoteField}
-            disabled={cookingLoading}
-            variant="contained"
-            size="small"
-            startIcon={<SaveIcon />}
-          >
-            {cookingLoading ? <MiniLoader /> : "Speichern"}
-          </Button>
-          <Button
-            onClick={fetchCookingData}
-            disabled={cookingRefreshLoading}
-            variant="contained"
-            size="small"
-            startIcon={<RefreshIcon />}
-            color="success"
-          >
-            {cookingRefreshLoading ? <MiniLoader /> : "Aktualisieren"}
-          </Button>
-        </div>
       </div>
       <div className="mt-3 flex flex-col">
-        <TextField
-          id="clubRoomNotes"
-          multiline
+        <textarea
+          id="club-notes"
+          className="w-72 rounded border p-3 outline-0"
+          placeholder="Notizen Clubraum"
           rows={7}
-          className="w-96 bg-white"
-          label="Notizen Clubraum..."
           value={clubRoomNotesField}
-          onChange={handleClubRoomChanged}
-          InputLabelProps={{
-            shrink: true,
-            style: { fontSize: 18 },
-          }}
+          onChange={handleClubChanged}
         />
-        {clubRoomNotSaved && (
-          <p className="text-red-500">Ungespeicherter Werte vorhanden!</p>
-        )}
-        <div className="mt-2 flex flex-row">
-          <Button
-            sx={{ marginRight: 1 }}
-            onClick={handleClupRoomNoteField}
-            disabled={clubRoomLoading}
-            variant="contained"
-            size="small"
-            startIcon={<SaveIcon />}
+        <p className="mt-2 text-red-500">
+          {notSavedWarnings ? "Ungespeicherte Werte vorhanden!" : ""}
+        </p>
+        <div className="mt-1 flex flex-row">
+          <MainButton
+            color={"bg-blue-600 hover:bg-blue-700"}
+            onClick={saveAllNotes}
+            disabled={notesLoading}
           >
-            {clubRoomLoading ? <MiniLoader /> : "Speichern"}
-          </Button>
-          <Button
-            onClick={fetchClupRoomData}
-            disabled={clubRoomRefreshLoading}
-            variant="contained"
-            size="small"
-            startIcon={<RefreshIcon />}
-            color="success"
+            <MdSave className="mr-1 text-xl" />
+            {notesLoading ? <MiniLoader /> : "SPEICHERN"}
+          </MainButton>
+          <MainButton
+            color={"bg-green-700 hover:bg-green-800"}
+            onClick={fetchAllNotes}
+            disabled={notesRefreshLoading}
           >
-            {clubRoomRefreshLoading ? <MiniLoader /> : "Aktualisieren"}
-          </Button>
+            <MdRefresh className="mr-1 text-xl" />
+            {notesRefreshLoading ? <MiniLoader /> : "AKTUALISIEREN"}
+          </MainButton>
         </div>
       </div>
     </div>

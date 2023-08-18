@@ -3,10 +3,7 @@ import Axios from "axios";
 import MiniLoader from "../../Components/MiniLoader.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Textfield from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import LoginIcon from '@mui/icons-material/Login';
-
+import MainButton from "../../Components/MainButton";
 
 const Login = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -17,23 +14,26 @@ const Login = () => {
   const navigate = useNavigate();
   Axios.defaults.withCredentials = true;
 
-  const login = () => {
-    Axios.post(`${URL}/login`, {
+  const loginComplete = () => {
+    setLoginLoading(true);
+    setTimeout(() => {
+      setLoginLoading(false);
+      navigate("/Portal");
+    }, 3000);
+  };
+
+  const handleLogin = async () => {
+    const response = await Axios.post(`${URL}/login`, {
       userName: userName,
       userPassword: userPassword,
-    }).then((response) => {
-      if (response.data.message) {
-        setLoginStatus(response.data.message);
-      } else if (response.data.successLogin) {
-        setLoginLoading(true);
-        setTimeout(() => {
-          setLoginLoading(false);
-          navigate("/Portal");
-        }, 3000);
-      }
     });
+    if (response.data.message) {
+      setLoginStatus(response.data.message);
+    } else {
+      loginComplete();
+    }
   };
-/*
+  /*
   const register = () => {
     Axios.post(`${URL}/register`,{
       userName: userName,
@@ -42,51 +42,44 @@ const Login = () => {
 */
   const checkLoggingStatus = async () => {
     const response = await Axios.get(`${URL}/login`);
-    if (response.data.loggedIn === true) {
-      navigate("/portal");
-    } else {
-      navigate("/login");
-    }
+    response.data.loggedIn ? navigate("/portal") : navigate("/login");
   };
 
   useEffect(() => {
     checkLoggingStatus();
-    //eslint-disable-next-line
   }, []);
-  
+
   return (
     <>
       <div className="my-10 flex h-4/6 flex-col items-center justify-center">
         <img src={Logo} className="mb-5 max-w-sm" />
-        <div className="bg-dark flex flex-col">
-          <Textfield
-            id="UserName"
-            sx={{ marginBottom: 1 }}
-            label="Name"
-            variant="filled"
-            className="bg-white"
-            type="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-          <Textfield
-            id="Password"
-            label="Passwort"
-            variant="filled"
-            type="password"
-            className="bg-white"
-            onChange={(e) => setUserPassword(e.target.value)}
-            value={userPassword}
-          />
-          <div className="p-1 text-red-700">{loginStatus}</div>
-          <Button 
-            onClick={login} 
-            disabled={loginLoading}
-            variant="contained"
-            endIcon={<LoginIcon/>}>
-            {loginLoading ? <MiniLoader /> : "Login"}
-          </Button>
-          {/*
+        <form onSubmit={handleLogin}>
+          <div className="bg-dark flex flex-col">
+            <input
+              id="user-name"
+              className="mb-1 h-14 rounded border p-1 outline-0"
+              placeholder="Name"
+              type="name"
+              onChange={(e) => setUserName(e.target.value)}
+            />
+            <input
+              id="user-password"
+              className="h-14 rounded border p-1 outline-0"
+              placeholder="Passwort"
+              type="password"
+              onChange={(e) => setUserPassword(e.target.value)}
+            />
+            <p className="p-1 text-red-700">{loginStatus}</p>
+            <MainButton
+              color="bg-blue-700 hover:bg-blue-800"
+              disabled={loginLoading}
+              type="submit"
+            >
+              {loginLoading ? <MiniLoader /> : "Login"}
+            </MainButton>
+          </div>
+        </form>
+        {/*
           <button
             onClick={register}
             className={
@@ -96,7 +89,6 @@ const Login = () => {
             Registrieren
           </button>
           */}
-        </div>
       </div>
     </>
   );

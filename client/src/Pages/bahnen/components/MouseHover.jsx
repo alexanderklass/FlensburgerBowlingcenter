@@ -19,7 +19,7 @@ const MouseHover = ({
             left: cursorPosition.x + 10,
             position: "fixed",
           }}
-          className="flex flex-col w-40 rounded border border-black bg-zinc-700 p-2 text-white"
+          className="flex flex-col w-40 rounded border border-black bg-black p-2 text-white"
         >
           <p>
             <span className="font-bold text-yellow-500">Kunde: </span>
@@ -49,8 +49,8 @@ const MouseHover = ({
 };
 
 MouseHover.propTypes = {
-  mouseEvent: PropTypes.func,
-  cursorPosition: PropTypes.func,
+  mouseEvent: PropTypes.bool,
+  cursorPosition: PropTypes.object,
   hoverCustomerName: PropTypes.string,
   hoverCustomerNumber:PropTypes.string,
   hoverWorkerName:PropTypes.string,

@@ -1,8 +1,8 @@
-import { Button, TextField } from "@mui/material";
 import { PropTypes } from "prop-types";
 import { useEffect } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
+import MainButton from "../../../Components/MainButton";
 
 const TimeHeader = ({
   handleCreateEvent,
@@ -82,42 +82,23 @@ const TimeHeader = ({
   }, [date]);
 
   return (
-    <div className="w-78 mt-2 flex flex-row justify-between self-center rounded-lg bg-zinc-700 p-2 text-white">
+    <div className="mt-2 flex justify-center items-center rounded bg-black p-2 text-white">
       <button onClick={handleBackButton}>
         <GoArrowLeft className="self-center text-3xl" />
       </button>
-      <div className="flex flex-row text-sm">
-        <Button
-          sx={{ marginRight: 1 }}
-          variant="contained"
-          size="small"
-          onClick={handleCreateEvent}
-        >
-          Neuer Eintrag
-        </Button>
-        <Button
-          sx={{ marginRight: 1 }}
-          variant="contained"
-          size="small"
-          color="success"
-          onClick={handleTimeChange}
-        >
-          Heute
-        </Button>
-        <TextField 
+      <div className="flex flex-row justify-center items-center text-sm">
+        <MainButton color={"bg-blue-700"} onClick={handleCreateEvent}>
+          NEUER EINTRAG
+        </MainButton>
+        <MainButton color={"bg-green-800"} onClick={handleTimeChange}>
+          HEUTE
+        </MainButton>
+        <input
+          className="rounded text-black h-8 p-2 m-1"
           type="date"
-          size="small"
-          className="bg-white rounded"
           value={date}
-          onChange={handleDatePicker}/>
-        {/*
-          <input
-            className="mr-1 h-8 w-16 w-24 rounded-lg text-center text-black"
-            type="date"
-            value={date}
-            onChange={handleDatePicker}
-          />
-          */}
+          onChange={handleDatePicker}
+        />
       </div>
       <button onClick={handleNextButton}>
         <GoArrowRight className="self-center text-3xl" />

@@ -1,15 +1,43 @@
+import { Link } from "react-router-dom";
 import sommerAngebot from "../../assets/images/sommer-angebot.jpg";
 import Pic1 from "../../assets/images/schuhe.jpg";
 import Pic2 from "../../assets/images/disco-bowling-3.jpg";
 import schlagerfest from "../../assets/images/schlager-abgesagt.jpg";
-import { Link } from "react-router-dom";
+import ReactPlayer from "react-player";
+import BowlingIntro from "../start/assets/videos/BowlingIntro.mp4";
 
 const Start = () => {
   return (
     <section>
-      <div className="mx-2 my-10 grid grid-cols-1 justify-items-center gap-2 md:grid-cols-2">
-        <div className="max-w-md md:justify-self-end">
-          <div className="relative rounded-lg border border-gray-700 bg-zinc-800 shadow">
+      <div className="justify-cente mx-2 my-5 flex flex-col items-center">
+        <div className="border-gray mb-3 flex max-w-md flex-col items-center justify-center rounded-lg border bg-zinc-800 shadow md:max-w-full md:flex-row">
+          <div className="overflow-hidden rounded-lg">
+            <ReactPlayer
+              loop
+              width={445}
+              height={250}
+              volume={0}
+              autoPlay={true}
+              controls
+              playing={true}
+              url={BowlingIntro}
+            />
+          </div>
+          <div className="ml-3 w-[445px] p-2">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-blue-500">
+              Heavy Metal Bowling
+            </h5>
+            <p className="font-normal text-gray-400">
+              Zurückblickend auf das Heavy Metal Bowling Event! Eine Nacht, in
+              der Live-Metal-Musik über den Bahnen tobte und Bowling zu einem
+              rockigen Spektakel wurde. Klänge vermischten sich, Pins fielen und
+              Erinnerungen wurden geschaffen. Cheers für diese epische Nacht
+              voller Musik und Sport!
+            </p>
+          </div>
+        </div>
+        <div className="mb-2 flex flex-col gap-2 md:flex-row">
+          <div className="relative max-w-md rounded-lg border border-gray-700 bg-zinc-800 shadow">
             <img
               className="rounded-t-lg"
               src={Pic1}
@@ -36,9 +64,7 @@ const Start = () => {
               </Link>
             </span>
           </div>
-        </div>
-        <div className="max-w-md md:justify-self-start">
-          <div className="rounded-lg border border-gray-700 bg-white bg-zinc-800 shadow">
+          <div className="max-w-md rounded-lg border border-gray-700 bg-white bg-zinc-800 shadow">
             <img
               className="rounded-t-lg"
               src={Pic2}
@@ -59,19 +85,21 @@ const Start = () => {
             </div>
           </div>
         </div>
-        <div className="md:justify-self-end">
-          <img
-            src={schlagerfest}
-            alt="Flensburger-Bowlingcenter"
-            className="w-full max-w-md rounded-lg shadow-md shadow-black transition hover:scale-105"
-          />
-        </div>
-        <div className="md:justify-self-start">
-          <img
-            src={sommerAngebot}
-            alt="Flensburger-Bowlingcenter"
-            className="w-full max-w-md rounded-lg shadow-md shadow-black transition hover:scale-105"
-          />
+        <div className="flex flex-col gap-3 md:flex-row">
+          <div>
+            <img
+              src={schlagerfest}
+              alt="Flensburger-Bowlingcenter"
+              className="w-full max-w-md rounded-lg shadow-md shadow-black transition hover:scale-105"
+            />
+          </div>
+          <div>
+            <img
+              src={sommerAngebot}
+              alt="Flensburger-Bowlingcenter"
+              className="w-full max-w-md rounded-lg shadow-md shadow-black transition hover:scale-105"
+            />
+          </div>
         </div>
       </div>
     </section>

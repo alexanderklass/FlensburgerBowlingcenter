@@ -1,4 +1,5 @@
-import { AiOutlineClose } from "react-icons/ai";
+import { CgCloseR } from "react-icons/cg";
+import { BsFillFilePersonFill } from "react-icons/bs";
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import Axios from "axios";
@@ -6,8 +7,8 @@ import SuccessBox from "../../../Components/SuccessBox.jsx";
 import ConfirmBox from "../../../Components/ConfirmBox.jsx";
 import WarningBox from "../../../Components/WarningBox.jsx";
 import MiniLoader from "../../../Components/MiniLoader.jsx";
+import MainButton from "../../../Components/MainButton.jsx";
 import Draggable from "react-draggable";
-import { Button } from "@mui/material";
 const Options = ({
   date,
   optionsWindow,
@@ -213,17 +214,17 @@ const Options = ({
         <Draggable handle=".options-drag">
           <div
             style={styleObject}
-            className="align-center relative z-20 flex flex-col justify-center rounded bg-zinc-700 p-2 p-2"
+            className="align-center relative z-20 flex flex-col justify-center rounded-lg bg-black p-3"
           >
             <div className="options-drag absolute left-0 right-6 top-0 h-5 cursor-move"></div>
-            <p className="mb-1 mt-4 self-center rounded bg-white p-2 text-center text-2xl text-black">
-              {optionsTitle}
+            <p className="mb-1 mt-3 flex w-40 items-center justify-center self-center rounded bg-yellow-500 p-1 text-center text-lg text-black">
+              <BsFillFilePersonFill className="mr-1" /> {optionsTitle}
             </p>
             <button
               onClick={handleCloseOptionsWindow}
-              className="absolute right-0 top-0 p-1 text-white"
+              className="absolute right-0 top-0 text-white"
             >
-              <AiOutlineClose />
+              <CgCloseR className="text-xl" />
             </button>
             <div className="flex items-center justify-center">
               <select
@@ -327,34 +328,27 @@ const Options = ({
                 className="mb-2 h-24 w-40 rounded p-2"
                 placeholder="Notizen..."
               />
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
+              <MainButton
+                color="bg-blue-700 hover:bg-blue-800"
                 disabled={changeLoading}
                 onClick={handlePostChangedData}
               >
-                {changeLoading ? <MiniLoader /> : "Anpassen"}
-              </Button>
+                {changeLoading ? <MiniLoader /> : "ANPASSEN"}
+              </MainButton>
             </div>
-            <div className="mt-1 flex items-center justify-center">
-              <Button
-                variant="contained"
-                color="success"
-                size="small"
+            <div className="flex items-center justify-center">
+              <MainButton
+                color="bg-green-700 hover:bg-green-800"
                 onClick={handlePayedConfirmBox}
               >
-                Bezahlt
-              </Button>
-              <Button
-                sx={{ marginLeft: 1 }}
-                variant="contained"
-                color="error"
-                size="small"
+                BEZAHLT
+              </MainButton>
+              <MainButton
+                color="bg-red-700 hover:bg-red-800"
                 onClick={handleDeleteConfirmBox}
               >
-                Storno
-              </Button>
+                STORNO
+              </MainButton>
             </div>
           </div>
         </Draggable>
@@ -383,7 +377,7 @@ Options.propTypes = {
   changeStartTime: PropTypes.number,
   changeEndTime: PropTypes.number,
   reverseBookingWarning: PropTypes.bool,
-  setReverseBookingWarning: PropTypes.bool,
+  setReverseBookingWarning: PropTypes.func,
   changeNotes: PropTypes.string,
   setChangeNotes: PropTypes.func,
 };

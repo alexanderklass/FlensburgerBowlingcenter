@@ -24,8 +24,8 @@ const Zeiten = () => {
               >
                 Dienstag
               </th>
-              <td className="md:px-6 md:py-2">18:00 - 21:00</td>
-              <td className="md:px-6 md:py-2">Betriebssportliga</td>
+              <td className="md:px-6 md:py-2">Ruhetag</td>
+              <td className="md:px-6 md:py-2"></td>
             </tr>
             <tr className="bg-zinc-800">
               <th
@@ -103,7 +103,17 @@ const Zeiten = () => {
                 scope="row"
                 className="p-1 md:px-6 md:py-4 font-medium whitespace-nowrap text-white"
               >
-                Dienstag - Donnerstag
+                Mittwoch - Donnerstag
+              </th>
+              <td className="md:px-6 md:py-4">16:00 - 21:00</td>
+              <td className="md:px-6 md:py-4">26,-€</td>
+            </tr>
+            <tr className=" bg-zinc-800">
+              <th
+                scope="row"
+                className="p-1 md:px-6 md:py-4 font-medium whitespace-nowrap text-white"
+              >
+                Freitags
               </th>
               <td className="md:px-6 md:py-4">16:00 - 21:00</td>
               <td className="md:px-6 md:py-4">26,-€</td>
@@ -152,8 +162,8 @@ const Zeiten = () => {
         </table>
       </div>
 
-      <div className="flex flex-col md:items-stretch justify-center items-center mb-5 mx-2">
-        <div className="self-center w-full md:w-screen max-w-md md:max-w-4xl p-4 border border-gray-200 rounded-lg shadow text-white bg-zinc-800 border-gray-700">
+      <div className="flex flex-col justify-center items-center mb-5 mx-2">
+        <div className="w-[450px] md:w-[920px] p-4 border border-gray-200 rounded-lg shadow text-white bg-zinc-800 border-gray-700">
           <p>
             Schuhe inklusive ! Tauschen Sie bei uns ihr Parkticket aus dem
             Parkhaus Rote Straße für 2,-€, egal wie lange sie bleiben !

@@ -382,7 +382,7 @@ const Bahnen = () => {
     return <Loading />;
   }
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center justify-center">
       <Info />
       <TimeHeader
         handleCreateEvent={handleCreateEvent}
@@ -395,66 +395,66 @@ const Bahnen = () => {
         setDate={setDate}
       />
       <div className="mt-2 flex flex-row justify-center pb-5">
-        <div className="flex flex-col text-white">
-          <div className="flex h-10 w-24 items-center justify-center border border-black bg-blue-500 font-bold">
-            {displayDay}
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
-            16:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
-            16:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
-            17:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
-            17:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
-            18:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
-            18:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
-            19:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
-            19:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
-            20:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
-            20:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
-            21:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
-            21:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
-            22:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
-            22:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-blue-500">
-            23:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-blue-500">
-            23:30
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-zinc-700">
-            00:00
-          </div>
-          <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-zinc-700">
-            00:30
-          </div>
-        </div>
         <div className="flex flex-row">
+          <div className="flex flex-col text-white">
+            <div className="flex h-10 w-24 items-center justify-center rounded-tl border border-black font-bold text-black">
+              {displayDay}
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-black">
+              16:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-black">
+              16:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black text-black">
+              17:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black text-black">
+              17:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-black">
+              18:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-black">
+              18:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black text-black">
+              19:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black text-black">
+              19:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-black">
+              20:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-black">
+              20:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black text-black">
+              21:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black text-black">
+              21:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-black">
+              22:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black bg-black">
+              22:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black text-black">
+              23:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-b-2 border-r-2 border-black text-black">
+              23:30
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center border border-r-2 border-black bg-black">
+              00:00
+            </div>
+            <div className="flex h-10 w-24 items-center justify-center rounded-bl border border-b-2 border-r-2 border-black bg-black">
+              00:30
+            </div>
+          </div>
           {laneDataArray.map((item, itemIndex) => {
             return (
               <div key={item.id} className="flex flex-col">
@@ -463,11 +463,11 @@ const Bahnen = () => {
                   className={`${
                     item.id % 2 === 0 ? "border-r-2 border-black" : ""
                   } 
-                  flex h-10 w-20 items-center justify-center border border-black bg-zinc-700 text-white`}
+                  flex h-10 w-20 items-center justify-center border border-black bg-black text-white`}
                 >
                   {item.bahn}
                 </div>
-                <div key={0} className="flex flex-col">
+                <div className="flex flex-col">
                   {item.time?.map((time, timeIndex) => {
                     return (
                       <div
@@ -503,9 +503,6 @@ const Bahnen = () => {
           })}
         </div>
         <Booking
-          customerName={customerName}
-          customerNumber={customerNumber}
-          workerName={workerName}
           showCreateWindow={showCreateWindow}
           handleCloseEvent={handleCloseEvent}
           setCustomerName={setCustomerName}

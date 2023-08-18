@@ -1,83 +1,38 @@
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "moment/locale/de";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import { useState, useCallback } from "react";
-moment.locale("de", {
-  longDateFormat: {
-    LT: "HH:mm",
-    LTS: "HH:mm:ss",
-  },
-});
+import MainButton from "../../../Components/MainButton";
+import FullCalendar from "@fullcalendar/react";
+import deLocale from "@fullcalendar/core/locales/de";
+import dayGridPlugin from "@fullcalendar/daygrid";
 
 const MyCalendar = () => {
-  const [myEvents, setMyEvents] = useState([
+  const events = [
     {
-      id: 1,
-      title: "Meeting",
-      start: new Date(2023, 6, 18, 10, 0),
-      end: new Date(2023, 6, 18, 12, 0),
+      id:1,
+      title: "Mitarbeiter-1",
+      date: "2023-08-08",
     },
-  ]);
-
-  const moveEvent = useCallback(
-    ({ event, start, end, isAllDay: droppedOnAllDaySlot = false }) => {
-      const { allDay } = event;
-      if (!allDay && droppedOnAllDaySlot) {
-        event.allDay = true;
-      }
-
-      setMyEvents((prev) => {
-        const existing = prev.find((ev) => ev.id === event.id) ?? {};
-        const filtered = prev.filter((ev) => ev.id !== event.id);
-        return [...filtered, { ...existing, start, end, allDay }];
-      });
+    {
+      id:2,
+      title: "Mitarbeiter-2",
+      date: "2023-08-09",
     },
-    [setMyEvents]
-  );
-
-  const resizeEvent = useCallback(
-    ({ event, start, end }) => {
-      setMyEvents((prev) => {
-        const existing = prev.find((ev) => ev.id === event.id) ?? {}
-        const filtered = prev.filter((ev) => ev.id !== event.id)
-        return [...filtered, { ...existing, start, end }]
-      })
+    {
+      id:3,
+      title: "Mitarbeiter-3",
+      date: "2023-08-10",
     },
-    [setMyEvents]
-  )
-  
-  const DnDCalendar = withDragAndDrop(Calendar);
-  const localizer = momentLocalizer(moment);
-  const messages = {
-    allDay: "Ganztägig",
-    previous: "Zurück",
-    next: "Weiter",
-    today: "Heute",
-    month: "Monat",
-    week: "Woche",
-    day: "Tag",
-    agenda: "Agenda",
-    date: "Datum",
-    time: "Uhrzeit",
-    event: "Termin",
-  };
+  ];
 
   return (
-    <div>
-      <DnDCalendar
-        localizer={localizer}
-        messages={messages}
-        onEventDrop={moveEvent}
-        onEventResize={resizeEvent}
-        popup
-        resizable
-        events={myEvents}
-        defaultDate={new Date()}
-        defaultView="week"
-        style={{ height: 1000, width: 1200 }}
+    <div className="p-5">
+      <FullCalendar
+        locale={deLocale}
+        dayCellClassNames={"h-32"}
+        height={"auto"}
+        events={events}
+        plugins={[dayGridPlugin]}
+        hiddenDays={[1]}
       />
+      <MainButton color="bg-blue-800">Hinzufügen</MainButton>
     </div>
   );
 };

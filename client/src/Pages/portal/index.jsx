@@ -1,34 +1,21 @@
 import Axios from "axios";
-import { useNavigate, Link, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { FcReadingEbook } from "react-icons/fc";
 import { FcCalendar } from "react-icons/fc";
 
 const Portal = () => {
   const URL = import.meta.env.VITE_REACT_APP_URL;
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const checkForLoginStatus = () => {
-    try {
-      const response = Axios.get(`${URL}/login`);
-      if (response.data.loggedIn === false) {
-        setIsLoggedIn(false);
-        navigate("/login");
-      }
-    } catch (error) {
-      if (error) {
-        //
-      }
-    }
-  };
-  useEffect(() => {
-    checkForLoginStatus();
-    //eslint-disable-next-line
-  }, []);
 
-  if(!isLoggedIn) {
-    return <Navigate to="/login" />;
-  }
+  const checkForLoginStatus = async () => {
+    const response = await Axios.get(`${URL}/login`);
+    response.data.loggedIn ? navigate("/portal") : navigate("/login"); 
+  };
+  
+  useEffect(() => {
+    //checkForLoginStatus();
+  }, []);
 
   return (
     <div className="flex h-screen items-center justify-center">

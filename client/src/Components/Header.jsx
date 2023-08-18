@@ -1,6 +1,6 @@
 import Icon from "../assets/images/bowling-icon.png";
 import { PropTypes } from "prop-types";
-import { GoGrabber } from "react-icons/go";
+import {FaBars} from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,8 +26,8 @@ const Header = ({ className }) => {
         </div>
 
         <div className="mt-1 flex justify-center md:hidden">
-          <GoGrabber
-            className="cursor-pointer text-3xl"
+          <FaBars
+            className="cursor-pointer text-xl m-1"
             onClick={handleButtonToggler}
           />
         </div>

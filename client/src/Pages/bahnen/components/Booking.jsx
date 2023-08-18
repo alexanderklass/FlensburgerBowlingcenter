@@ -1,18 +1,14 @@
-import { AiOutlineClose } from "react-icons/ai";
+import { CgCloseR } from "react-icons/cg";
 import WarningBox from "../../../Components/WarningBox.jsx";
 import SuccessBox from "../../../Components/SuccessBox.jsx";
 import ConfirmBox from "../../../Components/ConfirmBox.jsx";
+import MiniLoader from "../../../Components/MiniLoader.jsx";
+import MainButton from "../../../Components/MainButton.jsx";
 import { useState } from "react";
 import { PropTypes } from "prop-types";
-import MiniLoader from "../../../Components/MiniLoader.jsx";
-import Textfield from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Draggable from "react-draggable";
 
 const Booking = ({
-  customerName,
-  workerName,
-  customerNumber,
   showCreateWindow,
   handleCloseEvent,
   setCustomerName,
@@ -79,37 +75,27 @@ const Booking = ({
       <Draggable handle=".drag">
         <div className="absolute top-72 z-30">
           {showCreateWindow && (
-            <div className="h-78 box-shadow align-items-center relative flex flex-col justify-center rounded bg-zinc-700 p-6 shadow-lg">
+            <div className="relative p-5 flex flex-col justify-center items-center rounded-lg bg-black">
               <button
                 onClick={handleCloseEvent}
-                className="absolute right-0 top-0 m-1 text-xl text-white"
+                className="absolute right-0 top-0 text-xl text-white"
               >
-                <AiOutlineClose />
+                <CgCloseR className="text-2xl" />
               </button>
               <div className="drag absolute left-0 right-7 top-0 h-7 cursor-move"></div>
-              <Textfield
-                error={customerName === ""}
-                id="customerName"
-                margin="dense"
-                label="Kundenname"
-                variant="filled"
+              <input
+                id="customer-name"
                 type="text"
-                className={`rounded bg-white`}
+                className="m-1 h-10 rounded p-1 outline-0 placeholder:text-red-500"
+                placeholder="Kundennummer*"
                 onChange={(e) => setCustomerName(e.target.value)}
-                required
-                size="small"
               />
-              <Textfield
-                error={customerNumber === ""}
-                id="customerNumber"
-                margin="none"
-                label="Telefonnummer"
-                variant="filled"
+              <input
+                id="customer-number"
                 type="number"
-                className="rounded bg-white"
+                className="m-1 h-10 rounded p-1 outline-0 placeholder:text-red-500"
+                placeholder="Telefonnummer*"
                 onChange={(e) => setCustomerNumber(e.target.value)}
-                required
-                size="small"
               />
               <div className="mt-1 flex items-center justify-center">
                 <select
@@ -118,7 +104,7 @@ const Booking = ({
                   onChange={(e) => {
                     setLaneOne(e.target.value);
                   }}
-                  className="h-10 w-24 rounded p-1 text-center text-black"
+                  className="h-10 w-[84px] rounded p-1 text-center text-black"
                 >
                   {Array.from({ length: 12 }, (_, index) => (
                     <option key={index} value={index}>
@@ -134,7 +120,7 @@ const Booking = ({
                     onChange={(e) => {
                       setLaneTwo(e.target.value);
                     }}
-                    className="h-10 w-24 rounded p-1 text-center text-black"
+                    className="h-10 w-[84px] rounded p-1 text-center text-black"
                   >
                     {Array.from({ length: 12 }, (_, index) => (
                       <option key={index} value={index}>
@@ -147,7 +133,7 @@ const Booking = ({
               <div className="mt-1 flex items-center justify-center">
                 <select
                   id="startTime"
-                  className="h-10 w-24 rounded border border-gray-500 p-1 text-center"
+                  className="h-10 w-[84px] rounded border border-gray-500 p-1 text-center"
                   required
                   value={startTime}
                   onChange={(e) => {
@@ -177,7 +163,7 @@ const Booking = ({
                   bis
                   <select
                     id="endTime"
-                    className="h-10 w-24 rounded border border-gray-500 p-1 text-center text-black"
+                    className="h-10 w-[84px] rounded border border-gray-500 p-1 text-center text-black"
                     required
                     value={endTime}
                     onChange={(e) => {
@@ -205,38 +191,23 @@ const Booking = ({
                   </select>
                 </label>
               </div>
-
-              <Textfield
-                error={workerName === ""}
-                id="workerName"
-                margin="dense"
-                label="Eingetragen von..."
-                variant="filled"
+              <input
+                id="worker-name"
                 type="text"
-                className="rounded bg-white"
+                className="m-1 h-10 rounded p-1 outline-0 placeholder:text-red-500"
+                placeholder="Eingetragen von*"
                 onChange={(e) => setWorkerName(e.target.value)}
-                required
-                size="small"
               />
-              <Textfield
-                id="customerNotes"
-                margin="none"
-                label="Anmerkungen..."
-                type="text"
-                variant="filled"
-                multiline={true}
+              <textarea
+                id="customer-notes"
+                className="rounded w-[189px] p-1 outline-0"
+                placeholder="Notizen..."
                 rows={3}
-                className="rounded bg-white"
                 onChange={(e) => setNotes(e.target.value)}
-                size="small"
               />
-              <Button
-                sx={{ marginTop: 1 }}
-                variant="contained"
-                onClick={checkBothLanes}
-              >
+              <MainButton color={"bg-blue-700 hover:bg-blue-800 w-[189px]"} onClick={checkBothLanes}>
                 {bookingLoading ? <MiniLoader /> : "Hinzufügen"}
-              </Button>
+              </MainButton>
             </div>
           )}
         </div>
@@ -265,9 +236,6 @@ Booking.propTypes = {
   overwriteWarning: PropTypes.bool,
   successBooking: PropTypes.bool,
   bookingLoading: PropTypes.bool,
-  customerName: PropTypes.string,
-  customerNumber: PropTypes.string,
-  workerName: PropTypes.string,
 };
 
 export default Booking;
