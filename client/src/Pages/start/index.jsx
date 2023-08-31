@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import sommerAngebot from "../../assets/images/sommer-angebot.jpg";
 import Pic1 from "../../assets/images/schuhe.jpg";
 import Pic2 from "../../assets/images/disco-bowling-3.jpg";
-import schlagerfest from "../../assets/images/schlager-abgesagt.jpg";
 import ReactPlayer from "react-player";
 import BowlingIntro from "../start/assets/videos/BowlingIntro.mp4";
 
@@ -86,13 +85,6 @@ const Start = () => {
           </div>
         </div>
         <div className="flex flex-col gap-3 md:flex-row">
-          <div>
-            <img
-              src={schlagerfest}
-              alt="Flensburger-Bowlingcenter"
-              className="w-full max-w-md rounded-lg shadow-md shadow-black transition hover:scale-105"
-            />
-          </div>
           <div>
             <img
               src={sommerAngebot}
