@@ -49,11 +49,6 @@ const Footer = ({ className }) => {
             <AiOutlineInstagram className="m-1 self-center" />
             <p>Instagram/flensburgerbowlingcenter</p>
           </Link>
-          <Link to={"/Login"}>
-            <button className="delay-50 my-2 block h-8 rounded bg-blue-700 px-3 py-2 text-sm font-bold text-white transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-500">
-              Mitarbeiterportal
-            </button>
-          </Link>
         </div>
       </div>
     </footer>

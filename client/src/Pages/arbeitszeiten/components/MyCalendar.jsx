@@ -6,12 +6,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 const MyCalendar = () => {
   const events = [
     {
-      id:2,
+      id: 2,
       title: "Mitarbeiter-2",
       date: "2023-08-09",
     },
     {
-      id:3,
+      id: 3,
       title: "Mitarbeiter-3",
       date: "2023-08-10",
     },
@@ -25,7 +25,7 @@ const MyCalendar = () => {
         height={"auto"}
         events={events}
         plugins={[dayGridPlugin]}
-        hiddenDays={[1,2]}
+        hiddenDays={[1, 2]}
       />
       <MainButton color="bg-blue-800">Hinzufügen</MainButton>
     </div>

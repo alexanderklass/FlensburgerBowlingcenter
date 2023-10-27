@@ -33,8 +33,8 @@ const Info = () => {
 
   return (
     <>
-      {toggleSettings && <Settings />}
-      <div className="flex flex-row items-center justify-between self-end p-2">
+      <div className="md:flex hidden flex-row items-center justify-between self-end p-2">
+        {toggleSettings && <Settings />}
         <div className="flex justify-center items-center">
           <button>
             <Link to={"/portal"}>

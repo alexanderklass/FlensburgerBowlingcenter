@@ -3,18 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { FcReadingEbook } from "react-icons/fc";
 import { FcCalendar } from "react-icons/fc";
+import {checkLoginStatus} from "../../modules/checkLoginStatus.jsx";
 
 const Portal = () => {
-  const URL = import.meta.env.VITE_REACT_APP_URL;
   const navigate = useNavigate();
 
-  const checkForLoginStatus = async () => {
-    const response = await Axios.get(`${URL}/login`);
-    response.data.loggedIn ? navigate("/portal") : navigate("/login"); 
-  };
-  
   useEffect(() => {
-    //checkForLoginStatus();
+    //checkLoginStatus(navigate);
   }, []);
 
   return (
